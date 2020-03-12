@@ -1,0 +1,32 @@
+:root {
+    --wood-brown: #C19070;
+    --almond: #ECE2D0;
+    --pearl-aqua: #7FD1B9;
+    --deep-taupe: #7A6563;
+    --middle-blue-green: #9AD2CB;
+}
+
+.nav-links-container {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+header {
+    background-color: var(--deep-taupe);
+    color: var(--middle-blue-green);
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-link {
+    color: var(--middle-blue-green);
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.nav-link:hover {
+    color: var(--almond);
+}
