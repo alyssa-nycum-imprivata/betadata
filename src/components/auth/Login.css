@@ -1,0 +1,55 @@
+:root {
+    --wood-brown: #C19070;
+    --almond: #ECE2D0;
+    --pearl-aqua: #7FD1B9;
+    --deep-taupe: #7A6563;
+    --middle-blue-green: #9AD2CB;
+}
+
+form {
+    margin: 10px;
+    display: flex;
+}
+
+h3 {
+    margin-top: 5px;
+}
+
+#email-label-login, #password-label-login {
+    margin-right: 5px;
+}
+
+#email {
+    margin-right: 10px;
+}
+
+#login-button, #signUp-button {
+    margin-top: 10px;
+}
+
+#signUp-form label {
+    margin-top: 5px;
+}
+
+#signUp-form input {
+    margin-bottom: 10px;
+}
+
+.signUp-form-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+#signUp-text {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+#signUp-link {
+    color: var(--middle-blue-green);
+}
+
+#signUp-cancel-button {
+    margin-left: 5px;
+}
+

@@ -3,6 +3,11 @@ import { withRouter, Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = (props) => {
+    const handleLogout = () => {
+        props.clearUser();
+        props.history.push("/");
+    };
+
     return (
         <header>
             <h1 className="site-title">
@@ -10,26 +15,34 @@ const Navbar = (props) => {
             </h1>
             <nav>
                 <ul className="nav-links-container">
-                    <li>
-                        <Link className="nav-link" to="/">
-                            Home
+                    {props.hasUser
+                        ? <li>
+                            <Link className="nav-link" to="/">
+                                Home
                         </Link>
-                    </li>
-                    <li>
-                        <Link className="nav-link" to="/climbs">
-                            Climbs
+                        </li>
+                        : null}
+                    {props.hasUser
+                        ? <li>
+                            <Link className="nav-link" to="/climbs">
+                                Climbs
                         </Link>
-                    </li>
-                    <li>
-                        <Link className="nav-link" to="/goals">
-                            Goals
+                        </li>
+                        : null}
+                    {props.hasUser
+                        ? <li>
+                            <Link className="nav-link" to="/goals">
+                                Goals
                         </Link>
-                    </li>
-                    <li>
-                        <span className="nav-link">
-                            Logout
-                        </span>
-                    </li>
+                        </li>
+                        : null}
+                    {props.hasUser
+                        ? <li>
+                            <Link className="nav-link" to="" onClick={handleLogout}>
+                                Logout
+                        </Link>
+                        </li>
+                        : null}
                 </ul>
             </nav>
         </header>
