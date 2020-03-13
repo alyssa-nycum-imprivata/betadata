@@ -84,6 +84,7 @@ const SignUp = (props) => {
                 <button type="submit"
                     disabled={isLoading}
                     id="signUp-button">Sign Up</button>
+                <button id="signUp-cancel-button" onClick={() => {props.history.push("/")}}>Cancel</button>
             </fieldset>
         </form>
     );

@@ -49,3 +49,7 @@ h3 {
     color: var(--middle-blue-green);
 }
 
+#signUp-cancel-button {
+    margin-left: 5px;
+}
+
