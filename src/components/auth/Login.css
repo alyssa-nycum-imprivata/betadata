@@ -1,0 +1,25 @@
+form {
+    margin: 10px;
+    display: flex;
+}
+
+.login-form {
+    display: flex;
+}
+
+#email-label {
+    margin-right: 5px;
+}
+
+#email {
+    margin-right: 10px;
+}
+
+#password-label {
+    margin-right: 5px;
+}
+
+#login-button {
+    margin-top: 10px;
+}
+
