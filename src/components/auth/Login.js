@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
+import UserApiManager from '../../modules/UserApiManager';
 
 
 const Login = (props) => {
@@ -14,8 +15,17 @@ const Login = (props) => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        props.setUser(credentials);
-        props.history.push("/");
+
+        UserApiManager.getUsers().then(users => {
+            const userObject = users.filter(user => (credentials.email === user.email && credentials.password === user.password));
+
+            if (userObject.length !== 1) {
+                window.alert("Incorrect email or password. Please try again. If you do not have an account, click the sign up link below.");
+            } else {
+                props.setUser(credentials);
+                props.history.push("/");
+            };
+        });
     };
 
     return (
