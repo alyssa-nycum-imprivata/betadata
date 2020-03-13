@@ -3,11 +3,11 @@ form {
     display: flex;
 }
 
-.login-form {
-    display: flex;
+h3 {
+    margin-top: 5px;
 }
 
-#email-label {
+#email-label-login, #password-label-login {
     margin-right: 5px;
 }
 
@@ -15,11 +15,20 @@ form {
     margin-right: 10px;
 }
 
-#password-label {
-    margin-right: 5px;
+#login-button, #signUp-button {
+    margin-top: 10px;
 }
 
-#login-button {
-    margin-top: 10px;
+#signUp-form label {
+    margin-top: 5px;
+}
+
+#signUp-form input {
+    margin-bottom: 10px;
+}
+
+.signUp-form-fields {
+    display: flex;
+    flex-direction: column;
 }
 
