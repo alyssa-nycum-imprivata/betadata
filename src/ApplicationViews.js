@@ -5,7 +5,8 @@ import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 
 const ApplicationViews = (props) => {
-    const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
+    const hasUser = props.hasUser;
+    const setUser = props.setUser;
 
     return (
         <>
@@ -13,7 +14,7 @@ const ApplicationViews = (props) => {
                 exact
                 path="/"
                 render={props => {
-                    if (isAuthenticated()) {
+                    if (hasUser) {
                         return <Home />
                     } else {
                         return <Redirect to="/login" />
@@ -21,7 +22,7 @@ const ApplicationViews = (props) => {
                 }}
             />
             <Route path="/login" render={props => {
-                return <Login {...props} />
+                return <Login setUser={setUser} {...props} />
             }}
             />
             <Route path="/signup" render={props => {
