@@ -29,6 +29,28 @@ const ApplicationViews = (props) => {
                 return <SignUp {...props} />
             }}
             />
+            <Route
+                exact
+                path="/climbs"
+                render={props => {
+                    if (hasUser) {
+                        return <h3>This is the climbs page.</h3>
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
+            <Route
+                exact
+                path="/goals"
+                render={props => {
+                    if (hasUser) {
+                        return <h3>This is the goals page.</h3>
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
         </>
     );
 };

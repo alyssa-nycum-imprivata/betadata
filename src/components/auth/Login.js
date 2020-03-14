@@ -31,14 +31,14 @@ const Login = (props) => {
     return (
         <form onSubmit={handleLogin} id="login-form">
             <fieldset id="login-fieldset">
-                <h3 className="form form-header">Please login</h3>
+                <h3 className="form form-header">Please Login</h3>
                 <div className="login-form">
 
-                    <label className="form" htmlFor="inputEmail" id="email-label-login">Email address:</label>
+                    <label className="form" htmlFor="inputEmail" id="email-label-login">Email Address:</label>
                     <input onChange={handleLoginFieldChange}
                         type="email"
                         id="email"
-                        placeholder="Email address"
+                        placeholder="Email Address"
                         required=""
                         autoFocus="" />
 
