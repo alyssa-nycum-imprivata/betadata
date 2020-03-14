@@ -30,11 +30,11 @@ const Login = (props) => {
 
     return (
         <form onSubmit={handleLogin} id="login-form">
-            <fieldset>
-                <h3>Please login</h3>
+            <fieldset id="login-fieldset">
+                <h3 className="form form-header">Please login</h3>
                 <div className="login-form">
 
-                    <label htmlFor="inputEmail"id="email-label-login">Email address:</label>
+                    <label className="form" htmlFor="inputEmail" id="email-label-login">Email address:</label>
                     <input onChange={handleLoginFieldChange}
                         type="email"
                         id="email"
@@ -42,7 +42,7 @@ const Login = (props) => {
                         required=""
                         autoFocus="" />
 
-                    <label htmlFor="inputPassword" id="password-label-login">Password:</label>
+                    <label className="form" htmlFor="inputPassword" id="password-label-login">Password:</label>
                     <input onChange={handleLoginFieldChange}
                         type="password"
                         id="password"
@@ -52,10 +52,12 @@ const Login = (props) => {
 
                 </div>
                 <div id="signUp-text">
-                    If you are a new user, <Link id="signUp-link"
-                        to={"/signup"}>click here to sign up.</Link>
+                    <p className="form form-text">If you are a new user, <Link id="signUp-link"
+                        to={"/signup"}>click here to sign up.</Link></p>
                 </div>
-                <button type="submit" id="login-button">Login</button>
+                <div className="button-div">
+                    <button type="submit" id="login-button">Login</button>
+                </div>
             </fieldset>
         </form>
     );

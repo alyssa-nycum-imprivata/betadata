@@ -63,62 +63,69 @@ const SignUp = (props) => {
     return (
         <form onSubmit={handleSignUp} id="signUp-form">
             <fieldset>
-                <h3>Please sign up</h3>
+                <h3 className="form form-header">Please sign up</h3>
                 <div className="signUp-form-fields">
+                    <div className="signUp-div">
+                        <label className="form" htmlFor="inputEmail" id="email-label">Email address:</label>
+                        <input onChange={handleSignUpFieldChange}
+                            type="email"
+                            id="email"
+                            placeholder="Email address"
+                            required=""
+                            autoFocus="" />
 
-                    <label htmlFor="inputEmail" id="email-label">Email address:</label>
-                    <input onChange={handleSignUpFieldChange}
-                        type="email"
-                        id="email"
-                        placeholder="Email address"
-                        required=""
-                        autoFocus="" />
+                        <label className="form" htmlFor="inputUsername" id="username-label">Username:</label>
+                        <input onChange={handleSignUpFieldChange}
+                            type="text"
+                            id="username"
+                            placeholder="Username"
+                            required=""
+                            autoFocus="" />
+                    </div>
 
-                    <label htmlFor="inputUsername" id="username-label">Username:</label>
-                    <input onChange={handleSignUpFieldChange}
-                        type="text"
-                        id="username"
-                        placeholder="Username"
-                        required=""
-                        autoFocus="" />
+                    <div className="signUp-div">
+                        <label className="form" htmlFor="inputFirstName" id="firstName-label">First Name:</label>
+                        <input onChange={handleSignUpFieldChange}
+                            type="text"
+                            id="first_name"
+                            placeholder="First Name"
+                            required=""
+                            autoFocus="" />
 
-                    <label htmlFor="inputFirstName" id="firstName-label">First Name:</label>
-                    <input onChange={handleSignUpFieldChange}
-                        type="text"
-                        id="first_name"
-                        placeholder="First Name"
-                        required=""
-                        autoFocus="" />
+                        <label className="form" htmlFor="inputLastName" id="lastName-label">Last Name:</label>
+                        <input onChange={handleSignUpFieldChange}
+                            type="text"
+                            id="last_name"
+                            placeholder="Last Name"
+                            required=""
+                            autoFocus="" />
+                    </div>
 
-                    <label htmlFor="inputLastName" id="lastName-label">Last Name:</label>
-                    <input onChange={handleSignUpFieldChange}
-                        type="text"
-                        id="last_name"
-                        placeholder="Last Name"
-                        required=""
-                        autoFocus="" />
+                    <div className="signUp-div">
+                        <label className="form" htmlFor="inputPassword" id="password-label">Password:</label>
+                        <input onChange={handleSignUpFieldChange}
+                            type="password"
+                            id="password"
+                            placeholder="Password"
+                            required=""
+                            autoFocus="" />
 
-                    <label htmlFor="inputPassword" id="password-label">Password:</label>
-                    <input onChange={handleSignUpFieldChange}
-                        type="password"
-                        id="password"
-                        placeholder="Password"
-                        required=""
-                        autoFocus="" />
-
-                    <label htmlFor="inputReEnteredPassword" id="reEnteredPassword-label">Re-Enter Password:</label>
-                    <input onChange={handleConfirmedPassword}
-                        type="password"
-                        id="password_2"
-                        placeholder="Re-Enter Password"
-                        required=""
-                        autoFocus="" />
+                        <label className="form" htmlFor="inputReEnteredPassword" id="reEnteredPassword-label">Re-Enter Password:</label>
+                        <input onChange={handleConfirmedPassword}
+                            type="password"
+                            id="password_2"
+                            placeholder="Re-Enter Password"
+                            required=""
+                            autoFocus="" />
+                    </div>
 
                 </div>
-                <button type="submit"
-                    disabled={isLoading}
-                    id="signUp-button">Sign Up</button>
-                <button id="signUp-cancel-button" onClick={() => { props.history.push("/") }}>Cancel</button>
+                <div className="button-div">
+                    <button type="submit"
+                        disabled={isLoading}
+                        id="signUp-button">Sign Up</button>
+                    <button id="signUp-cancel-button" onClick={() => { props.history.push("/") }}>Cancel</button>
+                </div>
             </fieldset>
         </form>
     );
