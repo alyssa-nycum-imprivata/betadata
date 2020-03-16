@@ -51,6 +51,17 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+            <Route
+                exact
+                path="/archive"
+                render={props => {
+                    if (hasUser) {
+                        return <h3>This is the archive page.</h3>
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
         </>
     );
 };
