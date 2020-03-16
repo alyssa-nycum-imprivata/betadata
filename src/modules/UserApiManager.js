@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:5002"
+const baseUrl = "http://localhost:5002";
 
 const UserApiManager = {
     getUsers() {

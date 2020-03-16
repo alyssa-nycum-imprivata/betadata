@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import Home from './components/home/Home';
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
+import ClimbList from './components/climbs/ClimbList';
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser;
@@ -34,7 +35,7 @@ const ApplicationViews = (props) => {
                 path="/climbs"
                 render={props => {
                     if (hasUser) {
-                        return <h3>This is the climbs page.</h3>
+                        return <ClimbList {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
