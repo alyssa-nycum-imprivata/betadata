@@ -63,14 +63,14 @@ const SignUp = (props) => {
     return (
         <form onSubmit={handleSignUp} id="signUp-form">
             <fieldset>
-                <h3 className="form form-header">Please sign up</h3>
+                <h3 className="form form-header">Please Sign Up</h3>
                 <div className="signUp-form-fields">
                     <div className="signUp-div">
-                        <label className="form" htmlFor="inputEmail" id="email-label">Email address:</label>
+                        <label className="form" htmlFor="inputEmail" id="email-label">Email Address:</label>
                         <input onChange={handleSignUpFieldChange}
                             type="email"
                             id="email"
-                            placeholder="Email address"
+                            placeholder="Email Address"
                             required=""
                             autoFocus="" />
 

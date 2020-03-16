@@ -34,3 +34,8 @@ header {
 .nav-link:hover {
     color: var(--almond);
 }
+
+.site-title {
+    color: var(--middle-blue-green);
+    text-decoration: none;
+}

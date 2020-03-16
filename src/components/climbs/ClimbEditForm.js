@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
 
-const ClimbForm = (props) => {
+const ClimbEditForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "" });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -12,15 +12,15 @@ const ClimbForm = (props) => {
         setClimb(stateToChange);
     };
 
-    const constructNewClimb = (evt) => {
+    const updateExistingClimb = (evt) => {
         evt.preventDefault();
         if (climb.type === "" || climb.grade === "" || climb.description === "" || climb.beta_comments === "" || climb.rating === "") {
             window.alert("Please fill out all fields");
         } else {
             setIsLoading(true);
 
-            const newClimb = {
-                id: props.match.params.climbId,
+            const editedClimb = {
+                id: parseInt(props.match.params.climbId),
                 userId: 1,
                 type: climb.type,
                 grade: climb.grade,
@@ -29,17 +29,25 @@ const ClimbForm = (props) => {
                 rating: climb.rating
             };
 
-            ClimbApiManager.postClimb(newClimb)
+            ClimbApiManager.putClimb(editedClimb)
                 .then(() => props.history.push("/climbs"));
         };
     };
 
+    useEffect(() => {
+        ClimbApiManager.getClimbById(props.match.params.climbId)
+            .then(climb => {
+                setClimb(climb);
+                setIsLoading(false);
+            });
+    }, []);
+
     return (
         <>
-            <form className="new-climb-form">
-                <fieldset className="new-climb-fieldset">
-                    <h2>Add a New Climb</h2>
-                    <div className="new-climb-container">
+            <form className="edit-climb-form">
+                <fieldset className="edit-climb-fieldset">
+                    <h2>Edit Climb</h2>
+                    <div className="edit-climb-container">
                         <label htmlFor="type">Type:</label>
                         <select id="type"
                             required
@@ -57,14 +65,16 @@ const ClimbForm = (props) => {
                         <input type="text"
                             id="grade"
                             required
+                            value={climb.grade}
                             onChange={handleFieldChange}
                         />
 
                         <label htmlFor="description">Description:</label>
                         <textarea type="text"
                             id="description"
-                            rows="3"
                             required
+                            rows="3"
+                            value={climb.description}
                             onChange={handleFieldChange}
                             placeholder="ex. color, rope #, wall, starting holds, etc."
                         />
@@ -74,8 +84,9 @@ const ClimbForm = (props) => {
                         <label htmlFor="beta_comments">Beta/Comments:</label>
                         <textarea type="text"
                             id="beta_comments"
-                            rows="3"
                             required
+                            rows="3"
+                            value={climb.beta_comments}
                             onChange={handleFieldChange}
                         />
 
@@ -94,13 +105,12 @@ const ClimbForm = (props) => {
                             <option value="5">5</option>
                         </select>
                     </div>
-                    <div className="add-climb-button-container">
+                    <div className="update-climb-button-container">
                         <button type="button"
                             disabled={isLoading}
-                            onClick={constructNewClimb}
-                        >Add</button>
-                        <button type="button"
-                            className="cancel-button"
+                            onClick={updateExistingClimb}
+                        >Save</button>
+                        <button type="button" className="cancel-button"
                             onClick={() => { props.history.push("/climbs") }}>Cancel</button>
                     </div>
                 </fieldset>
@@ -109,4 +119,4 @@ const ClimbForm = (props) => {
     );
 };
 
-export default ClimbForm;
+export default ClimbEditForm;

@@ -1,0 +1,75 @@
+:root {
+    --wood-brown: #C19070;
+    --almond: #ECE2D0;
+    --pearl-aqua: #7FD1B9;
+    --deep-taupe: #7A6563;
+    --middle-blue-green: #9AD2CB;
+}
+
+.add-button {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.cards-container {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.card {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 40%;
+}
+
+.card-content {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.archive-button {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.edit-button, .delete-button, .archive-button {
+    margin-bottom: 5px;
+    width: 60px;
+}
+
+.add-attempt-button {
+    width: 90px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.new-climb-container, .edit-climb-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-climb-container label, .edit-climb-container label {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.new-climb-container select, .edit-climb-container select {
+    background-color: var(--almond);
+    width: 50%;
+}
+
+.add-climb-button-container, .update-climb-button-container {
+    margin-top: 15px;
+}
+
+.cancel-button {
+    margin-left: 10px;
+}
+
+textarea {
+    background-color: var(--almond);
+}
+
