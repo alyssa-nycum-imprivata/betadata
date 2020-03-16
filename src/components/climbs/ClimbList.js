@@ -28,20 +28,7 @@ const ClimbList = (props) => {
         getClimbs();
     }, []);
 
-    if (climbs.length === 0) {
-        return (
-            <>
-                <div className="add-button-container">
-                    <button type="button" className="button add-button"
-                        onClick={() => { props.history.push("/climbs/new") }}
-                    >Add Climb</button>
-                </div>
-                <div>
-                    <h2>You have no saved climbs.</h2>
-                </div>
-            </>
-        )
-    } else {
+    if (climbs.length !== 0) {
         return (
             <>
                 <div className="add-button-container">
@@ -62,6 +49,19 @@ const ClimbList = (props) => {
                 </div>
             </>
         );
+    } else {
+        return (
+            <>
+                <div className="add-button-container">
+                    <button type="button" className="button add-button"
+                        onClick={() => { props.history.push("/climbs/new") }}
+                    >Add Climb</button>
+                </div>
+                <div>
+                    <h2>You have no saved climbs.</h2>
+                </div>
+            </>
+        )
     }
 };
 

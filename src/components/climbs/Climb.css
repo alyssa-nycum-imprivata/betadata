@@ -45,22 +45,30 @@
     margin-bottom: 10px;
 }
 
-.new-climb-container {
+.new-climb-container, .edit-climb-container {
     display: flex;
     flex-direction: column;
 }
 
-.new-climb-container label {
+.new-climb-container label, .edit-climb-container label {
     margin-bottom: 10px;
     margin-top: 10px;
 }
 
-.new-climb-container select {
+.new-climb-container select, .edit-climb-container select {
     background-color: var(--almond);
-    width: 40%;
+    width: 50%;
 }
 
-.add-climb-button-container {
+.add-climb-button-container, .update-climb-button-container {
     margin-top: 15px;
+}
+
+.cancel-button {
+    margin-left: 10px;
+}
+
+textarea {
+    background-color: var(--almond);
 }
 
