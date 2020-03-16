@@ -1,3 +1,11 @@
+:root {
+    --wood-brown: #C19070;
+    --almond: #ECE2D0;
+    --pearl-aqua: #7FD1B9;
+    --deep-taupe: #7A6563;
+    --middle-blue-green: #9AD2CB;
+}
+
 .add-button {
     margin-top: 10px;
     margin-left: 20px;
@@ -35,3 +43,23 @@
     width: 40%;
     margin-bottom: 10px;
 }
+
+.new-climb-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-climb-container label {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.new-climb-container select {
+    background-color: var(--almond);
+    width: 40%;
+}
+
+.add-climb-button-container {
+    margin-top: 15px;
+}
+

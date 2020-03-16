@@ -4,6 +4,7 @@ import Home from './components/home/Home';
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 import ClimbList from './components/climbs/ClimbList';
+import ClimbForm from './components/climbs/ClimbForm';
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser;
@@ -35,7 +36,20 @@ const ApplicationViews = (props) => {
                 path="/climbs"
                 render={props => {
                     if (hasUser) {
-                        return <ClimbList {...props} />
+                        return <ClimbList 
+                        {...props} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
+            <Route
+                exact
+                path="/climbs/new"
+                render={props => {
+                    if (hasUser) {
+                        return <ClimbForm 
+                        {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }

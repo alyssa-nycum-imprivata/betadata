@@ -7,7 +7,7 @@ const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
 
     const getClimbs = () => {
-        return ClimbApiManager.getClimbs().then(climbsFromApi => {
+        return ClimbApiManager.getClimbsByUser(1).then(climbsFromApi => {
             setClimbs(climbsFromApi)
         });
     };
@@ -19,7 +19,9 @@ const ClimbList = (props) => {
     return (
         <>
             <div className="add-button-container">
-                <button type="button" className="button add-button">Add Climb</button>
+                <button type="button" className="button add-button"
+                onClick={() => { props.history.push("/climbs/new") }}
+                >Add Climb</button>
             </div>
             <div className="cards-container climb-cards-container">
                 {climbs.map(climb =>
