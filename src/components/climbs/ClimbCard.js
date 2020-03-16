@@ -9,7 +9,7 @@ const ClimbCard = (props) => {
                 <h3>Type: {props.climb.type}</h3>
                 <h3>Grade: {props.climb.grade}</h3>
                 <h3>Description: {props.climb.description}</h3>
-                <button type="button" className="button add-attempt-button">Add Attempt</button>
+                <h3>Attempts:</h3>
                 <h3>Beta/Comments: {props.climb.beta_comments}</h3>
                 <h3>Enjoyment Rating: {props.climb.rating}</h3>
             </div>

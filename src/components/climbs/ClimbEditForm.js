@@ -79,6 +79,8 @@ const ClimbEditForm = (props) => {
                             placeholder="ex. color, rope #, wall, starting holds, etc."
                         />
 
+                        <button type="button" className="button add-attempt-button">Add Attempt</button>
+
                         <label htmlFor="beta_comments">Beta/Comments:</label>
                         <textarea type="text"
                             id="beta_comments"
@@ -105,11 +107,11 @@ const ClimbEditForm = (props) => {
                     </div>
                     <div className="update-climb-button-container">
                         <button type="button"
-                        disabled={isLoading}
-                        onClick={updateExistingClimb}
+                            disabled={isLoading}
+                            onClick={updateExistingClimb}
                         >Save</button>
                         <button type="button" className="cancel-button"
-                        onClick={() => { props.history.push("/climbs") }}>Cancel</button>
+                            onClick={() => { props.history.push("/climbs") }}>Cancel</button>
                     </div>
                 </fieldset>
             </form>
