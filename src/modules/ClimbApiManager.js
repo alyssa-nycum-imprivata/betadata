@@ -5,7 +5,6 @@ const ClimbApiManager = {
         return fetch(`${baseUrl}/climbs`).then(resp => resp.json());
     },
     getClimbsByUser(userId) {
-        console.log(`${baseUrl}/climbs/?userId=${userId}&_expand=user`);
         return fetch(`${baseUrl}/climbs/?userId=${userId}&_expand=user`).then(resp => resp.json());
     },
     postClimb(newClimb) {
@@ -15,7 +14,12 @@ const ClimbApiManager = {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newClimb)
-        }).then(resp => resp.json())
+        }).then(resp => resp.json());
+    },
+    deleteClimb(climbId) {
+        return fetch(`${baseUrl}/climbs/${climbId}`, {
+            method: "DELETE"
+        }).then(resp => resp.json());
     }
 };
 

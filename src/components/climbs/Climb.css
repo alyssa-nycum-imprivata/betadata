@@ -31,16 +31,17 @@
 }
 
 .archive-button {
-    margin-right: 2px;
-    margin-left: 2px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .edit-button, .delete-button, .archive-button {
     margin-bottom: 5px;
+    width: 60px;
 }
 
 .add-attempt-button {
-    width: 40%;
+    width: 90px;
     margin-bottom: 10px;
 }
 

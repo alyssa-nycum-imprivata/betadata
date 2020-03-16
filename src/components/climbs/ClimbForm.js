@@ -48,9 +48,9 @@ const ClimbForm = (props) => {
                             onChange={handleFieldChange}
                         >
                             <option value="" disabled defaultValue>Select</option>
-                            <option value="pop rope">Top Rope</option>
-                            <option value="lead">Lead</option>
-                            <option value="boulder">Boulder</option>
+                            <option value="Top Rope">Top Rope</option>
+                            <option value="Lead">Lead</option>
+                            <option value="Boulder">Boulder</option>
                         </select>
 
                         <label htmlFor="grade">Grade:</label>
@@ -97,6 +97,8 @@ const ClimbForm = (props) => {
                         disabled={isLoading}
                         onClick={constructNewClimb}
                         >Add</button>
+                        <button type="button"
+                        onClick={() => { props.history.push("/climbs") }}>Cancel</button>
                     </div>
                 </fieldset>
             </form>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Climb.css';
 
+
 const ClimbCard = (props) => {
     return (
         <div className="card climb-card">
@@ -13,9 +14,11 @@ const ClimbCard = (props) => {
                 <h3>Enjoyment Rating: {props.climb.rating}</h3>
             </div>
             <div className="card-buttons-container">
-                <button type="button" className="button edit-button">Edit Climb</button>
-                <button type="button" className="button archive-button">Archive Climb</button>
-                <button type="button" className="button delete-button">Delete Climb</button>
+                <button type="button" className="button edit-button">Edit</button>
+                <button type="button" className="button archive-button">Archive</button>
+                <button type="button" className="button delete-button" onClick={() => {
+                    props.handleDelete(props.climb.id);
+                }}>Delete</button>
             </div>
         </div>
     )
