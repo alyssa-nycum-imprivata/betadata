@@ -73,3 +73,22 @@ textarea {
     background-color: var(--almond);
 }
 
+.flashed, .clean {
+    margin-top: 15px;
+}
+
+.flashed input, .clean input {
+    margin-left: 10px;
+}
+
+.new-climb-container input {
+    background-color: var(--almond);
+}
+
+.each-attempt {
+    display: flex;
+}
+
+.each-attempt h4 {
+    margin-right: 5px;
+}

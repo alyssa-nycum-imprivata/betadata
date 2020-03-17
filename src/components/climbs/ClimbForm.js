@@ -69,8 +69,6 @@ const ClimbForm = (props) => {
                             placeholder="ex. color, rope #, wall, starting holds, etc."
                         />
 
-                        <button type="button" className="button add-attempt-button">Add Attempt</button>
-
                         <label htmlFor="attempt_date">Attempt Date:</label>
                         <input type="date"
                             id="attempt_date"
@@ -78,10 +76,12 @@ const ClimbForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
-                        <label htmlFor="is_flashed">Flashed?</label>
-                        <input type="checkbox" id="is_flashed"
-                        value="" 
-                        />
+                        <div className="flashed">
+                            <label htmlFor="is_flashed">Flashed?:</label>
+                            <input type="checkbox" id="is_flashed" value=""
+                            />
+                            <label htmlFor="is_flashed">Yes</label>
+                        </div>
 
                         <label htmlFor="number_of_falls">Number of Falls:</label>
                         <input type="number"
@@ -90,10 +90,14 @@ const ClimbForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
-                        <label htmlFor="is_clean">Clean?</label>
-                        <input type="checkbox" id="is_clean"
-                        value="" 
-                        />
+                        <div className="clean">
+                            <label htmlFor="is_clean">Clean?:</label>
+                            <input type="checkbox" id="is_clean"
+                                value=""
+                            />
+                            <label htmlFor="is_clean">Yes</label>
+
+                        </div>
 
                         <label htmlFor="beta_comments">Beta/Comments:</label>
                         <textarea type="text"
