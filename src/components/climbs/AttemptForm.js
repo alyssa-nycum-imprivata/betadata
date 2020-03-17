@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 
 const AttemptForm = (props) => {
-    const [attempt, setAttempt] = useState({ userId: "", climbId: "", attempt_date: "", is_flashed: "", number_of_falls: "", is_clean: "" });
+    const [attempt, setAttempt] = useState({ userId: "", climbId: "", attempt_date: "", is_flashed: false, number_of_falls: 0});
+    const [checkbox, setCheckbox] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
 
     const handleFieldChange = (evt) => {
@@ -10,6 +11,10 @@ const AttemptForm = (props) => {
         stateToChange[evt.target.id] = evt.target.value;
         setAttempt(stateToChange);
     };
+
+    const handleCheckbox = () => {
+        setCheckbox(!checkbox)
+    }
 
     const constructNewAttempt = (evt) => {
         evt.preventDefault();
@@ -21,8 +26,8 @@ const AttemptForm = (props) => {
             climbId: 1,
             attempt_date: attempt.attempt_date,
             is_flashed: attempt.is_flashed,
-            number_of_falls: attempt.number_of_falls,
-            is_clean: attempt.is_clean
+            number_of_falls: parseInt(attempt.number_of_falls),
+            is_clean: checkbox
         };
 
         AttemptApiManager.postAttempt(newAttempt)
@@ -42,13 +47,6 @@ const AttemptForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
-                        <div className="flashed">
-                            <label htmlFor="is_flashed">Flashed?:</label>
-                            <input type="checkbox" id="is_flashed" value=""
-                            />
-                            <label htmlFor="is_flashed">Yes</label>
-                        </div>
-
                         <label htmlFor="number_of_falls">Number of Falls:</label>
                         <input type="number"
                             id="number_of_falls"
@@ -58,7 +56,7 @@ const AttemptForm = (props) => {
 
                         <div className="cleaned">
                             <label htmlFor="is_clean">Cleaned?:</label>
-                            <input type="checkbox" id="is_clean" value=""
+                            <input type="checkbox" id="is_clean" onChange={handleCheckbox}
                             />
                             <label htmlFor="is_clean">Yes</label>
                         </div>
