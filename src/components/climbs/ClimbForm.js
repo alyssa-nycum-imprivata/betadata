@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
 import ClimbApiManager from '../../modules/ClimbApiManager';
+import AttemptApiManager from '../../modules/AttemptApiManager';
 import './Climb.css';
 
 const ClimbForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "" });
+    const [attempt, setAttempt] = useState({ userId: "", climbId: "", attempt_date: "", number_of_falls: 0, is_clean: false });
     const [isLoading, setIsLoading] = useState(false);
+    const [checkbox, setCheckbox] = useState(false)
 
-    const handleFieldChange = (evt) => {
+
+    const handleClimbFieldChange = (evt) => {
         const stateToChange = { ...climb };
         stateToChange[evt.target.id] = evt.target.value;
         setClimb(stateToChange);
     };
 
-    const constructNewClimb = (evt) => {
+    const handleAttemptFieldChange = (evt) => {
+        const stateToChange = { ...attempt };
+        stateToChange[evt.target.id] = evt.target.value;
+        setAttempt(stateToChange);
+    };
+
+    const handleCheckbox = () => {
+        setCheckbox(!checkbox)
+    }
+
+    const constructNewClimbWithFirstAttempt = (evt) => {
         evt.preventDefault();
         if (climb.type === "" || climb.grade === "" || climb.description === "" || climb.beta_comments === "" || climb.rating === "") {
             window.alert("Please fill out all fields");
@@ -29,7 +43,18 @@ const ClimbForm = (props) => {
                 rating: climb.rating
             };
 
+            const newAttempt = {
+                id: props.match.params.attemptId,
+                userId: 1,
+                climbId: climb.id,
+                attempt_date: attempt.attempt_date,
+                number_of_falls: parseInt(attempt.number_of_falls),
+                is_flashed: checkbox,
+                is_clean: attempt.is_clean
+            }
+
             ClimbApiManager.postClimb(newClimb)
+                .then(AttemptApiManager.postAttempt(newAttempt))
                 .then(() => props.history.push("/climbs"));
         };
     };
@@ -45,7 +70,7 @@ const ClimbForm = (props) => {
                             required
                             value={climb.type}
                             name="type"
-                            onChange={handleFieldChange}
+                            onChange={handleClimbFieldChange}
                         >
                             <option value="" disabled defaultValue>Select</option>
                             <option value="Top Rope">Top Rope</option>
@@ -57,7 +82,7 @@ const ClimbForm = (props) => {
                         <input type="text"
                             id="grade"
                             required
-                            onChange={handleFieldChange}
+                            onChange={handleClimbFieldChange}
                         />
 
                         <label htmlFor="description">Description:</label>
@@ -65,7 +90,7 @@ const ClimbForm = (props) => {
                             id="description"
                             rows="3"
                             required
-                            onChange={handleFieldChange}
+                            onChange={handleClimbFieldChange}
                             placeholder="ex. color, rope #, wall, starting holds, etc."
                         />
 
@@ -73,12 +98,12 @@ const ClimbForm = (props) => {
                         <input type="date"
                             id="attempt_date"
                             required
-                            onChange={handleFieldChange}
+                            onChange={handleAttemptFieldChange}
                         />
 
                         <div className="flashed">
                             <label htmlFor="is_flashed">Flashed?:</label>
-                            <input type="checkbox" id="is_flashed" value=""
+                            <input type="checkbox" id="is_flashed" onChange={handleCheckbox}
                             />
                             <label htmlFor="is_flashed">Yes</label>
                         </div>
@@ -87,7 +112,7 @@ const ClimbForm = (props) => {
                         <input type="number"
                             id="number_of_falls"
                             required
-                            onChange={handleFieldChange}
+                            onChange={handleAttemptFieldChange}
                         />
 
                         <label htmlFor="beta_comments">Beta/Comments:</label>
@@ -95,7 +120,7 @@ const ClimbForm = (props) => {
                             id="beta_comments"
                             rows="3"
                             required
-                            onChange={handleFieldChange}
+                            onChange={handleClimbFieldChange}
                         />
 
                         <label htmlFor="rating">Rating:</label>
@@ -103,7 +128,7 @@ const ClimbForm = (props) => {
                             required
                             value={climb.rating}
                             name="rating"
-                            onChange={handleFieldChange}
+                            onChange={handleClimbFieldChange}
                         >
                             <option value="" disabled defaultValue>Select</option>
                             <option value="1">1</option>
@@ -116,7 +141,7 @@ const ClimbForm = (props) => {
                     <div className="add-climb-button-container">
                         <button type="button"
                             disabled={isLoading}
-                            onClick={constructNewClimb}
+                            onClick={constructNewClimbWithFirstAttempt}
                         >Add</button>
                         <button type="button"
                             className="cancel-button"
