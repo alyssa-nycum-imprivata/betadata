@@ -90,15 +90,6 @@ const ClimbForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
-                        <div className="clean">
-                            <label htmlFor="is_clean">Clean?:</label>
-                            <input type="checkbox" id="is_clean"
-                                value=""
-                            />
-                            <label htmlFor="is_clean">Yes</label>
-
-                        </div>
-
                         <label htmlFor="beta_comments">Beta/Comments:</label>
                         <textarea type="text"
                             id="beta_comments"
