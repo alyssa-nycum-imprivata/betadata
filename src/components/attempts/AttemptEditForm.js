@@ -55,6 +55,13 @@ const AttemptEditForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
+                        <div className="flashed">
+                            <label htmlFor="is_flashed">Flashed?:</label>
+                            <input type="checkbox" id="is_flashed" checked={attempt.is_flashed ? true : false} onChange={handleCheckbox}
+                            />
+                            <label htmlFor="is_flashed">Yes</label>
+                        </div>
+
                         <label htmlFor="number_of_falls">Number of Falls:</label>
                         <input type="number"
                             id="number_of_falls"

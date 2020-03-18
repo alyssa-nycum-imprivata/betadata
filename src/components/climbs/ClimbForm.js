@@ -4,7 +4,7 @@ import AttemptApiManager from '../../modules/AttemptApiManager';
 import './Climb.css';
 
 const ClimbForm = (props) => {
-    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "" });
+    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", is_archived: false });
     const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, is_clean: false });
     const [isLoading, setIsLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false)
@@ -30,7 +30,7 @@ const ClimbForm = (props) => {
 
     const constructNewClimbWithFirstAttempt = (evt) => {
         evt.preventDefault();
-        if (climb.type === "" || climb.grade === "" || climb.description === "" || climb.beta_comments === "" || climb.rating === "") {
+        if (climb.type === "" || climb.grade === "" || climb.rating === "") {
             window.alert("Please fill out all fields");
         } else {
             setIsLoading(true);
@@ -42,7 +42,8 @@ const ClimbForm = (props) => {
                 grade: climb.grade,
                 description: climb.description,
                 beta_comments: climb.beta_comments,
-                rating: climb.rating
+                rating: climb.rating,
+                is_archived: false
             };
 
             const newAttempt = {

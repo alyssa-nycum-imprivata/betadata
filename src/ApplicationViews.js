@@ -82,7 +82,7 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
-            <Route
+            {/* <Route
                 exact
                 path="/attempts/:attemptId(\d+)/edit"
                 render={props => {
@@ -93,7 +93,7 @@ const ApplicationViews = (props) => {
                         return <Redirect to="/login" />
                     }
                 }}
-            />
+            /> */}
             <Route
                 exact
                 path="/goals"
