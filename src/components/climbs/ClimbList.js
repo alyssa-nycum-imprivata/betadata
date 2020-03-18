@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClimbCard from './ClimbCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
+import AttemptApiManager from '../../modules/AttemptApiManager';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -13,7 +14,7 @@ const ClimbList = (props) => {
         });
     };
 
-    const handleDelete = (climbId) => {
+    const handleClimbDelete = (climbId) => {
         if (window.confirm("Are you sure you want to delete this climb?")) {
             setIsLoading(true);
             ClimbApiManager.deleteClimb(climbId)
@@ -42,7 +43,7 @@ const ClimbList = (props) => {
                             key={climb.id}
                             climb={climb}
                             isLoading={isLoading}
-                            handleDelete={handleDelete}
+                            handleClimbDelete={handleClimbDelete}
                             {...props}
                         />
                     )}

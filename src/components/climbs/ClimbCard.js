@@ -5,11 +5,22 @@ import AttemptCard from '../attempts/AttemptCard';
 
 const ClimbCard = (props) => {
     const [attempts, setAttempts] = useState([]);
+    const [isLoading, setIsLoading] = useState([]);
 
     const getAttempts = () => {
         return AttemptApiManager.getAttemptsByClimb(props.climb.id).then(attemptsFromApi => {
             setAttempts(attemptsFromApi);
         });
+    };
+
+    const handleAttemptDelete = (attemptId) => {
+        if (window.confirm("Are you sure you want to delete this attempt?")) {
+            setIsLoading(true);
+            AttemptApiManager.deleteAttempt(attemptId)
+                .then(() => AttemptApiManager.getAttemptsByClimb(props.climb.id).then(attemptsFromApi => {
+                    setAttempts(attemptsFromApi);
+                }));
+        };
     };
 
     useEffect(() => {
@@ -30,6 +41,8 @@ const ClimbCard = (props) => {
                         < AttemptCard
                             key={attempt.id}
                             attempt={attempt}
+                            isLoading={isLoading}
+                            handleAttemptDelete={handleAttemptDelete}
                             {...props}
                         />
                 )}
@@ -41,7 +54,7 @@ const ClimbCard = (props) => {
                 <button type="button" className="button edit-button" onClick={() => { props.history.push(`/climbs/${props.climb.id}/edit`) }}>Edit</button>
                 <button type="button" className="button archive-button">Archive</button>
                 <button type="button" className="button delete-button" onClick={() => {
-                    props.handleDelete(props.climb.id);
+                    props.handleClimbDelete(props.climb.id);
                 }}>Delete</button>
             </div>
         </div>
