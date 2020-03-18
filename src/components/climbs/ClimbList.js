@@ -13,7 +13,7 @@ const ClimbList = (props) => {
         });
     };
 
-    const handleDelete = (climbId) => {
+    const handleClimbDelete = (climbId) => {
         if (window.confirm("Are you sure you want to delete this climb?")) {
             setIsLoading(true);
             ClimbApiManager.deleteClimb(climbId)
@@ -42,7 +42,7 @@ const ClimbList = (props) => {
                             key={climb.id}
                             climb={climb}
                             isLoading={isLoading}
-                            handleDelete={handleDelete}
+                            handleClimbDelete={handleClimbDelete}
                             {...props}
                         />
                     )}

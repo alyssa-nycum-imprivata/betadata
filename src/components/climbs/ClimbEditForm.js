@@ -6,17 +6,7 @@ import './Climb.css';
 const ClimbEditForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "" });
     const [isLoading, setIsLoading] = useState(false);
-    const [attempts, setAttempts] = useState([]);
 
-    const getAttempts = () => {
-        return AttemptApiManager.getAttemptsByClimb(climb.id).then(attemptsFromApi => {
-            setAttempts(attemptsFromApi);
-        });
-    };
-
-    useEffect(() => {
-        getAttempts();
-    }, []);
 
     const handleFieldChange = (evt) => {
         const stateToChange = { ...climb };
@@ -90,23 +80,6 @@ const ClimbEditForm = (props) => {
                             onChange={handleFieldChange}
                             placeholder="ex. color, rope #, wall, starting holds, etc."
                         />
-
-                        <label htmlFor="attempts">Attempts:</label>
-
-                        <div className="attempts-list">
-                            {attempts.map(attempt =>
-                                <>
-                                    <div className="each-attempt-form">
-                                        <div className="attempt-content">
-                                            <h4>{attempt.attempt_date} -- </h4>
-                                            <h4>{attempt.is_flashed ? "Flashed" : null}</h4>
-                                            <h4>{attempt.is_flashed || attempt.is_clean ? null : "Falls: " + attempt.number_of_falls}</h4>
-                                            <h4>{attempt.is_clean ? "Cleaned" : null}</h4>
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-                        </div>
 
                         <label htmlFor="beta_comments">Beta/Comments:</label>
                         <textarea type="text"

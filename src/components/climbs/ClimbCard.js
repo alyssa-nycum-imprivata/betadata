@@ -41,7 +41,7 @@ const ClimbCard = (props) => {
                 <button type="button" className="button edit-button" onClick={() => { props.history.push(`/climbs/${props.climb.id}/edit`) }}>Edit</button>
                 <button type="button" className="button archive-button">Archive</button>
                 <button type="button" className="button delete-button" onClick={() => {
-                    props.handleDelete(props.climb.id);
+                    props.handleClimbDelete(props.climb.id);
                 }}>Delete</button>
             </div>
         </div>
