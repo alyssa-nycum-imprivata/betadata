@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClimbCard from './ClimbCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
+import AttemptApiManager from '../../modules/AttemptApiManager';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);

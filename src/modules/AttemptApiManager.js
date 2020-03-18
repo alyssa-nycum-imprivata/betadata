@@ -16,6 +16,11 @@ const AttemptApiManager = {
             body: JSON.stringify(newAttempt)
         }).then(resp => resp.json());
     },
+    deleteAttempt(attemptId) {
+        return fetch(`${baseUrl}/attempts/${attemptId}`, {
+            method: "DELETE"
+        }).then(resp => resp.json());
+    },
     putAttempt(editedAttempt) {
         return fetch(`${baseUrl}/attempts/${editedAttempt.id}`, {
             method: "PUT",
