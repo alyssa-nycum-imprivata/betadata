@@ -28,7 +28,7 @@ const ClimbEditForm = (props) => {
                 grade: climb.grade,
                 description: climb.description,
                 beta_comments: climb.beta_comments,
-                rating: climb.rating,
+                rating: parseInt(climb.rating),
                 is_archived: false
             };
 
@@ -91,7 +91,7 @@ const ClimbEditForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
-                        <label htmlFor="rating">Rating:</label>
+                        <label htmlFor="rating">Enjoyment Rating:</label>
                         <select id="rating"
                             required
                             value={climb.rating}

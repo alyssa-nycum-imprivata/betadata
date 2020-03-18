@@ -30,8 +30,8 @@ const ClimbForm = (props) => {
 
     const constructNewClimbWithFirstAttempt = (evt) => {
         evt.preventDefault();
-        if (climb.type === "" || climb.grade === "" || climb.rating === "") {
-            window.alert("Please fill out all fields");
+        if (climb.type === "" || climb.grade === "" || climb.rating === "" || attempt.attempt_date === "") {
+            window.alert("Please fill out required fields");
         } else {
             setIsLoading(true);
 
@@ -42,7 +42,7 @@ const ClimbForm = (props) => {
                 grade: climb.grade,
                 description: climb.description,
                 beta_comments: climb.beta_comments,
-                rating: climb.rating,
+                rating: parseInt(climb.rating),
                 is_archived: false
             };
 
@@ -68,8 +68,9 @@ const ClimbForm = (props) => {
             <form className="new-climb-form">
                 <fieldset className="new-climb-fieldset">
                     <h2>Add a New Climb</h2>
+                    <p className="required-message">Fields marked with * are required</p>
                     <div className="new-climb-container">
-                        <label htmlFor="type">Type:</label>
+                        <label htmlFor="type">*Type:</label>
                         <select id="type"
                             required
                             value={climb.type}
@@ -82,7 +83,7 @@ const ClimbForm = (props) => {
                             <option value="Boulder">Boulder</option>
                         </select>
 
-                        <label htmlFor="grade">Grade:</label>
+                        <label htmlFor="grade">*Grade:</label>
                         <input type="text"
                             id="grade"
                             required
@@ -98,7 +99,7 @@ const ClimbForm = (props) => {
                             placeholder="ex. color, rope #, wall, starting holds, etc."
                         />
 
-                        <label htmlFor="attempt_date">Attempt Date:</label>
+                        <label htmlFor="attempt_date">*Attempt Date:</label>
                         <input type="date"
                             id="attempt_date"
                             required
@@ -127,7 +128,7 @@ const ClimbForm = (props) => {
                             onChange={handleClimbFieldChange}
                         />
 
-                        <label htmlFor="rating">Rating:</label>
+                        <label htmlFor="rating">*Enjoyment Rating:</label>
                         <select id="rating"
                             required
                             value={climb.rating}

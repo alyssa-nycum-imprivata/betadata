@@ -18,19 +18,23 @@ const AttemptForm = (props) => {
 
     const constructNewAttempt = (evt) => {
         evt.preventDefault();
-        setIsLoading(true);
+        if (attempt.attempt_date === "") {
+            window.alert("Please fill out attempt date.")
+        } else {
+            setIsLoading(true);
 
-        const newAttempt = {
-            id: props.match.params.attemptId,
-            climbId: parseInt(props.match.params.climbId),
-            attempt_date: attempt.attempt_date,
-            number_of_falls: parseInt(attempt.number_of_falls),
-            is_flashed: attempt.is_flashed,
-            is_clean: checkbox
-        };
-
-        AttemptApiManager.postAttempt(newAttempt)
-            .then(() => props.history.push("/climbs"));
+            const newAttempt = {
+                id: props.match.params.attemptId,
+                climbId: parseInt(props.match.params.climbId),
+                attempt_date: attempt.attempt_date,
+                number_of_falls: parseInt(attempt.number_of_falls),
+                is_flashed: attempt.is_flashed,
+                is_clean: checkbox
+            };
+    
+            AttemptApiManager.postAttempt(newAttempt)
+                .then(() => props.history.push("/climbs"));
+        }
     };
 
     return (
