@@ -11,7 +11,7 @@ const AttemptCard = (props) => {
                                 <h4>{props.attempt.is_clean ? "Cleaned" : null}</h4>
                             </div>
                             <div className="attempt-buttons">
-                                <button type="button" className="edit-attempt-button">Edit</button>
+                                <button type="button" className="edit-attempt-button" onClick={() => { props.history.push(`/attempts/${props.attempt.id}/edit`) }}>Edit</button>
                                 <button type="button" className="delete-attempt-button">Delete</button>
                             </div>
                         </>
