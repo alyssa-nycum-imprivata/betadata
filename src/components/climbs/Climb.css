@@ -73,3 +73,56 @@ textarea {
     background-color: var(--almond);
 }
 
+.flashed, .clean {
+    margin-top: 15px;
+}
+
+.flashed input, .clean input {
+    margin-left: 10px;
+}
+
+.new-climb-container input {
+    background-color: var(--almond);
+}
+
+.each-attempt {
+    display: flex;
+}
+
+.each-attempt h4 {
+    margin-right: 5px;
+}
+
+.edit-attempt-button, .delete-attempt-button {
+    font-size: 8px;
+    height: 15px;
+    width: 40px;
+}
+
+.each-attempt-form {
+    display: flex;
+}
+
+.attempt-content {
+    display: flex;}
+
+.attempt-buttons {
+    align-self: center;
+    margin-left: 15px;
+    padding-bottom: 4px;
+}
+
+.each-attempt-form h4 {
+    margin-right: 2px;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.delete-attempt-button {
+    margin-left: 5px;
+}
+
+#grade {
+    background-color: var(--almond);
+}
+

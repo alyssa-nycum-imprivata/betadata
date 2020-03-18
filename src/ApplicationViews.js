@@ -6,6 +6,7 @@ import SignUp from './components/auth/SignUp';
 import ClimbList from './components/climbs/ClimbList';
 import ClimbForm from './components/climbs/ClimbForm';
 import ClimbEditForm from './components/climbs/ClimbEditForm';
+import AttemptForm from './components/attempts/AttemptForm';
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser;
@@ -62,6 +63,18 @@ const ApplicationViews = (props) => {
                 render={props => {
                     if (hasUser) {
                         return <ClimbEditForm 
+                        {...props} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
+            <Route
+                exact
+                path="/climbs/:climbId(\d+)/add_attempt"
+                render={props => {
+                    if (hasUser) {
+                        return <AttemptForm 
                         {...props} />
                     } else {
                         return <Redirect to="/login" />
