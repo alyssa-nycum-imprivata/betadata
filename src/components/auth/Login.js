@@ -22,6 +22,7 @@ const Login = (props) => {
             if (userObject.length !== 1) {
                 window.alert("Incorrect email or password. Please try again. If you do not have an account, click the sign up link below.");
             } else {
+                sessionStorage.setItem("userId", userObject[0].id);
                 props.setUser(credentials);
                 props.history.push("/");
             };

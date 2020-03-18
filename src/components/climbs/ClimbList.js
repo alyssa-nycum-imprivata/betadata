@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import ClimbCard from './ClimbCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
-import AttemptApiManager from '../../modules/AttemptApiManager';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    const activeUserId = sessionStorage.getItem("userId");
+
     const getClimbs = () => {
-        return ClimbApiManager.getClimbsByUser(1).then(climbsFromApi => {
+        return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             setClimbs(climbsFromApi)
         });
     };
@@ -18,7 +19,7 @@ const ClimbList = (props) => {
         if (window.confirm("Are you sure you want to delete this climb?")) {
             setIsLoading(true);
             ClimbApiManager.deleteClimb(climbId)
-                .then(() => ClimbApiManager.getClimbsByUser(1).then(climbsFromApi => {
+                .then(() => ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
                     setClimbs(climbsFromApi);
                     setIsLoading(false);
                 }));
