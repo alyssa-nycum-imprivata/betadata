@@ -9,7 +9,7 @@ const ClimbEditForm = (props) => {
     const [attempts, setAttempts] = useState([]);
 
     const getAttempts = () => {
-        return AttemptApiManager.getAttemptsByUserAndClimb(1, 1).then(attemptsFromApi => {
+        return AttemptApiManager.getAttemptsByClimb(climb.id).then(attemptsFromApi => {
             setAttempts(attemptsFromApi);
         });
     };

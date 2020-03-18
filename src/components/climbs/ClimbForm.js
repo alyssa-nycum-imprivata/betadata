@@ -5,7 +5,7 @@ import './Climb.css';
 
 const ClimbForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "" });
-    const [attempt, setAttempt] = useState({ userId: "", climbId: "", attempt_date: "", number_of_falls: 0, is_clean: false });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, is_clean: false });
     const [isLoading, setIsLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false)
 
@@ -45,8 +45,6 @@ const ClimbForm = (props) => {
 
             const newAttempt = {
                 id: props.match.params.attemptId,
-                userId: 1,
-                climbId: climb.id,
                 attempt_date: attempt.attempt_date,
                 number_of_falls: parseInt(attempt.number_of_falls),
                 is_flashed: checkbox,
@@ -54,8 +52,11 @@ const ClimbForm = (props) => {
             }
 
             ClimbApiManager.postClimb(newClimb)
-                .then(AttemptApiManager.postAttempt(newAttempt))
-                .then(() => props.history.push("/climbs"));
+                .then(climbData => {
+                    newAttempt.climbId = climbData.id
+                    AttemptApiManager.postAttempt(newAttempt)
+                        .then(() => props.history.push("/climbs"));
+                })
         };
     };
 

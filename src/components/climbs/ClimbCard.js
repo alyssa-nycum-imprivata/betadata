@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Climb.css';
 import AttemptApiManager from '../../modules/AttemptApiManager';
+import AttemptCard from '../attempts/AttemptCard';
 
 const ClimbCard = (props) => {
     const [attempts, setAttempts] = useState([]);
 
     const getAttempts = () => {
-        return AttemptApiManager.getAttemptsByUserAndClimb(1, 1).then(attemptsFromApi => {
+        return AttemptApiManager.getAttemptsByClimb(props.climb.id).then(attemptsFromApi => {
             setAttempts(attemptsFromApi);
         });
     };
@@ -25,22 +26,13 @@ const ClimbCard = (props) => {
 
                 <button type="button" className="button add-attempt-button" onClick={() => { props.history.push(`/climbs/${props.climb.id}/add_attempt`) }}>Add Attempt</button>
 
-                <div className="attempts-list">
-                    {attempts.map(attempt =>
-                        <>
-                            <div className="each-attempt">
-                                <h4>{attempt.attempt_date} -- </h4>
-                                <h4>{attempt.is_flashed ? "Flashed" : null}</h4>
-                                <h4>{attempt.is_flashed || attempt.is_clean ? null : "Falls: " + attempt.number_of_falls}</h4>
-                                <h4>{attempt.is_clean ? "Cleaned" : null}</h4>
-                            </div>
-                            <div className="attempt-buttons">
-                                <button type="button" className="edit-attempt-button">Edit</button>
-                                <button type="button" className="delete-attempt-button">Delete</button>
-                            </div>
-                        </>
-                    )}
-                </div>
+                {attempts.map(attempt => 
+                        < AttemptCard
+                            key={attempt.id}
+                            attempt={attempt}
+                            {...props}
+                        />
+                )}
 
                 <h3>Beta/Comments: {props.climb.beta_comments}</h3>
                 <h3>Enjoyment Rating: {props.climb.rating}</h3>

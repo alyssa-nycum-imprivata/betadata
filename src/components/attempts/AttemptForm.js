@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 
 const AttemptForm = (props) => {
-    const [attempt, setAttempt] = useState({ userId: "", climbId: "", attempt_date: "", number_of_falls: 0, is_flashed: false });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, is_flashed: false });
     const [checkbox, setCheckbox] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
 
@@ -22,8 +22,7 @@ const AttemptForm = (props) => {
 
         const newAttempt = {
             id: props.match.params.attemptId,
-            userId: 1,
-            climbId: attempt.climbId,
+            climbId: parseInt(props.match.params.climbId),
             attempt_date: attempt.attempt_date,
             number_of_falls: parseInt(attempt.number_of_falls),
             is_flashed: attempt.is_flashed,

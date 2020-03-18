@@ -6,7 +6,7 @@ import SignUp from './components/auth/SignUp';
 import ClimbList from './components/climbs/ClimbList';
 import ClimbForm from './components/climbs/ClimbForm';
 import ClimbEditForm from './components/climbs/ClimbEditForm';
-import AttemptForm from './components/climbs/AttemptForm';
+import AttemptForm from './components/attempts/AttemptForm';
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser;
