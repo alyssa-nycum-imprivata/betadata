@@ -9,6 +9,8 @@ const ClimbForm = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false)
 
+    const activeUserId = parseInt(sessionStorage.getItem("userId"));
+
 
     const handleClimbFieldChange = (evt) => {
         const stateToChange = { ...climb };
@@ -35,7 +37,7 @@ const ClimbForm = (props) => {
 
             const newClimb = {
                 id: props.match.params.climbId,
-                userId: 1,
+                userId: activeUserId,
                 type: climb.type,
                 grade: climb.grade,
                 description: climb.description,

@@ -7,6 +7,7 @@ const ClimbEditForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "" });
     const [isLoading, setIsLoading] = useState(false);
 
+    const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
     const handleFieldChange = (evt) => {
         const stateToChange = { ...climb };
@@ -23,7 +24,7 @@ const ClimbEditForm = (props) => {
 
             const editedClimb = {
                 id: parseInt(props.match.params.climbId),
-                userId: 1,
+                userId: activeUserId,
                 type: climb.type,
                 grade: climb.grade,
                 description: climb.description,
