@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ClimbApiManager from '../../modules/ClimbApiManager';
-import AttemptApiManager from '../../modules/AttemptApiManager';
 import './Climb.css';
 
 const ClimbEditForm = (props) => {
-    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "" });
+    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", is_archived: false });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -17,7 +16,7 @@ const ClimbEditForm = (props) => {
 
     const updateExistingClimb = (evt) => {
         evt.preventDefault();
-        if (climb.type === "" || climb.grade === "" || climb.description === "" || climb.beta_comments === "" || climb.rating === "") {
+        if (climb.type === "" || climb.grade === "" || climb.rating === "") {
             window.alert("Please fill out all fields");
         } else {
             setIsLoading(true);
@@ -29,7 +28,8 @@ const ClimbEditForm = (props) => {
                 grade: climb.grade,
                 description: climb.description,
                 beta_comments: climb.beta_comments,
-                rating: climb.rating
+                rating: parseInt(climb.rating),
+                is_archived: false
             };
 
             ClimbApiManager.putClimb(editedClimb)
@@ -91,7 +91,7 @@ const ClimbEditForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
-                        <label htmlFor="rating">Rating:</label>
+                        <label htmlFor="rating">Enjoyment Rating:</label>
                         <select id="rating"
                             required
                             value={climb.rating}

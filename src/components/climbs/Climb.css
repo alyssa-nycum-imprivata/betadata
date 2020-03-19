@@ -126,3 +126,6 @@ textarea {
     background-color: var(--almond);
 }
 
+.required-message {
+    font-size: 12px;
+}

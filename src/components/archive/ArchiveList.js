@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import ClimbCard from './ClimbCard';
+import ArchiveCard from './ArchiveCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
-import './Climb.css';
+import '../climbs/Climb.css';
 
-const ClimbList = (props) => {
+const ArchiveList = (props) => {
     const [climbs, setClimbs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [climb, setClimb] = useState([]);
 
     const activeUserId = sessionStorage.getItem("userId");
 
     const getClimbs = () => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-            const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
-            setClimbs(activeClimbs);
+            const archivedClimbs = climbsFromApi.filter(climb => climb.is_archived === true)
+            setClimbs(archivedClimbs);
         });
     };
 
-    const handleArchiveClimb = (climbId) => {
+    const handleUndoArchiveClimb = (climbId) => {
         console.log(climbId)
         setIsLoading(true);
         ClimbApiManager.getClimbById(climbId).then(climb => {
             
-            const archivedClimb = {
+            const activeClimb = {
                 id: climbId,
                 userId: activeUserId,
                 type: climb.type,
@@ -30,12 +29,12 @@ const ClimbList = (props) => {
                 description: climb.description,
                 beta_comments: climb.beta_comments,
                 rating: climb.rating,
-                is_archived: true
+                is_archived: false
             };
 
-            ClimbApiManager.putClimb(archivedClimb);
+            ClimbApiManager.putClimb(activeClimb);
             setIsLoading(false);
-            props.history.push("/archive");
+            props.history.push("/climbs");
         });
     };
 
@@ -57,18 +56,13 @@ const ClimbList = (props) => {
     if (climbs.length !== 0) {
         return (
             <>
-                <div className="add-button-container">
-                    <button type="button" className="button add-button"
-                        onClick={() => { props.history.push("/climbs/new") }}
-                    >Add Climb</button>
-                </div>
                 <div className="cards-container climb-cards-container">
                     {climbs.map(climb =>
-                        <ClimbCard
+                        <ArchiveCard
                             key={climb.id}
                             climb={climb}
                             isLoading={isLoading}
-                            handleArchiveClimb={handleArchiveClimb}
+                            handleUndoArchiveClimb={handleUndoArchiveClimb}
                             handleClimbDelete={handleClimbDelete}
                             {...props}
                         />
@@ -79,17 +73,12 @@ const ClimbList = (props) => {
     } else {
         return (
             <>
-                <div className="add-button-container">
-                    <button type="button" className="button add-button"
-                        onClick={() => { props.history.push("/climbs/new") }}
-                    >Add Climb</button>
-                </div>
                 <div>
-                    <h2>You have no saved climbs.</h2>
+                    <h2>You have no archived climbs.</h2>
                 </div>
             </>
         )
     }
 };
 
-export default ClimbList;
+export default ArchiveList;

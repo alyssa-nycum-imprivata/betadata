@@ -7,7 +7,8 @@ import ClimbList from './components/climbs/ClimbList';
 import ClimbForm from './components/climbs/ClimbForm';
 import ClimbEditForm from './components/climbs/ClimbEditForm';
 import AttemptForm from './components/attempts/AttemptForm';
-import AttemptEditForm from './components/attempts/AttemptEditForm';
+import ArchiveList from './components/archive/ArchiveList';
+// import AttemptEditForm from './components/attempts/AttemptEditForm';
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser;
@@ -82,7 +83,7 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
-            <Route
+            {/* <Route
                 exact
                 path="/attempts/:attemptId(\d+)/edit"
                 render={props => {
@@ -93,7 +94,7 @@ const ApplicationViews = (props) => {
                         return <Redirect to="/login" />
                     }
                 }}
-            />
+            /> */}
             <Route
                 exact
                 path="/goals"
@@ -110,7 +111,20 @@ const ApplicationViews = (props) => {
                 path="/archive"
                 render={props => {
                     if (hasUser) {
-                        return <h3>This is the archive page.</h3>
+                        return <ArchiveList 
+                        {...props} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
+             <Route
+                exact
+                path="/climbs/:climbId(\d+)"
+                render={props => {
+                    if (hasUser) {
+                        return <ArchiveList
+                        {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
