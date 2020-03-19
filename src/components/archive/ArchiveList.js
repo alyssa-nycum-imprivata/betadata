@@ -17,7 +17,6 @@ const ArchiveList = (props) => {
     };
 
     const handleUndoArchiveClimb = (climbId) => {
-        console.log(climbId)
         setIsLoading(true);
         ClimbApiManager.getClimbById(climbId).then(climb => {
             
