@@ -12,6 +12,11 @@ const GoalApiManager = {
             },
             body: JSON.stringify(newGoal)
         }).then(resp => resp.json());
+    },
+    deleteGoal(goalId) {
+        return fetch(`${baseUrl}/goals/${goalId}`, {
+            method: "DELETE"
+        }).then(resp => resp.json());
     }
 };
 

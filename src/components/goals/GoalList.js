@@ -4,6 +4,7 @@ import GoalApiManager from '../../modules/GoalApiManager';
 
 const GoalList = (props) => {
     const [goals, setGoals] = useState([]);
+    const [isLoading, setIsLoading] = useState([]);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
@@ -11,6 +12,16 @@ const GoalList = (props) => {
         return GoalApiManager.getGoalsByUser(activeUserId).then(goalsFromApi => {
             setGoals(goalsFromApi);
         });
+    };
+
+    const handleGoalDelete = (goalId) => {
+        if (window.confirm("Are you sure you want to delete this goal?")) {
+            setIsLoading(true);
+            GoalApiManager.deleteGoal(goalId).then(() => GoalApiManager.getGoalsByUser(activeUserId).then(goalsFromApi => {
+                setGoals(goalsFromApi);
+                setIsLoading(false);
+            }));
+        };
     };
 
     useEffect(() => {
@@ -28,6 +39,7 @@ const GoalList = (props) => {
                         <GoalCard
                             key={goal.id}
                             goal={goal}
+                            handleGoalDelete={handleGoalDelete}
                             {...props}
                         />
                     )}
