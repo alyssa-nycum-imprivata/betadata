@@ -9,7 +9,7 @@ const GoalCard = (props) => {
                 <h3>Completed?: <input type="checkbox" /> <label>Yes</label></h3>
             </div>
             <div className="card-buttons-container">
-                <button type="button" className="button edit-button">Edit</button>
+                <button type="button" className="button edit-button" onClick={() => { props.history.push(`/goals/${props.goal.id}/edit`) }}>Edit</button>
                 <button type="button" className="button delete-button" onClick={() => {
                     props.handleGoalDelete(props.goal.id);
                 }}>Delete</button>
