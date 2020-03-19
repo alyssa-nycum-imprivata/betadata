@@ -12,8 +12,10 @@ const AttemptCard = (props) => {
                 </div>
                 <div className="attempt-buttons">
                     {/* <button type="button" className="edit-attempt-button" onClick={() => { props.history.push(`/attempts/${props.attempt.id}/edit`) }}>Edit</button> */}
+                    {!props.climb.is_archived ? 
                     <button type="button" className="delete-attempt-button" onClick={() => {
                         props.handleAttemptDelete(props.attempt.id)}}> Delete</button>
+                    : null }
                             </div>
             </>
         </div>

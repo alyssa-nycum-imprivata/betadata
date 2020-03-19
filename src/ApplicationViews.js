@@ -7,6 +7,7 @@ import ClimbList from './components/climbs/ClimbList';
 import ClimbForm from './components/climbs/ClimbForm';
 import ClimbEditForm from './components/climbs/ClimbEditForm';
 import AttemptForm from './components/attempts/AttemptForm';
+import ArchiveList from './components/archive/ArchiveList';
 // import AttemptEditForm from './components/attempts/AttemptEditForm';
 
 const ApplicationViews = (props) => {
@@ -110,7 +111,8 @@ const ApplicationViews = (props) => {
                 path="/archive"
                 render={props => {
                     if (hasUser) {
-                        return <h3>This is the archive page.</h3>
+                        return <ArchiveList 
+                        {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
