@@ -7,7 +7,7 @@ const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const activeUserId = sessionStorage.getItem("userId");
+    const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
     const getClimbs = () => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
