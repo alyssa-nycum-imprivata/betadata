@@ -6,7 +6,6 @@ import './Climb.css';
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [climb, setClimb] = useState([]);
 
     const activeUserId = sessionStorage.getItem("userId");
 
@@ -18,7 +17,6 @@ const ClimbList = (props) => {
     };
 
     const handleArchiveClimb = (climbId) => {
-        console.log(climbId)
         setIsLoading(true);
         ClimbApiManager.getClimbById(climbId).then(climb => {
             
