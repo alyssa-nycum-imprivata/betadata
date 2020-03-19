@@ -11,7 +11,8 @@ const ClimbList = (props) => {
 
     const getClimbs = () => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-            setClimbs(climbsFromApi)
+            const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
+            setClimbs(activeClimbs);
         });
     };
 
