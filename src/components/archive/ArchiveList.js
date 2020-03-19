@@ -16,6 +16,28 @@ const ArchiveList = (props) => {
         });
     };
 
+    const handleUndoArchiveClimb = (climbId) => {
+        console.log(climbId)
+        setIsLoading(true);
+        ClimbApiManager.getClimbById(climbId).then(climb => {
+            
+            const activeClimb = {
+                id: climbId,
+                userId: activeUserId,
+                type: climb.type,
+                grade: climb.grade,
+                description: climb.description,
+                beta_comments: climb.beta_comments,
+                rating: climb.rating,
+                is_archived: false
+            };
+
+            ClimbApiManager.putClimb(activeClimb);
+            setIsLoading(false);
+            props.history.push("/climbs");
+        });
+    };
+
     const handleClimbDelete = (climbId) => {
         if (window.confirm("Are you sure you want to delete this climb?")) {
             setIsLoading(true);
@@ -40,6 +62,7 @@ const ArchiveList = (props) => {
                             key={climb.id}
                             climb={climb}
                             isLoading={isLoading}
+                            handleUndoArchiveClimb={handleUndoArchiveClimb}
                             handleClimbDelete={handleClimbDelete}
                             {...props}
                         />
