@@ -118,6 +118,18 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+             <Route
+                exact
+                path="/climbs/:climbId(\d+)"
+                render={props => {
+                    if (hasUser) {
+                        return <ArchiveList
+                        {...props} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
         </>
     );
 };

@@ -6,6 +6,7 @@ import './Climb.css';
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [climb, setClimb] = useState([]);
 
     const activeUserId = sessionStorage.getItem("userId");
 
@@ -13,6 +14,28 @@ const ClimbList = (props) => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
             setClimbs(activeClimbs);
+        });
+    };
+
+    const handleArchiveClimb = (climbId) => {
+        console.log(climbId)
+        setIsLoading(true);
+        ClimbApiManager.getClimbById(climbId).then(climb => {
+            
+            const archivedClimb = {
+                id: climbId,
+                userId: activeUserId,
+                type: climb.type,
+                grade: climb.grade,
+                description: climb.description,
+                beta_comments: climb.beta_comments,
+                rating: climb.rating,
+                is_archived: true
+            };
+
+            ClimbApiManager.putClimb(archivedClimb);
+            setIsLoading(false);
+            props.history.push("/archive");
         });
     };
 
@@ -45,6 +68,7 @@ const ClimbList = (props) => {
                             key={climb.id}
                             climb={climb}
                             isLoading={isLoading}
+                            handleArchiveClimb={handleArchiveClimb}
                             handleClimbDelete={handleClimbDelete}
                             {...props}
                         />

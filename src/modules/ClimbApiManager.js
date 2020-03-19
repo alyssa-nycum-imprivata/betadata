@@ -25,6 +25,8 @@ const ClimbApiManager = {
         }).then(resp => resp.json());
     },
     putClimb(editedClimb) {
+        console.log(editedClimb)
+        console.log(editedClimb.id)
         return fetch(`${baseUrl}/climbs/${editedClimb.id}`, {
             method: "PUT",
             headers: {
