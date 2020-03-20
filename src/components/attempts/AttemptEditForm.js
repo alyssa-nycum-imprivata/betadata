@@ -2,35 +2,51 @@ import React, { useState, useEffect } from 'react';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 
 const AttemptEditForm = (props) => {
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, is_flashed: false });
-    const [checkbox, setCheckbox] = useState(false)
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, is_flashed: "", is_clean: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const handleFieldChange = (evt) => {
         const stateToChange = { ...attempt };
         stateToChange[evt.target.id] = evt.target.value;
         setAttempt(stateToChange);
+        console.log(stateToChange)
     };
 
-    const handleCheckbox = () => {
-        setCheckbox(!checkbox)
-    }
-
     const updateExistingAttempt = (evt) => {
-        evt.preventDefault();
-        setIsLoading(true);
+        if (attempt.is_flashed !== "") {
+            evt.preventDefault();
 
-        const editedAttempt = {
-            id: props.match.params.attemptId,
-            climbId: attempt.climbId,
-            attempt_date: attempt.attempt_date,
-            number_of_falls: parseInt(attempt.number_of_falls),
-            is_flashed: attempt.is_flashed,
-            is_clean: checkbox
-        };
+            setIsLoading(true);
 
-        AttemptApiManager.putAttempt(editedAttempt)
-            .then(() => props.history.push("/climbs"));
+            const editedAttempt = {
+                id: props.match.params.attemptId,
+                climbId: attempt.climbId,
+                attempt_date: attempt.attempt_date,
+                number_of_falls: parseInt(attempt.number_of_falls),
+                is_flashed: JSON.parse(attempt.is_flashed),
+                is_clean: attempt.is_clean
+            };
+    
+            AttemptApiManager.putAttempt(editedAttempt)
+                .then(() => props.history.push("/climbs"));
+        } else {
+            evt.preventDefault();
+
+            setIsLoading(true);
+
+            const editedAttempt = {
+                id: props.match.params.attemptId,
+                climbId: attempt.climbId,
+                attempt_date: attempt.attempt_date,
+                number_of_falls: parseInt(attempt.number_of_falls),
+                is_flashed: attempt.is_flashed,
+                is_clean: JSON.parse(attempt.is_clean)
+            };
+    
+            AttemptApiManager.putAttempt(editedAttempt)
+                .then(() => props.history.push("/climbs"));
+        }
+        
     };
 
     useEffect(() => {
@@ -43,10 +59,10 @@ const AttemptEditForm = (props) => {
 
     return (
         <>
-            <form className="new-attempt-form">
-                <fieldset className="new-attempt-fieldset">
+            <form className="edit-attempt-form">
+                <fieldset className="edit-attempt-fieldset">
                     <h2>Edit Attempt</h2>
-                    <div className="new-attempt-container">
+                    <div className="edit-attempt-container">
                         <label htmlFor="attempt_date">Attempt Date:</label>
                         <input type="date"
                             id="attempt_date"
@@ -55,27 +71,55 @@ const AttemptEditForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
-                        <div className="flashed">
-                            <label htmlFor="is_flashed">Flashed?:</label>
-                            <input type="checkbox" id="is_flashed" checked={attempt.is_flashed ? true : false} onChange={handleCheckbox}
-                            />
-                            <label htmlFor="is_flashed">Yes</label>
-                        </div>
+                        {attempt.is_flashed === true || attempt.is_flashed === false || attempt.is_flashed === "true" || attempt.is_flashed === "false" ?
+                            <>
+                                <label htmlFor="is_flashed">Flashed?:</label>
+                                <select id="is_flashed"
+                                    required
+                                    value={attempt.is_flashed}
+                                    name="is_flashed"
+                                    onChange={handleFieldChange}
+                                >
+                                    <option value="" disabled defaultValue>Select</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <label htmlFor="number_of_falls">Number of Falls:</label>
+                                <input type="number"
+                                    id="number_of_falls"
+                                    value={attempt.number_of_falls}
+                                    required
+                                    onChange={handleFieldChange}
+                                />
+                            </>
+                            : null
+                        }
 
-                        <label htmlFor="number_of_falls">Number of Falls:</label>
-                        <input type="number"
-                            id="number_of_falls"
-                            required
-                            value={attempt.number_of_falls}
-                            onChange={handleFieldChange}
-                        />
+                        {attempt.is_clean === true || attempt.is_clean === false || attempt.is_clean === "true" || attempt.is_clean === "false" ?
+                            <>
+                                <label htmlFor="is_clean">Cleaned?:</label>
+                                <select id="is_clean"
+                                    required
+                                    value={attempt.is_clean}
+                                    name="is_clean"
+                                    onChange={handleFieldChange}
+                                >
+                                    <option value="" disabled defaultValue>Select</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <label htmlFor="number_of_falls">Number of Falls:</label>
+                                <input type="number"
+                                    id="number_of_falls"
+                                    value={attempt.number_of_falls}
+                                    required
+                                    onChange={handleFieldChange}
+                                />
+                            </>
+                            : null
+                        }
 
-                        <div className="cleaned">
-                            <label htmlFor="is_clean">Cleaned?:</label>
-                            <input type="checkbox" id="is_clean" checked={attempt.is_clean ? true : false} onChange={handleCheckbox}
-                            />
-                            <label htmlFor="is_clean">Yes</label>
-                        </div>
+
                     </div>
                     <div className="add-attempt-button-container">
                         <button type="button" disabled={isLoading} onClick={updateExistingAttempt}>Save</button>
