@@ -19,8 +19,20 @@ const ClimbList = (props) => {
     const sortClimbsByGrade = () => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
-            const sortedClimbs = activeClimbs.sort((a,b) => {
-                return a.grade - b.grade
+            const changedGrades = activeClimbs.map(climb => {
+                if (climb.grade.includes("-")) {
+                    climb.grade_altered = climb.grade.split("-")[0] + ".25"
+                    return climb
+                } else if (climb.grade.includes("+")) {
+                    climb.grade_altered = climb.grade.split("+")[0] + ".5"
+                    return climb
+                } else {
+                    climb.grade_altered = climb.grade
+                    return climb
+                }
+            })
+            const sortedClimbs = changedGrades.sort((a,b) => {
+                return a.grade_altered - b.grade_altered
             })
             setClimbs(sortedClimbs);
         });
