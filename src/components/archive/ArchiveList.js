@@ -16,6 +16,28 @@ const ArchiveList = (props) => {
         });
     };
 
+    const sortClimbsByGrade = () => {
+        return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
+            const archivedClimbs = climbsFromApi.filter(climb => climb.is_archived === true)
+            const changedGrades = archivedClimbs.map(climb => {
+                if (climb.grade.includes("-")) {
+                    climb.grade_altered = climb.grade.split("-")[0] + ".25"
+                    return climb
+                } else if (climb.grade.includes("+")) {
+                    climb.grade_altered = climb.grade.split("+")[0] + ".5"
+                    return climb
+                } else {
+                    climb.grade_altered = climb.grade
+                    return climb
+                }
+            })
+            const sortedClimbs = changedGrades.sort((a,b) => {
+                return a.grade_altered - b.grade_altered
+            })
+            setClimbs(sortedClimbs);
+        });
+    };
+
     const handleUndoArchiveClimb = (climbId) => {
         setIsLoading(true);
         ClimbApiManager.getClimbById(climbId).then(climb => {
@@ -55,6 +77,9 @@ const ArchiveList = (props) => {
     if (climbs.length !== 0) {
         return (
             <>
+                <div className="add-button-container">
+                    <button type="button" className="button sort-climbs-button" onClick={sortClimbsByGrade}>Sort Climbs By Grade</button>
+                </div>
                 <div className="cards-container climb-cards-container">
                     {climbs.map(climb =>
                         <ArchiveCard

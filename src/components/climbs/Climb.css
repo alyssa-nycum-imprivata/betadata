@@ -129,3 +129,26 @@ textarea {
 .required-message {
     font-size: 12px;
 }
+
+.grade-inputs {
+    display: flex;
+    align-items: center;
+}
+
+.grade-inputs input {
+    margin-left: 2px;
+    margin-right: 5px;
+    width: 40px;
+}
+
+.grade-inputs input, .grade-inputs select {
+    height: 70%;
+}
+
+.grade-inputs select {
+    width: 30px;
+}
+
+.sort-climbs-button {
+    margin-left: 10px;
+}
