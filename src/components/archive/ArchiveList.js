@@ -16,9 +16,31 @@ const ArchiveList = (props) => {
         });
     };
 
-    const sortClimbsByGrade = () => {
+    const sortRopeClimbsByGrade = () => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-            const archivedClimbs = climbsFromApi.filter(climb => climb.is_archived === true)
+            const archivedClimbs = climbsFromApi.filter(climb => climb.is_archived === true && (climb.type === "Top Rope" || climb.type === "Lead"))
+            const changedGrades = archivedClimbs.map(climb => {
+                if (climb.grade.includes("-")) {
+                    climb.grade_altered = climb.grade.split("-")[0] + ".25"
+                    return climb
+                } else if (climb.grade.includes("+")) {
+                    climb.grade_altered = climb.grade.split("+")[0] + ".5"
+                    return climb
+                } else {
+                    climb.grade_altered = climb.grade
+                    return climb
+                }
+            })
+            const sortedClimbs = changedGrades.sort((a,b) => {
+                return a.grade_altered - b.grade_altered
+            })
+            setClimbs(sortedClimbs);
+        });
+    };
+
+    const sortBoulderClimbsByGrade = () => {
+        return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
+            const archivedClimbs = climbsFromApi.filter(climb => climb.is_archived === true && climb.type === "Boulder")
             const changedGrades = archivedClimbs.map(climb => {
                 if (climb.grade.includes("-")) {
                     climb.grade_altered = climb.grade.split("-")[0] + ".25"
@@ -78,7 +100,9 @@ const ArchiveList = (props) => {
         return (
             <>
                 <div className="add-button-container">
-                    <button type="button" className="button sort-climbs-button" onClick={sortClimbsByGrade}>Sort Climbs By Grade</button>
+                    <button type="button" className="button sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</button>
+                    <button type="button" className="button sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</button>
+                    <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
                 </div>
                 <div className="cards-container climb-cards-container">
                     {climbs.map(climb =>
@@ -97,6 +121,7 @@ const ArchiveList = (props) => {
     } else {
         return (
             <>
+            <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
                 <div>
                     <h2>You have no archived climbs.</h2>
                 </div>
