@@ -148,3 +148,7 @@ textarea {
 .grade-inputs select {
     width: 30px;
 }
+
+.sort-climbs-button {
+    margin-left: 10px;
+}
