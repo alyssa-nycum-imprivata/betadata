@@ -11,7 +11,7 @@ import ArchiveList from './components/archive/ArchiveList';
 import GoalList from './components/goals/GoalList';
 import GoalForm from './components/goals/GoalForm';
 import GoalEditForm from './components/goals/GoalEditForm';
-// import AttemptEditForm from './components/attempts/AttemptEditForm';
+import AttemptEditForm from './components/attempts/AttemptEditForm';
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser;
@@ -86,7 +86,7 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
-            {/* <Route
+            <Route
                 exact
                 path="/attempts/:attemptId(\d+)/edit"
                 render={props => {
@@ -97,7 +97,7 @@ const ApplicationViews = (props) => {
                         return <Redirect to="/login" />
                     }
                 }}
-            /> */}
+            />
             <Route
                 exact
                 path="/goals"

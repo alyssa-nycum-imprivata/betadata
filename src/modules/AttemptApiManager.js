@@ -21,15 +21,15 @@ const AttemptApiManager = {
             method: "DELETE"
         }).then(resp => resp.json());
     },
-    // putAttempt(editedAttempt) {
-    //     return fetch(`${baseUrl}/attempts/${editedAttempt.id}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(editedAttempt)
-    //     }).then(resp => resp.json());
-    // }
+    putAttempt(editedAttempt) {
+        return fetch(`${baseUrl}/attempts/${editedAttempt.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(editedAttempt)
+        }).then(resp => resp.json());
+    }
 };
 
 export default AttemptApiManager;

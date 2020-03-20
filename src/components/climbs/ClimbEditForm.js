@@ -50,8 +50,9 @@ const ClimbEditForm = (props) => {
             <form className="edit-climb-form">
                 <fieldset className="edit-climb-fieldset">
                     <h2>Edit Climb</h2>
+                    <p className="required-message">Fields marked with * are required</p>
                     <div className="edit-climb-container">
-                        <label htmlFor="type">Type:</label>
+                        <label htmlFor="type">*Type:</label>
                         <select id="type"
                             required
                             value={climb.type}
@@ -128,7 +129,7 @@ const ClimbEditForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
-                        <label htmlFor="rating">Enjoyment Rating:</label>
+                        <label htmlFor="rating">*Enjoyment Rating:</label>
                         <select id="rating"
                             required
                             value={climb.rating}
