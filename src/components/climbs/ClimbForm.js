@@ -16,7 +16,6 @@ const ClimbForm = (props) => {
         const stateToChange = { ...climb };
         stateToChange[evt.target.id] = evt.target.value;
         setClimb(stateToChange);
-        console.log(stateToChange)
     };
 
     const handleAttemptFieldChange = (evt) => {
@@ -88,20 +87,11 @@ const ClimbForm = (props) => {
                             <>
                                 <label htmlFor="grade">*Grade:</label>
                                 <div className="grade-inputs">
-                                    <p>5.</p><input type="number"
+                                    <p>5.</p><input type="text"
                                         id="grade"
                                         required
                                         onChange={handleClimbFieldChange}
                                     />
-                                    <select id="grade_addOn"
-                                        required
-                                        name="grade_addOn"
-                                        onChange={handleClimbFieldChange}
-                                    >
-                                        <option value=""></option>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                    </select>
                                 </div>
                             </>
                             : null
@@ -111,20 +101,11 @@ const ClimbForm = (props) => {
                             <>
                                 <label htmlFor="grade">*Grade:</label>
                                 <div className="grade-inputs">
-                                    <p>5.</p><input type="number"
+                                    <p>5.</p><input type="text"
                                         id="grade"
                                         required
                                         onChange={handleClimbFieldChange}
                                     />
-                                    <select id="grade_addOn"
-                                        required
-                                        name="grade_addOn"
-                                        onChange={handleClimbFieldChange}
-                                    >
-                                        <option value=""></option>
-                                        <option value="+">+</option>
-                                        <option value="-">-</option>
-                                    </select>
                                 </div>
                             </>
                             : null

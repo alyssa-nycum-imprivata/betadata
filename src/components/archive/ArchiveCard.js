@@ -20,8 +20,9 @@ const ArchiveCard = (props) => {
         <div className="card climb-card">
             <div className="card-content climb-card-content">
                 <h3>Type: {props.climb.type}</h3>
-                <h3>Grade: {props.climb.grade}</h3>
-                <h3>Description: {props.climb.description}</h3>
+                {props.climb.type === "Top Rope" ? <h3>Grade: 5.{props.climb.grade}</h3> : null}
+                {props.climb.type === "Lead" ? <h3>Grade: 5.{props.climb.grade}</h3> : null}
+                {props.climb.type === "Boulder" ? <h3>Grade: V{props.climb.grade}</h3> : null}                <h3>Description: {props.climb.description}</h3>
                 <h3>Attempts:</h3>
 
                 {attempts.map(attempt => 

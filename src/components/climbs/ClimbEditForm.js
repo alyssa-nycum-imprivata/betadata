@@ -64,13 +64,50 @@ const ClimbEditForm = (props) => {
                             <option value="Boulder">Boulder</option>
                         </select>
 
-                        <label htmlFor="grade">Grade:</label>
-                        <input type="text"
-                            id="grade"
-                            required
-                            value={climb.grade}
-                            onChange={handleFieldChange}
-                        />
+                        {climb.type === "Top Rope" ?
+                            <>
+                                <label htmlFor="grade">*Grade:</label>
+                                <div className="grade-inputs">
+                                    <p>5.</p><input type="text"
+                                        id="grade"
+                                        value={climb.grade}
+                                        required
+                                        onChange={handleFieldChange}
+                                    />
+                                </div>
+                            </>
+                            : null
+                        }
+
+                        {climb.type === "Lead" ?
+                            <>
+                                <label htmlFor="grade">*Grade:</label>
+                                <div className="grade-inputs">
+                                    <p>5.</p><input type="text"
+                                        id="grade"
+                                        required
+                                        value={climb.grade}
+                                        onChange={handleFieldChange}
+                                    />
+                                </div>
+                            </>
+                            : null
+                        }
+
+                        {climb.type === "Boulder" ?
+                            <>
+                                <label htmlFor="grade">*Grade:</label>
+                                <div className="grade-inputs">
+                                    <p>V</p><input type="number"
+                                        id="grade"
+                                        required
+                                        value={climb.grade}
+                                        onChange={handleFieldChange}
+                                    />
+                                </div>
+                            </>
+                            : null
+                        }
 
                         <label htmlFor="description">Description:</label>
                         <textarea type="text"
