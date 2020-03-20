@@ -19,7 +19,7 @@ const ClimbList = (props) => {
     const handleArchiveClimb = (climbId) => {
         setIsLoading(true);
         ClimbApiManager.getClimbById(climbId).then(climb => {
-            
+
             const archivedClimb = {
                 id: climbId,
                 userId: activeUserId,
@@ -42,7 +42,8 @@ const ClimbList = (props) => {
             setIsLoading(true);
             ClimbApiManager.deleteClimb(climbId)
                 .then(() => ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-                    setClimbs(climbsFromApi);
+                    const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
+                    setClimbs(activeClimbs);
                     setIsLoading(false);
                 }));
         };
