@@ -9,7 +9,6 @@ const AttemptEditForm = (props) => {
         const stateToChange = { ...attempt };
         stateToChange[evt.target.id] = evt.target.value;
         setAttempt(stateToChange);
-        console.log(stateToChange)
     };
 
     const updateExistingAttempt = (evt) => {
