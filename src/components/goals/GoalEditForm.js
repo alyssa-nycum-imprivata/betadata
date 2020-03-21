@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GoalApiManager from '../../modules/GoalApiManager';
 
 const GoalEditForm = (props) => {
-    const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: "" });
+    const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: "", completed_on: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -25,7 +25,8 @@ const GoalEditForm = (props) => {
                 userId: activeUserId,
                 goal_content: goal.goal_content,
                 complete_by: goal.complete_by,
-                is_complete: goal.is_complete
+                is_complete: goal.is_complete,
+                completed_on: goal.completed_on
             };
 
             GoalApiManager.putGoal(editedGoal)
@@ -63,6 +64,9 @@ const GoalEditForm = (props) => {
                             onChange={handleFieldChange}
                         />
                     </div>
+
+                    {/* -------TODO: ADD COMPLETED ON CONDITIONAL---------- */}
+
                     <div className="update-goal-button-container">
                         <button type="button" disabled={isLoading} onClick={updateExistingGoal}>Save</button>
                         <button type="button" className="cancel-button" onClick={() => { props.history.push("/goals") }}>Cancel</button>

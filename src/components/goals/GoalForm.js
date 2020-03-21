@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import GoalApiManager from '../../modules/GoalApiManager';
 
 const GoalForm = (props) => {
-    const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: false });
+    const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: false, completed_on: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -25,7 +25,8 @@ const GoalForm = (props) => {
                 userId: activeUserId,
                 goal_content: goal.goal_content,
                 complete_by: goal.complete_by,
-                is_complete: false
+                is_complete: false,
+                completed_on: ""
             };
 
             GoalApiManager.postGoal(newGoal).then(() => props.history.push("/goals"));
