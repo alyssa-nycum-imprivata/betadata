@@ -14,6 +14,25 @@ const GoalList = (props) => {
         });
     };
 
+    const handleUndoMarkComplete = (goalId) => {
+        setIsLoading(true);
+        GoalApiManager.getGoalById(goalId).then(goal => {
+
+            const uncompletedGoal = {
+                id: goalId,
+                userId: activeUserId,
+                goal_content: goal.goal_content,
+                complete_by: goal.complete_by,
+                is_complete: false,
+                completed_on: ""
+            };
+
+            GoalApiManager.putGoal(uncompletedGoal);
+            setIsLoading(false);
+            getGoals();
+        });
+    };
+
     const handleGoalDelete = (goalId) => {
         if (window.confirm("Are you sure you want to delete this goal?")) {
             setIsLoading(true);
@@ -40,6 +59,7 @@ const GoalList = (props) => {
                             key={goal.id}
                             goal={goal}
                             isLoading={isLoading}
+                            handleUndoMarkComplete={handleUndoMarkComplete}
                             handleGoalDelete={handleGoalDelete}
                             {...props}
                         />
