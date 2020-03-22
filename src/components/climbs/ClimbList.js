@@ -129,6 +129,7 @@ const ClimbList = (props) => {
                     <button type="button" className="button add-button"
                         onClick={() => { props.history.push("/climbs/new") }}
                     >Add Climb</button>
+                    <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
                 </div>
                 <div>
                     <h2>You have no saved climbs.</h2>

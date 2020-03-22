@@ -5,7 +5,6 @@ import GoalApiManager from '../../modules/GoalApiManager';
 const GoalList = (props) => {
     const [goals, setGoals] = useState([]);
     const [isLoading, setIsLoading] = useState([]);
-    const [is_complete, setIs_Complete] = useState(true)
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
@@ -15,26 +14,24 @@ const GoalList = (props) => {
         });
     };
 
-    const toggleCompletedCheckbox = (goalId) => {
-        setIs_Complete(!is_complete);
-        
+    const handleUndoMarkComplete = (goalId) => {
+        setIsLoading(true);
         GoalApiManager.getGoalById(goalId).then(goal => {
 
-            const completedGoal = {
+            const uncompletedGoal = {
                 id: goalId,
                 userId: activeUserId,
                 goal_content: goal.goal_content,
                 complete_by: goal.complete_by,
-                is_complete: is_complete
+                is_complete: false,
+                completed_on: ""
             };
 
-            GoalApiManager.putGoal(completedGoal);
+            GoalApiManager.putGoal(uncompletedGoal);
+            setIsLoading(false);
+            getGoals();
         });
     };
-
-    useEffect(() => {
-        setIs_Complete(is_complete)
-    })
 
     const handleGoalDelete = (goalId) => {
         if (window.confirm("Are you sure you want to delete this goal?")) {
@@ -62,7 +59,7 @@ const GoalList = (props) => {
                             key={goal.id}
                             goal={goal}
                             isLoading={isLoading}
-                            toggleCompletedCheckbox={toggleCompletedCheckbox}
+                            handleUndoMarkComplete={handleUndoMarkComplete}
                             handleGoalDelete={handleGoalDelete}
                             {...props}
                         />
