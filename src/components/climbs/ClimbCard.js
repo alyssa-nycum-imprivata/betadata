@@ -9,7 +9,10 @@ const ClimbCard = (props) => {
 
     const getAttempts = () => {
         return AttemptApiManager.getAttemptsByClimb(props.climb.id).then(attemptsFromApi => {
-            setAttempts(attemptsFromApi);
+            const sortedAttempts = attemptsFromApi.sort((a, b) => {
+                return new Date(a.attempt_date) - new Date(b.attempt_date)
+            })
+            setAttempts(sortedAttempts);
         });
     };
 
@@ -18,7 +21,10 @@ const ClimbCard = (props) => {
             setIsLoading(true);
             AttemptApiManager.deleteAttempt(attemptId)
                 .then(() => AttemptApiManager.getAttemptsByClimb(props.climb.id).then(attemptsFromApi => {
-                    setAttempts(attemptsFromApi);
+                    const sortedAttempts = attemptsFromApi.sort((a, b) => {
+                        return new Date(a.attempt_date) - new Date(b.attempt_date)
+                    })
+                    setAttempts(sortedAttempts);
                 }));
         };
     };
@@ -39,14 +45,14 @@ const ClimbCard = (props) => {
 
                 <button type="button" className="button add-attempt-button" onClick={() => { props.history.push(`/climbs/${props.climb.id}/add_attempt`) }}>Add Attempt</button>
 
-                {attempts.map(attempt => 
-                        < AttemptCard
-                            key={attempt.id}
-                            attempt={attempt}
-                            isLoading={isLoading}
-                            handleAttemptDelete={handleAttemptDelete}
-                            {...props}
-                        />
+                {attempts.map(attempt =>
+                    < AttemptCard
+                        key={attempt.id}
+                        attempt={attempt}
+                        isLoading={isLoading}
+                        handleAttemptDelete={handleAttemptDelete}
+                        {...props}
+                    />
                 )}
 
                 <h3>Beta/Comments: {props.climb.beta_comments}</h3>
