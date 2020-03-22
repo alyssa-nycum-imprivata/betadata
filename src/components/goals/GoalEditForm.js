@@ -63,9 +63,19 @@ const GoalEditForm = (props) => {
                             value={goal.complete_by}
                             onChange={handleFieldChange}
                         />
-                    </div>
 
-                    {/* -------TODO: ADD COMPLETED ON CONDITIONAL---------- */}
+                        {goal.is_complete === true ?
+                        <>
+                        <label htmlFor="completed_on">Completed On:</label>
+                        <input type="date"
+                            id="completed_on"
+                            required
+                            value={goal.completed_on}
+                            onChange={handleFieldChange}
+                        />
+                        </>
+                        : null }
+                    </div>
 
                     <div className="update-goal-button-container">
                         <button type="button" disabled={isLoading} onClick={updateExistingGoal}>Save</button>
