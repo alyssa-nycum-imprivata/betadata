@@ -3,7 +3,7 @@ import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
 
 const ClimbEditForm = (props) => {
-    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", is_archived: false });
+    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -29,6 +29,7 @@ const ClimbEditForm = (props) => {
                 description: climb.description,
                 beta_comments: climb.beta_comments,
                 rating: parseInt(climb.rating),
+                created_on: new Date(),
                 is_archived: false
             };
 
