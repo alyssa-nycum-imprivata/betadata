@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 
 const AttemptEditForm = (props) => {
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, is_flashed: "", is_clean: "" });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, is_flashed: "", is_clean: "", created_on: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const handleFieldChange = (evt) => {
@@ -23,7 +23,8 @@ const AttemptEditForm = (props) => {
                 attempt_date: attempt.attempt_date,
                 number_of_falls: parseInt(attempt.number_of_falls),
                 is_flashed: JSON.parse(attempt.is_flashed),
-                is_clean: attempt.is_clean
+                is_clean: attempt.is_clean,
+                created_on: new Date()
             };
     
             AttemptApiManager.putAttempt(editedAttempt)
@@ -39,7 +40,8 @@ const AttemptEditForm = (props) => {
                 attempt_date: attempt.attempt_date,
                 number_of_falls: parseInt(attempt.number_of_falls),
                 is_flashed: attempt.is_flashed,
-                is_clean: JSON.parse(attempt.is_clean)
+                is_clean: JSON.parse(attempt.is_clean),
+                created_on: new Date()
             };
     
             AttemptApiManager.putAttempt(editedAttempt)

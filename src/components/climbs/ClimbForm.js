@@ -4,8 +4,8 @@ import AttemptApiManager from '../../modules/AttemptApiManager';
 import './Climb.css';
 
 const ClimbForm = (props) => {
-    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", is_archived: false });
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, is_clean: "" });
+    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, is_clean: "", created_on: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -38,6 +38,7 @@ const ClimbForm = (props) => {
                 description: climb.description,
                 beta_comments: climb.beta_comments,
                 rating: parseInt(climb.rating),
+                created_on: new Date(),
                 is_archived: false
             };
 
@@ -46,7 +47,8 @@ const ClimbForm = (props) => {
                 attempt_date: attempt.attempt_date,
                 number_of_falls: parseInt(attempt.number_of_falls),
                 is_flashed: JSON.parse(attempt.is_flashed),
-                is_clean: attempt.is_clean
+                is_clean: attempt.is_clean,
+                created_on: new Date(),
             }
 
             ClimbApiManager.postClimb(newClimb)
