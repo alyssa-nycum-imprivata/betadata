@@ -15,14 +15,12 @@ const ClimbForm = (props) => {
         const stateToChange = { ...climb };
         stateToChange[evt.target.id] = evt.target.value;
         setClimb(stateToChange);
-        console.log(stateToChange)
     };
 
     const handleAttemptFieldChange = (evt) => {
         const stateToChange = { ...attempt };
         stateToChange[evt.target.id] = evt.target.value;
         setAttempt(stateToChange);
-        console.log(stateToChange)
     };
 
     const constructNewClimbWithFirstAttempt = (evt) => {
