@@ -35,7 +35,7 @@ const ArchiveCard = (props) => {
                 )}
 
                 {props.climb.beta_comments !== "" ? <h3>Beta/Comments: {props.climb.beta_comments}</h3> : null }
-                <h3>Enjoyment Rating: {props.climb.rating}</h3>
+                <h3>Enjoyment Rating: {props.climb.rating} stars</h3>
             </div>
             <div className="card-buttons-container">
                 <button type="button" className="button archive-button" onClick={() => props.handleUndoArchiveClimb(props.climb.id)}>Undo Archive</button>

@@ -27,10 +27,10 @@ const ClimbList = (props) => {
                     climb.grade_altered = climb.grade.split("-")[0] + ".25"
                     return climb
                 } else if (climb.grade.includes("+")) {
-                    climb.grade_altered = climb.grade.split("+")[0] + ".5"
+                    climb.grade_altered = climb.grade.split("+")[0] + ".75"
                     return climb
                 } else {
-                    climb.grade_altered = climb.grade
+                    climb.grade_altered = climb.grade + ".5"
                     return climb
                 }
             })
@@ -49,10 +49,10 @@ const ClimbList = (props) => {
                     climb.grade_altered = climb.grade.split("-")[0] + ".25"
                     return climb
                 } else if (climb.grade.includes("+")) {
-                    climb.grade_altered = climb.grade.split("+")[0] + ".5"
+                    climb.grade_altered = climb.grade.split("+")[0] + ".75"
                     return climb
                 } else {
-                    climb.grade_altered = climb.grade
+                    climb.grade_altered = climb.grade + ".5"
                     return climb
                 }
             })
@@ -60,6 +60,7 @@ const ClimbList = (props) => {
                 return b.grade_altered - a.grade_altered
             })
             setClimbs(sortedClimbs);
+            console.log(sortedClimbs)
         });
     };
 

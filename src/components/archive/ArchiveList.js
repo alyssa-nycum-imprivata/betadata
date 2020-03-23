@@ -24,10 +24,10 @@ const ArchiveList = (props) => {
                     climb.grade_altered = climb.grade.split("-")[0] + ".25"
                     return climb
                 } else if (climb.grade.includes("+")) {
-                    climb.grade_altered = climb.grade.split("+")[0] + ".5"
+                    climb.grade_altered = climb.grade.split("+")[0] + ".75"
                     return climb
                 } else {
-                    climb.grade_altered = climb.grade
+                    climb.grade_altered = climb.grade + ".5"
                     return climb
                 }
             })
@@ -46,10 +46,10 @@ const ArchiveList = (props) => {
                     climb.grade_altered = climb.grade.split("-")[0] + ".25"
                     return climb
                 } else if (climb.grade.includes("+")) {
-                    climb.grade_altered = climb.grade.split("+")[0] + ".5"
+                    climb.grade_altered = climb.grade.split("+")[0] + ".75"
                     return climb
                 } else {
-                    climb.grade_altered = climb.grade
+                    climb.grade_altered = climb.grade + ".5"
                     return climb
                 }
             })
