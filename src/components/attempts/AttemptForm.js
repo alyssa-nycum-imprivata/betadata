@@ -28,7 +28,7 @@ const AttemptForm = (props) => {
             window.alert("Please fill out all fields.")
         } else if (attempt.is_clean === "false" && attempt.number_of_falls <= 0 && (climb.type === "Top Rope" || climb.type === "Lead")) {
             window.alert("If climb was not cleaned, please enter at least 1 fall.")
-        } else if (attempt.is_clean === "false" && attempt.number_of_attempts <= 0 && climb.type === "Boulder") {
+        } else if (attempt.number_of_attempts <= 0 && climb.type === "Boulder") {
             window.alert("Please enter at least 1 attempt.")
         }
         else {
