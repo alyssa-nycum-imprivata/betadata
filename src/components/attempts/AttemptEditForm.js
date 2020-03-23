@@ -3,7 +3,7 @@ import AttemptApiManager from '../../modules/AttemptApiManager';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 
 const AttemptEditForm = (props) => {
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, number_of_attempts: 1, is_flashed: "", is_clean: "", created_on: "" });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, number_of_attempts: 0, is_flashed: "", is_clean: "", created_on: "" });
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
     const [isLoading, setIsLoading] = useState(false);
 

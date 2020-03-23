@@ -3,7 +3,7 @@ import AttemptApiManager from '../../modules/AttemptApiManager';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 
 const AttemptForm = (props) => {
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, number_of_attempts: 1, is_flashed: "", is_clean: "", created_on: "" });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, number_of_attempts: 0, is_flashed: "", is_clean: "", created_on: "" });
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -11,6 +11,7 @@ const AttemptForm = (props) => {
         const stateToChange = { ...attempt };
         stateToChange[evt.target.id] = evt.target.value;
         setAttempt(stateToChange);
+        console.log(stateToChange)
     };
 
     useEffect(() => {
@@ -25,7 +26,12 @@ const AttemptForm = (props) => {
         evt.preventDefault();
         if (attempt.attempt_date === "" || attempt.is_clean === "") {
             window.alert("Please fill out all fields.")
-        } else {
+        } else if (attempt.is_clean === "false" && attempt.number_of_falls <= 0 && (climb.type === "Top Rope" || climb.type === "Lead")) {
+            window.alert("If climb was not cleaned, please enter at least 1 fall.")
+        } else if (attempt.is_clean === "false" && attempt.number_of_attempts <= 0 && climb.type === "Boulder") {
+            window.alert("Please enter at least 1 attempt.")
+        }
+        else {
             setIsLoading(true);
 
             if (climb.type === "Boulder" && attempt.is_clean === "true") {
@@ -34,6 +40,10 @@ const AttemptForm = (props) => {
 
             if (climb.type === "Boulder" && attempt.is_clean === "false") {
                 attempt.number_of_falls = attempt.number_of_attempts
+            }
+
+            if (attempt.is_clean === "true" && (climb.type === "Top Rope" || climb.type === "Lead")) {
+                attempt.number_of_falls = 0;
             }
 
             const newAttempt = {

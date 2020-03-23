@@ -5,7 +5,7 @@ import './Climb.css';
 
 const ClimbForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, number_of_attempts: 1, is_clean: "", created_on: "" });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, number_of_attempts: 0, is_clean: "", created_on: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -31,7 +31,7 @@ const ClimbForm = (props) => {
             window.alert("Please fill out required fields");
         } else if (attempt.is_flashed === "false" && attempt.number_of_falls <= 0 && (climb.type === "Top Rope" || climb.type === "Lead")) {
             window.alert("If climb was not flashed, please enter at least 1 fall.");
-        } else if (attempt.is_flashed === "false" && attempt.number_of_attempts < 1 && climb.type === "Boulder") {
+        } else if (attempt.is_flashed === "false" && attempt.number_of_attempts <= 0 && climb.type === "Boulder") {
             window.alert("Please enter at least 1 attempt");
         } else if (attempt.is_flashed === "false" && attempt.is_clean === "" && climb.type === "Boulder") {
             window.alert("Please select if climb was cleaned or not.");
@@ -69,6 +69,9 @@ const ClimbForm = (props) => {
                 attempt.is_clean = "";
             }
 
+            if (climb.type === "Top Rope" || climb.type === "Lead") {
+                attempt.number_of_attempts = 1;
+            }
 
             const newAttempt = {
                 id: props.match.params.attemptId,
