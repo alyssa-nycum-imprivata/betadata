@@ -5,7 +5,7 @@ import './Climb.css';
 
 const ClimbForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, number_of_attempts: 1, is_clean: "", created_on: "" });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, number_of_attempts: 0, is_clean: "", created_on: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -27,6 +27,12 @@ const ClimbForm = (props) => {
         evt.preventDefault();
         if (climb.type === "" || climb.grade === "" || climb.rating === "" || attempt.attempt_date === "" || attempt.is_flashed === "") {
             window.alert("Please fill out required fields");
+        } else if (attempt.is_flashed === "false" && attempt.number_of_falls <= 0 && (climb.type === "Top Rope" || climb.type === "Lead")) {
+            window.alert("If climb was not flashed, please enter at least 1 fall.");
+        } else if (attempt.is_flashed === "false" && attempt.number_of_attempts <= 0 && climb.type === "Boulder") {
+            window.alert("Please enter at least 1 attempt");
+        } else if (attempt.is_flashed === "false" && attempt.is_clean === "" && climb.type === "Boulder") {
+            window.alert("Please select if climb was cleaned or not.");
         } else {
             setIsLoading(true);
 
@@ -52,6 +58,16 @@ const ClimbForm = (props) => {
 
             if (climb.type === "Boulder" && attempt.is_clean === false) {
                 attempt.number_of_falls = attempt.number_of_attempts
+            }
+
+            if (attempt.is_flashed === "true") {
+                attempt.number_of_falls = 0;
+                attempt.number_of_attempts = 1;
+                attempt.is_clean = "";
+            }
+
+            if (climb.type === "Top Rope" || climb.type === "Lead") {
+                attempt.number_of_attempts = 1;
             }
 
             const newAttempt = {
@@ -125,7 +141,7 @@ const ClimbForm = (props) => {
                             <>
                                 <label htmlFor="grade">*Grade:</label>
                                 <div className="grade-inputs">
-                                    <p>V</p><input type="number"
+                                    <p>V</p><input type="text"
                                         id="grade"
                                         required
                                         onChange={handleClimbFieldChange}
@@ -184,7 +200,7 @@ const ClimbForm = (props) => {
                                             required
                                             onChange={handleAttemptFieldChange}
                                         />
-                                        <label htmlFor="is_clean">Cleaned?:</label>
+                                        <label htmlFor="is_clean">*Cleaned?:</label>
                                         <select id="is_clean"
                                             required
                                             value={attempt.is_clean}

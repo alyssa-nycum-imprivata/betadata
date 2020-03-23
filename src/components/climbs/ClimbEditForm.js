@@ -100,7 +100,7 @@ const ClimbEditForm = (props) => {
                             <>
                                 <label htmlFor="grade">*Grade:</label>
                                 <div className="grade-inputs">
-                                    <p>V</p><input type="number"
+                                    <p>V</p><input type="text"
                                         id="grade"
                                         required
                                         value={climb.grade}

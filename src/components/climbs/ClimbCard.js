@@ -40,7 +40,7 @@ const ClimbCard = (props) => {
                 {props.climb.type === "Top Rope" ? <h3>Grade: 5.{props.climb.grade}</h3> : null}
                 {props.climb.type === "Lead" ? <h3>Grade: 5.{props.climb.grade}</h3> : null}
                 {props.climb.type === "Boulder" ? <h3>Grade: V{props.climb.grade}</h3> : null}
-                <h3>Description: {props.climb.description}</h3>
+                {props.climb.description !== "" ?<h3>Description: {props.climb.description}</h3> : null }
                 <h3>Attempts:</h3>
 
                 <button type="button" className="button add-attempt-button" onClick={() => { props.history.push(`/climbs/${props.climb.id}/add_attempt`) }}>Add Attempt</button>
@@ -55,8 +55,8 @@ const ClimbCard = (props) => {
                     />
                 )}
 
-                <h3>Beta/Comments: {props.climb.beta_comments}</h3>
-                <h3>Enjoyment Rating: {props.climb.rating}</h3>
+                {props.climb.beta_comments !== "" ? <h3>Beta/Comments: {props.climb.beta_comments}</h3> : null }
+                <h3>Enjoyment Rating: {props.climb.rating} stars</h3>
             </div>
             <div className="card-buttons-container">
                 <button type="button" className="button edit-button" onClick={() => { props.history.push(`/climbs/${props.climb.id}/edit`) }}>Edit</button>
