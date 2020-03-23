@@ -72,6 +72,7 @@ const ArchiveList = (props) => {
                 description: climb.description,
                 beta_comments: climb.beta_comments,
                 rating: climb.rating,
+                created_on: climb.created_on,
                 is_archived: false
             };
 
