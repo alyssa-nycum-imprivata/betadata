@@ -27,8 +27,7 @@ const AttemptEditForm = (props) => {
             window.alert("Please select if climb was cleaned or not.");
         } else if (attempt.is_clean !== "" && attempt.number_of_attempts <= 0 && climb.type === "Boulder") {
             window.alert("Please enter at least 1 attempt.");
-        } 
-        else {
+        } else {
 
             setIsLoading(true);
 

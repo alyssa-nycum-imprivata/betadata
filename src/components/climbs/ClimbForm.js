@@ -33,8 +33,7 @@ const ClimbForm = (props) => {
             window.alert("Please enter at least 1 attempt");
         } else if (attempt.is_flashed === "false" && attempt.is_clean === "" && climb.type === "Boulder") {
             window.alert("Please select if climb was cleaned or not.");
-        }
-        else {
+        } else {
             setIsLoading(true);
 
             const newClimb = {

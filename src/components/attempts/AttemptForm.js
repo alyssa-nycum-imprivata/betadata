@@ -29,8 +29,7 @@ const AttemptForm = (props) => {
             window.alert("If climb was not cleaned, please enter at least 1 fall.")
         } else if (attempt.number_of_attempts <= 0 && climb.type === "Boulder") {
             window.alert("Please enter at least 1 attempt.")
-        }
-        else {
+        } else {
             setIsLoading(true);
 
             if (climb.type === "Boulder" && attempt.is_clean === "true") {
