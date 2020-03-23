@@ -7,10 +7,13 @@ const AttemptCard = (props) => {
                 <div className="each-attempt">
                     <h4>{props.attempt.attempt_date} -- </h4>
                     {props.attempt.is_flashed === true ? <h4>Flashed</h4> : null}
+
                     {(props.attempt.number_of_falls !== 0 && (props.climb.type === "Top Rope" || props.climb.type === "Lead")) ? <h4>Falls: {props.attempt.number_of_falls}</h4> : null}
                     {(props.attempt.is_clean === true && (props.climb.type === "Top Rope" || props.climb.type === "Lead")) ? <h4>Cleaned</h4> : null}
-                    {(props.attempt.number_of_falls !== 0 && props.climb.type === "Boulder" && props.attempt.is_clean === true) ? <h4>Attempts: {props.attempt.number_of_falls} - Cleaned</h4> : null}
-                    {(props.attempt.number_of_falls !== 0 && props.climb.type === "Boulder" && props.attempt.is_clean === false) ? <h4>Attempts: {props.attempt.number_of_falls}</h4> : null}
+
+                    {(props.climb.type === "Boulder" && props.attempt.is_clean === true && props.attempt.is_flashed !== true) ? <h4>Attempts: {props.attempt.number_of_attempts} - Cleaned</h4> : null}
+                    {(props.climb.type === "Boulder" && props.attempt.is_clean === false && props.attempt.is_flashed !== true) ? <h4>Attempts: {props.attempt.number_of_attempts}</h4> : null}
+
                 </div>
                 <div className="attempt-buttons">
                     {!props.climb.is_archived ?
