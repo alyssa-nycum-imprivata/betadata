@@ -5,7 +5,7 @@ import './Climb.css';
 
 const ClimbForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, is_clean: "", created_on: "" });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, number_of_attempts: 1, is_clean: "", created_on: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -42,10 +42,23 @@ const ClimbForm = (props) => {
                 is_archived: false
             };
 
+            if (attempt.is_clean !== "") {
+                attempt.is_clean = JSON.parse(attempt.is_clean)
+            }
+
+            if (climb.type === "Boulder" && attempt.is_clean === true) {
+                attempt.number_of_falls = (attempt.number_of_attempts - 1)
+            }
+
+            if (climb.type === "Boulder" && attempt.is_clean === false) {
+                attempt.number_of_falls = attempt.number_of_attempts
+            }
+
             const newAttempt = {
                 id: props.match.params.attemptId,
                 attempt_date: attempt.attempt_date,
                 number_of_falls: parseInt(attempt.number_of_falls),
+                number_of_attempts: parseInt(attempt.number_of_attempts),
                 is_flashed: JSON.parse(attempt.is_flashed),
                 is_clean: attempt.is_clean,
                 created_on: new Date(),
@@ -57,7 +70,7 @@ const ClimbForm = (props) => {
                     AttemptApiManager.postAttempt(newAttempt)
                         .then(() => props.history.push("/climbs"));
                 })
-        };
+        }
     };
 
     return (
@@ -151,15 +164,39 @@ const ClimbForm = (props) => {
                                     <option value="false">No</option>
                                 </select>
 
-                                {attempt.is_flashed === "true" || attempt.is_flashed === "" ? null :
-                                <>
-                                <label htmlFor="number_of_falls">*Number of Falls:</label>
-                                <input type="number"
-                                    id="number_of_falls"
-                                    required
-                                    onChange={handleAttemptFieldChange}
-                                />
-                            </>
+                                {(attempt.is_flashed === "false" && (climb.type === "Top Rope" || climb.type === "Lead")) ?
+                                    <>
+                                        <label htmlFor="number_of_falls">*Number of Falls:</label>
+                                        <input type="number"
+                                            id="number_of_falls"
+                                            required
+                                            onChange={handleAttemptFieldChange}
+                                        />
+                                    </>
+                                    : null
+                                }
+
+                                {(attempt.is_flashed === "false" && climb.type === "Boulder") ?
+                                    <>
+                                        <label htmlFor="number_of_attempts">*Number of Attempts:</label>
+                                        <input type="number"
+                                            id="number_of_attempts"
+                                            required
+                                            onChange={handleAttemptFieldChange}
+                                        />
+                                        <label htmlFor="is_clean">Cleaned?:</label>
+                                        <select id="is_clean"
+                                            required
+                                            value={attempt.is_clean}
+                                            name="is_clean"
+                                            onChange={handleAttemptFieldChange}
+                                        >
+                                            <option value="" disabled defaultValue>Select</option>
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
+                                        </select>
+                                    </>
+                                    : null
                                 }
 
                                 <label htmlFor="beta_comments">Beta/Comments:</label>

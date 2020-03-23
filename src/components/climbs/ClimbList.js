@@ -35,7 +35,7 @@ const ClimbList = (props) => {
                 }
             })
             const sortedClimbs = changedGrades.sort((a,b) => {
-                return a.grade_altered - b.grade_altered
+                return b.grade_altered - a.grade_altered
             })
             setClimbs(sortedClimbs);
         });
@@ -57,7 +57,7 @@ const ClimbList = (props) => {
                 }
             })
             const sortedClimbs = changedGrades.sort((a,b) => {
-                return a.grade_altered - b.grade_altered
+                return b.grade_altered - a.grade_altered
             })
             setClimbs(sortedClimbs);
         });

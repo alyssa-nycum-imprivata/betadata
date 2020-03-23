@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AttemptApiManager from '../../modules/AttemptApiManager';
+import ClimbApiManager from '../../modules/ClimbApiManager';
 
 const AttemptForm = (props) => {
-    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, is_flashed: "", is_clean: "", created_on: "" });
+    const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, number_of_attempts: 1, is_flashed: "", is_clean: "", created_on: "" });
+    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
     const [isLoading, setIsLoading] = useState(false);
 
     const handleFieldChange = (evt) => {
@@ -11,6 +13,14 @@ const AttemptForm = (props) => {
         setAttempt(stateToChange);
     };
 
+    useEffect(() => {
+        ClimbApiManager.getClimbById(props.match.params.climbId)
+            .then(climb => {
+                setClimb(climb);
+                setIsLoading(false);
+            });
+    }, []);
+
     const constructNewAttempt = (evt) => {
         evt.preventDefault();
         if (attempt.attempt_date === "" || attempt.is_clean === "") {
@@ -18,11 +28,20 @@ const AttemptForm = (props) => {
         } else {
             setIsLoading(true);
 
+            if (climb.type === "Boulder" && attempt.is_clean === "true") {
+                attempt.number_of_falls = (attempt.number_of_attempts - 1)
+            }
+
+            if (climb.type === "Boulder" && attempt.is_clean === "false") {
+                attempt.number_of_falls = attempt.number_of_attempts
+            }
+
             const newAttempt = {
                 id: props.match.params.attemptId,
                 climbId: parseInt(props.match.params.climbId),
                 attempt_date: attempt.attempt_date,
                 number_of_falls: parseInt(attempt.number_of_falls),
+                number_of_attempts: parseInt(attempt.number_of_attempts),
                 is_flashed: attempt.is_flashed,
                 is_clean: JSON.parse(attempt.is_clean),
                 created_on: new Date()
@@ -46,6 +65,18 @@ const AttemptForm = (props) => {
                             onChange={handleFieldChange}
                         />
 
+                        {(climb.type === "Boulder") ?
+                            <>
+                                <label htmlFor="number_of_attempts">Number of Attempts:</label>
+                                <input type="number"
+                                    id="number_of_attempts"
+                                    required
+                                    onChange={handleFieldChange}
+                                />
+                            </>
+                            : null
+                        }
+
                         <label htmlFor="is_clean">Cleaned?:</label>
                         <select id="is_clean"
                             required
@@ -58,7 +89,7 @@ const AttemptForm = (props) => {
                             <option value="false">No</option>
                         </select>
 
-                        {attempt.is_clean === "true" || attempt.is_clean === "" ? null :
+                        {(attempt.is_clean === "false" && (climb.type === "Top Rope" || climb.type === "Lead")) ?
                             <>
                                 <label htmlFor="number_of_falls">Number of Falls:</label>
                                 <input type="number"
@@ -67,6 +98,7 @@ const AttemptForm = (props) => {
                                     onChange={handleFieldChange}
                                 />
                             </>
+                            : null
                         }
 
                     </div>
