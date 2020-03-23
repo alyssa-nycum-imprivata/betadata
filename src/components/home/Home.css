@@ -1,0 +1,11 @@
+.home-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    margin-right: 500px;
+    margin-left: 500px;
+}
+
+.climbing-quote {
+    text-align: center;
+}
