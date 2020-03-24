@@ -14,8 +14,6 @@ const AttemptCard = (props) => {
                     {(props.climb.type === "Boulder" && props.attempt.is_clean === true && props.attempt.is_flashed !== true) ? <h4>Attempts: {props.attempt.number_of_attempts} - Cleaned</h4> : null}
                     {(props.climb.type === "Boulder" && props.attempt.is_clean === false && props.attempt.is_flashed !== true) ? <h4>Attempts: {props.attempt.number_of_attempts}</h4> : null}
 
-                </div>
-                <div className="attempt-buttons">
                     {!props.climb.is_archived ?
                         <>
                             <button type="button" className="edit-attempt-button" onClick={() => { props.history.push(`/attempts/${props.attempt.id}/edit`) }}>Edit</button>
@@ -26,6 +24,7 @@ const AttemptCard = (props) => {
                             : null} 
                         </>
                         : null}
+
                 </div>
             </>
         </div>
