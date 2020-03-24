@@ -87,18 +87,20 @@ const ClimbList = (props) => {
     };
 
     const handleClimbDelete = (climbId) => {
-        if (window.confirm("Are you sure you want to delete this climb?")) {
-            setIsLoading(true);
-            ClimbApiManager.deleteClimb(climbId)
-                .then(() => ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-                    const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
-                    const sortedClimbs= activeClimbs.sort((a,b) => {
-                        return new Date(b.created_on) - new Date(a.created_on)
-                    })
-                    setClimbs(sortedClimbs);
-                    setIsLoading(false);
-                }));
-        };
+        if (!window.confirm("Are you sure you want to delete this climb?")) {
+            return;
+        }
+
+        setIsLoading(true);
+        ClimbApiManager.deleteClimb(climbId)
+            .then(() => ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
+                const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
+                const sortedClimbs= activeClimbs.sort((a,b) => {
+                    return new Date(b.created_on) - new Date(a.created_on)
+                })
+                setClimbs(sortedClimbs);
+                setIsLoading(false);
+            }));
     };
 
     useEffect(() => {
