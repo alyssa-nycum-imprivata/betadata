@@ -1,11 +1,36 @@
+:root {
+    --wood-brown: #C19070;
+    --almond: #ECE2D0;
+    --pearl-aqua: #7FD1B9;
+    --deep-taupe: #7A6563;
+    --middle-blue-green: #9AD2CB;
+}
+
 .home-div {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
-    margin-right: 500px;
-    margin-left: 500px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 400px;
+    margin-left: 400px;
 }
 
-.climbing-quote {
-    text-align: center;
+.climbing-quote-text {
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    color: var(--almond);
+}
+
+.climbing-quote-climber {
+    font-style: italic;
+    font-weight: bold;
+    color: var(--middle-blue-green)
+}
+
+.quote-card {
+    background-color: var(--wood-brown) !important;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    text-shadow: 1px 1px 2px black;
 }
