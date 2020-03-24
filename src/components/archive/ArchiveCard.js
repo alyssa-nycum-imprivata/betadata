@@ -38,7 +38,7 @@ const ArchiveCard = (props) => {
                 <h3>Enjoyment Rating: {props.climb.rating} stars</h3>
             </div>
             <div className="card-buttons-container">
-                <button type="button" className="button archive-button" onClick={() => props.handleUndoArchiveClimb(props.climb.id)}>Undo Archive</button>
+                <button type="button" className="button undo-archive-button" onClick={() => props.handleUndoArchiveClimb(props.climb.id)}>Undo Archive</button>
                 <button type="button" className="button delete-button" onClick={() => {
                     props.handleClimbDelete(props.climb.id);
                 }}>Delete</button>

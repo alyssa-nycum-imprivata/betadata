@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ArchiveCard from './ArchiveCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import '../climbs/Climb.css';
+import './Archive.css';
 
 const ArchiveList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -31,7 +32,7 @@ const ArchiveList = (props) => {
                     return climb
                 }
             })
-            const sortedClimbs = changedGrades.sort((a,b) => {
+            const sortedClimbs = changedGrades.sort((a, b) => {
                 return a.grade_altered - b.grade_altered
             })
             setClimbs(sortedClimbs);
@@ -53,7 +54,7 @@ const ArchiveList = (props) => {
                     return climb
                 }
             })
-            const sortedClimbs = changedGrades.sort((a,b) => {
+            const sortedClimbs = changedGrades.sort((a, b) => {
                 return a.grade_altered - b.grade_altered
             })
             setClimbs(sortedClimbs);
@@ -63,7 +64,7 @@ const ArchiveList = (props) => {
     const handleUndoArchiveClimb = (climbId) => {
         setIsLoading(true);
         ClimbApiManager.getClimbById(climbId).then(climb => {
-            
+
             const activeClimb = {
                 id: climbId,
                 userId: activeUserId,
@@ -100,7 +101,7 @@ const ArchiveList = (props) => {
     if (climbs.length !== 0) {
         return (
             <>
-                <div className="add-button-container">
+                <div className="archive-button-container">
                     <button type="button" className="button sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</button>
                     <button type="button" className="button sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</button>
                     <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
@@ -122,9 +123,11 @@ const ArchiveList = (props) => {
     } else {
         return (
             <>
-            <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
-                <div>
-                    <h2>You have no archived climbs.</h2>
+                <div className="archive-button-container">
+                    <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
+                    <div>
+                        <h2>You have no archived climbs.</h2>
+                    </div>
                 </div>
             </>
         )
