@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GoalApiManager from '../../modules/GoalApiManager';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const GoalCompleteForm = (props) => {
     const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: false, completed_on: "" });
@@ -41,27 +42,28 @@ const GoalCompleteForm = (props) => {
 
     return (
         <>
+            <Form className="completed-goal-form">
+                <FormGroup className="goal-form-header-container">
+                    <h2 className="goal-form-header">GOAL COMPLETED!</h2>
+                </FormGroup>
+                <FormGroup className="goal-form-note-container">
+                    <h6>Add an optional 'completed on' date below</h6>
+                </FormGroup>
+                <FormGroup className="goal-form-input-container">
+                    <Label htmlFor="completed_on" className="goal-label"><strong>Completed On:</strong></Label>
+                    <Input type="date"
+                        className="goal-input"
+                        id="completed_on"
+                        required
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
 
-            <form className="completed-goal-form">
-                <fieldset className="completed-goal-fieldset">
-                    <h2>GOAL COMPLETED!</h2>
-                    <div className="completed-goal-container">
-
-                        <label>Add an optional 'completed on' date below</label><br/><br/>
-
-                        <label htmlFor="completed_on">Completed On:</label>
-                        <input type="date"
-                            id="completed_on"
-                            required
-                            onChange={handleFieldChange}
-                        />
-                    </div>
-                    <div className="completed-goal-button-container">
-                        <button type="button" disabled={isLoading} onClick={updateCompletedGoal}>Add</button>
-                        <button type="button" disabled={isLoading} onClick={updateCompletedGoal}>No Thanks</button>
-                    </div>
-                </fieldset>
-            </form>
+                <FormGroup className="goal-form-button-container">                       
+                    <Button type="button" disabled={isLoading} className="goal-form-button goal-form-add-button" onClick={updateCompletedGoal}>Add</Button>
+                    <Button type="button" disabled={isLoading} className="goal-form-button goal-form-no-thanks-button" onClick={updateCompletedGoal}>No Thanks</Button>
+                </FormGroup>
+            </Form>
         </>
     )
 };

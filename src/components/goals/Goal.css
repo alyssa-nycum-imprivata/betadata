@@ -71,7 +71,7 @@
 
 /* ---Goal Form Styling---- */
 
-.new-goal-form, .edit-goal-form {
+.new-goal-form, .edit-goal-form, .completed-goal-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -120,7 +120,14 @@
     margin-right: 5px;
 }
 
-.goal-form-cancel-button {
+.goal-form-cancel-button, .goal-form-no-thanks-button {
     margin-left: 5px;
 }
 
+.goal-form-no-thanks-button {
+    width: 100px;
+}
+
+.goal-form-note-container {
+    margin-top: 5px;
+}
