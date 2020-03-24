@@ -1,18 +1,17 @@
 :root {
     --wood-brown: #C19070;
     --almond: #ECE2D0;
-    --pearl-aqua: #7FD1B9;
     --deep-taupe: #7A6563;
     --middle-blue-green: #9AD2CB;
 }
 
-.home-div {
+.home-card-div {
     display: flex;
     justify-content: center;
     margin-top: 50px;
     margin-bottom: 50px;
-    margin-right: 400px;
-    margin-left: 400px;
+    margin-right: 25%;
+    margin-left: 25%;
 }
 
 .climbing-quote-text {

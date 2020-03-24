@@ -1,3 +1,70 @@
+:root {
+    --wood-brown: #C19070;
+    --almond: #ECE2D0;
+    --deep-taupe: #7A6563;
+    --middle-blue-green: #9AD2CB;
+}
+
+/* ----Goal List Styling---- */
+
+.goal-cards-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 5px;
+}
+
+.add-goal-button {
+    background-color: var(--deep-taupe) !important;
+    color: var(--almond) !important;
+    border: 1px solid var(--deep-taupe) !important;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    padding-left: 15px !important;
+    padding-right: 15px!important;
+}
+
+.add-goal-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+/* ---Goal Card Styling---- */
+
+.goal-card-div {
+    margin: 10px;
+    width: 25%;
+}
+
+.goal-card {
+    display: flex;
+    justify-content: space-between !important;
+    height: 100%;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+}
+
+.edit-goal-button, .delete-goal-button {
+    width: 70px;
+    margin-top: 5px;
+}
+
+.edit-goal-button {
+    margin-right: 2.5px;
+}
+
+.delete-goal-button {
+    margin-left: 2.5px;
+}
+
+.complete-button, .uncomplete-button {
+    margin-top: 15px;
+}
+
 .goal-button {
-    margin-right: 10px;
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+}
+
+.goal-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
 }

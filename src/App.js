@@ -5,10 +5,10 @@ import ApplicationViews from './ApplicationViews';
 import './App.css';
 
 const App = () => {
-  const isAuthenticated = () => sessionStorage.getItem("credentials") !== null; 
+  const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
 
   const [hasUser, setHasUser] = useState(isAuthenticated());
-  
+
   const setUser = (user) => {
     sessionStorage.setItem("credentials", JSON.stringify(user));
     setHasUser(isAuthenticated());
@@ -22,7 +22,9 @@ const App = () => {
   return (
     <Router>
       <NavBar hasUser={hasUser} clearUser={clearUser} />
-      <ApplicationViews hasUser={hasUser} setUser={setUser} />
+      <div className="main-content">
+        <ApplicationViews hasUser={hasUser} setUser={setUser} />
+      </div>
     </Router>
   );
 };

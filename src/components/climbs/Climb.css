@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --wood-brown: #C19070;
     --almond: #ECE2D0;
     --pearl-aqua: #7FD1B9;
@@ -26,7 +26,7 @@
     width: 22%;
     margin: 5px;
     padding: 10px;
-}
+} */
 
 /* .card-content {
     margin: 10px;
@@ -34,14 +34,14 @@
     flex-direction: column;
 } */
 
-.archive-button {
+/* .archive-button {
     margin-right: 10px;
     margin-left: 10px;
 }
 
 .edit-button, .delete-button, .archive-button {
     width: 60px;
-}
+} */
 
 /* .add-attempt-button {
     width: 90px;
@@ -49,7 +49,7 @@
     margin-bottom: 5px;
 } */
 
-.new-climb-container, .edit-climb-container {
+/* .new-climb-container, .edit-climb-container {
     display: flex;
     flex-direction: column;
 }
@@ -74,7 +74,7 @@
 
 textarea {
     background-color: var(--almond);
-}
+} */
 
 /* .flashed, .clean {
     margin-top: 15px;
@@ -84,7 +84,7 @@ textarea {
     margin-left: 10px;
 } */
 
-.new-climb-container input {
+/* .new-climb-container input {
     background-color: var(--almond);
 }
 
@@ -102,7 +102,7 @@ textarea {
     width: 40px;
     align-self: center;
     margin-left: 5px;
-}
+} */
 
 /* .each-attempt-form {
     display: flex;
@@ -127,7 +127,7 @@ textarea {
     margin-left: 5px;
 } */
 
-#grade {
+/* #grade {
     background-color: var(--almond);
 }
 
@@ -156,4 +156,4 @@ textarea {
 
 .sort-climbs-button {
     margin-left: 10px;
-}
+} */

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GoalCard from './GoalCard';
 import GoalApiManager from '../../modules/GoalApiManager';
+import { Button } from 'reactstrap';
 
 const GoalList = (props) => {
     const [goals, setGoals] = useState([]);
@@ -53,10 +54,10 @@ const GoalList = (props) => {
         <>
             {(goals.length !== 0) ?
                 <>
-                    <div className="add-button-container">
-                        <button type="button" className="button add-button" onClick={() => { props.history.push("/goals/new") }}>Add Goal</button>
+                    <div className="add-goal-button-container">
+                        <Button type="button" className="add-goal-button" onClick={() => { props.history.push("/goals/new") }}>Add Goal</Button>
                     </div>
-                    <div className="cards-container goal-cards-container">
+                    <div className="goal-cards-container">
                         {goals.map(goal =>
                             <GoalCard
                                 key={goal.id}
@@ -71,8 +72,8 @@ const GoalList = (props) => {
                 </>
                 :
                 <>
-                    <div className="add-button-container">
-                        <button type="button" className="button add-button" onClick={() => { props.history.push("/goals/new") }}>Add Goal</button>
+                    <div className="add-goal-button-container">
+                        <Button type="button" className="add-goal-button" onClick={() => { props.history.push("/goals/new") }}>Add Goal</Button>
                     </div>
                     <div>
                         <h2>You have no saved goals.</h2>

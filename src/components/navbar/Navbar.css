@@ -1,7 +1,6 @@
 :root {
     --wood-brown: #C19070;
     --almond: #ECE2D0;
-    --pearl-aqua: #7FD1B9;
     --deep-taupe: #7A6563;
     --middle-blue-green: #9AD2CB;
 }
@@ -32,10 +31,15 @@ header {
 }
 
 .nav-link:hover {
-    color: var(--almond);
+    color: var(--almond) !important;
 }
 
 .site-title {
+    color: var(--middle-blue-green);
+    text-decoration: none;
+}
+
+.site-title:hover {
     color: var(--middle-blue-green);
     text-decoration: none;
 }
