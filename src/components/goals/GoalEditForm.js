@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GoalApiManager from '../../modules/GoalApiManager';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const GoalEditForm = (props) => {
     const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: "", completed_on: "" });
@@ -44,45 +45,47 @@ const GoalEditForm = (props) => {
 
     return (
         <>
-            <form className="edit-goal-form">
-                <fieldset className="edit-goal-fieldset">
-                    <h2>Edit Goal</h2>
-                    <div className="edit-goal-container">
-                        <label htmlFor="goal_content">Goal:</label>
-                        <input type="text"
-                            id="goal_content"
-                            required
-                            value={goal.goal_content}
-                            onChange={handleFieldChange}
-                        />
+            <Form className="edit-goal-form">
+                <FormGroup className="goal-form-header-container">
+                    <h2 className="goal-form-header">Edit Goal</h2>
+                </FormGroup>
+                <FormGroup className="goal-form-input-container">
+                    <Label htmlFor="goal_content" className="goal-label"><strong>Goal:</strong></Label>
+                    <Input type="text"
+                        className="goal-input"
+                        id="goal_content"
+                        required
+                        value={goal.goal_content}
+                        onChange={handleFieldChange}
+                    />
 
-                        <label htmlFor="complete_by">Complete By:</label>
-                        <input type="date"
-                            id="complete_by"
-                            required
-                            value={goal.complete_by}
-                            onChange={handleFieldChange}
-                        />
+                    <Label htmlFor="complete_by" className="goal-label"><strong>Complete By:</strong></Label>
+                    <Input type="date"
+                        className="goal-input"
+                        id="complete_by"
+                        required
+                        value={goal.complete_by}
+                        onChange={handleFieldChange}
+                    />
 
-                        {goal.is_complete === true ?
+                    {goal.is_complete === true ?
                         <>
-                        <label htmlFor="completed_on">Completed On:</label>
-                        <input type="date"
-                            id="completed_on"
-                            required
-                            value={goal.completed_on}
-                            onChange={handleFieldChange}
-                        />
+                            <Label htmlFor="completed_on" className="goal-label"><strong>Completed On:</strong></Label>
+                            <Input type="date"
+                                className="goal-input"
+                                id="completed_on"
+                                required
+                                value={goal.completed_on}
+                                onChange={handleFieldChange}
+                            />
                         </>
-                        : null }
-                    </div>
-
-                    <div className="update-goal-button-container">
-                        <button type="button" disabled={isLoading} onClick={updateExistingGoal}>Save</button>
-                        <button type="button" className="cancel-button" onClick={() => { props.history.push("/goals") }}>Cancel</button>
-                    </div>
-                </fieldset>
-            </form>
+                        : null}
+                </FormGroup>
+                <FormGroup className="goal-form-button-container">
+                    <Button type="button" disabled={isLoading} className="goal-form-button goal-form-save-button" onClick={updateExistingGoal}>Save</Button>
+                    <Button type="button" className="goal-form-button goal-form-cancel-button" onClick={() => { props.history.push("/goals") }}>Cancel</Button>
+                </FormGroup>
+            </Form>
         </>
     );
 };

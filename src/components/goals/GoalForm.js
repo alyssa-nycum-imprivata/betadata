@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import GoalApiManager from '../../modules/GoalApiManager';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const GoalForm = (props) => {
     const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: false, completed_on: "" });
@@ -41,7 +41,7 @@ const GoalForm = (props) => {
                     <h2 className="goal-form-header">Add a New Goal</h2>
                 </FormGroup>
                 <FormGroup className="goal-form-input-container">
-                    <Label htmlFor="goal_content" className="goal-label">Goal:</Label>
+                    <Label htmlFor="goal_content" className="goal-label"><strong>Goal:</strong></Label>
                     <Input type="text"
                         className="goal-input"
                         id="goal_content"
@@ -49,7 +49,7 @@ const GoalForm = (props) => {
                         onChange={handleFieldChange}
                     />
 
-                    <Label htmlFor="complete_by" className="goal-label">Complete By:</Label>
+                    <Label htmlFor="complete_by" className="goal-label"><strong>Complete By:</strong></Label>
                     <Input type="date"
                         className="goal-input"
                         id="complete_by"
