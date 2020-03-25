@@ -5,25 +5,33 @@
   --middle-blue-green: #9ad2cb;
 }
 
-.login-form {
+.login-form, .signUp-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: var(--wood-brown);
     border: 2px solid var(--deep-taupe) !important;
     box-shadow: 2px 2px 7px 1px var(--deep-taupe);
-    margin-left: 25%;
-    margin-right: 25%;
     margin-top: 50px; 
     border-radius: .5em;
 }
 
-.login-form-header-container {
+.login-form {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.signUp-form {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.login-form-header-container, .signUp-form-header-container {
     margin-top: 10px;
     margin-bottom: 5px !important;
 }
 
-.login-form-header {
+.login-form-header, .signUp-form-header {
     color: var(--middle-blue-green) !important;
     font-size: 30px;
     text-shadow: 1px 1px 2px black;
@@ -33,9 +41,30 @@
     width: 70%;
 }
 
-.login-input {
+.signUp-form-input-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.signUp-form-input-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signUp-form-input-div-nested {
+    display: flex;
+    flex-direction: column;
+    width: 47%;
+}
+
+.login-input, .signUp-input {
     background-color: var(--almond) !important;
     margin-bottom: 10px;
+}
+
+.signUp-input {
+    width: 100% !important;
 }
 
 .login-form-login-button {
@@ -61,156 +90,22 @@
     text-decoration: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* :root {
-    --wood-brown: #C19070;
-    --almond: #ECE2D0;
-    --pearl-aqua: #7FD1B9;
-    --deep-taupe: #7A6563;
-    --middle-blue-green: #9AD2CB;
-}
-
-form {
-    margin: 30px;
-    display: flex;
-    justify-content: center;
-}
-
-h3 {
-    margin-top: 5px;
-}
-
-#email-label-login, #password-label-login {
-    margin-right: 5px;
-}
-
-#password-label-login {
-    margin-left: 10px;
-}
-
-#login-button, #signUp-button, #signUp-cancel-button {
-    margin-top: 10px;
-    background-color: var(--deep-taupe);
-    color: var(--middle-blue-green);
-    border: 1px solid var(--almond);
-    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
-    text-shadow: 1px 1px 1px black;
-}
-
-#signUp-form label {
-    margin-top: 5px;
-    margin-left: 10px;
-    flex-basis: 25%;
-    text-align: right;
-    font-size: 12px;
-}
-
-#signUp-form input {
-    margin-bottom: 10px;
-    margin-left: 5px;
-    flex-basis: 25%;
-    margin-right: 10px;
-}
-
-.signUp-form-fields {
-    display: flex;
-    flex-direction: column;
-}
-
-#signUp-text {
-    margin-top: 10px;
-    font-size: 12px;
-}
-
-#signUp-link {
-    color: var(--middle-blue-green);
-    text-decoration: none;
-
-}
-
-body {
-    background-color: var(--almond);
-}
-
-fieldset {
-    background-color: var(--wood-brown);
-    border: 2px solid var(--deep-taupe);
-    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
-    padding-right: 40px;
-}
-
-.form {
-    color: var(--almond);
+.signUp-form-button {
+    width: 80px;
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
     text-shadow: 1px 1px 2px black;
 }
 
-.login-form input, .signUp-div input {
-    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
-    background-color: var(--almond);
-    border: 1px solid var(--deep-taupe);
-    padding: 3px;
-    width: 150px;
+.signUp-form-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
 }
 
-.signUp-div, .login-form {
-    display: flex;
+.signUp-form-signUp-button {
+    margin-right: 5px;
 }
 
-.form-header, .form-text {
-    text-align: center;
-}
-
-.button-div {
-    display: flex;
-    justify-content: space-evenly;
-
-}
-
-.login-form label {
-    margin-top: 5px;
-    margin-left: 10px;
-    flex-basis: 25%;
-    text-align: right;
-    font-size: 14px;
-}
-
-.login-form input {
-    margin-bottom: 10px;
+.signUp-form-cancel-button {
     margin-left: 5px;
-    flex-basis: 25%;
-    margin-right: 10px;
 }
-
-#login-fieldset {
-    padding-left: 20px;
-} */

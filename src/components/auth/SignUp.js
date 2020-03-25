@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 import UserApiManager from '../../modules/UserApiManager';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const SignUp = (props) => {
     const [newUser, setNewUser] = useState({ email: "", username: "", password: "", first_name: "", last_name: "" });
@@ -61,73 +62,83 @@ const SignUp = (props) => {
     };
 
     return (
-        <form onSubmit={handleSignUp} id="signUp-form">
-            <fieldset>
-                <h3 className="form form-header">Please Sign Up</h3>
-                <div className="signUp-form-fields">
-                    <div className="signUp-div">
-                        <label className="form" htmlFor="inputEmail" id="email-label">Email Address:</label>
-                        <input onChange={handleSignUpFieldChange}
+        <Form onSubmit={handleSignUp} className="signUp-form">
+            <FormGroup className="signUp-form-header-container">
+                <h2 className="signUp-form-header">Please Sign Up</h2>
+            </FormGroup>
+            <FormGroup className="signUp-form-input-container">
+                <div className="signUp-form-input-div">
+                    <div className="signUp-form-input-div-nested">
+                        <Label htmlFor="inputEmail" className="signUp-label signUp-label-left"><strong>Email Address:</strong></Label>
+                        <Input onChange={handleSignUpFieldChange}
+                            className="signUp-input signUp-input-left"
                             type="email"
                             id="email"
-                            placeholder="Email Address"
                             required=""
                             autoFocus="" />
+                    </div>
 
-                        <label className="form" htmlFor="inputUsername" id="username-label">Username:</label>
-                        <input onChange={handleSignUpFieldChange}
+                    <div className="signUp-form-input-div-nested">
+                        <Label htmlFor="inputUsername" className="signUp-label signUp-label-right"><strong>Username:</strong></Label>
+                        <Input onChange={handleSignUpFieldChange}
+                            className="signUp-input signUp-input-right"
                             type="text"
                             id="username"
-                            placeholder="Username"
                             required=""
                             autoFocus="" />
                     </div>
+                </div>
 
-                    <div className="signUp-div">
-                        <label className="form" htmlFor="inputFirstName" id="firstName-label">First Name:</label>
-                        <input onChange={handleSignUpFieldChange}
+                <div className="signUp-form-input-div">
+                    <div className="signUp-form-input-div-nested">
+                        <Label htmlFor="inputFirstName" className="signUp-label signUp-label-left"><strong>First Name:</strong></Label>
+                        <Input onChange={handleSignUpFieldChange}
+                            className="signUp-input signUp-input-left"
                             type="text"
                             id="first_name"
-                            placeholder="First Name"
                             required=""
                             autoFocus="" />
+                    </div>
 
-                        <label className="form" htmlFor="inputLastName" id="lastName-label">Last Name:</label>
-                        <input onChange={handleSignUpFieldChange}
+                    <div className="signUp-form-input-div-nested">
+                        <Label htmlFor="inputLastName" className="signUp-label signUp-label-right"><strong>Last Name:</strong></Label>
+                        <Input onChange={handleSignUpFieldChange}
+                            className="signUp-input signUp-input-right"
                             type="text"
                             id="last_name"
-                            placeholder="Last Name"
                             required=""
                             autoFocus="" />
                     </div>
+                </div>
 
-                    <div className="signUp-div">
-                        <label className="form" htmlFor="inputPassword" id="password-label">Password:</label>
-                        <input onChange={handleSignUpFieldChange}
+                <div className="signUp-form-input-div">
+                    <div className="signUp-form-input-div-nested">
+                        <Label htmlFor="inputPassword" className="signUp-label signUp-label-left"><strong>Password:</strong></Label>
+                        <Input onChange={handleSignUpFieldChange}
+                            className="signUp-input signUp-input-left"
                             type="password"
                             id="password"
-                            placeholder="Password"
-                            required=""
-                            autoFocus="" />
-
-                        <label className="form" htmlFor="inputReEnteredPassword" id="reEnteredPassword-label">Re-Enter Password:</label>
-                        <input onChange={handleConfirmedPassword}
-                            type="password"
-                            id="password_2"
-                            placeholder="Re-Enter Password"
                             required=""
                             autoFocus="" />
                     </div>
 
+                    <div className="signUp-form-input-div-nested">
+                        <Label htmlFor="inputReEnteredPassword" className="signUp-label signUp-label-right"><strong>Re-Enter Password:</strong></Label>
+                        <Input onChange={handleConfirmedPassword}
+                            className="signUp-input signUp-input-right"
+                            type="password"
+                            id="password_2"
+                            required=""
+                            autoFocus="" />
+                    </div>
                 </div>
-                <div className="button-div">
-                    <button type="submit"
-                        disabled={isLoading}
-                        id="signUp-button">Sign Up</button>
-                    <button id="signUp-cancel-button" onClick={() => { props.history.push("/") }}>Cancel</button>
-                </div>
-            </fieldset>
-        </form>
+            </FormGroup>
+
+            <FormGroup className="signUp-form-button-container">
+                <Button type="submit" disabled={isLoading} className="signUp-form-button signUp-form-signUp-button">Sign Up</Button>
+                <Button type="button" className="signUp-form-button signUp-form-cancel-button" onClick={() => { props.history.push("/") }}>Cancel</Button>
+            </FormGroup>
+        </Form>
     );
 };
 
