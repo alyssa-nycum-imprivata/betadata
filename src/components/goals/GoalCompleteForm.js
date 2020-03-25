@@ -60,7 +60,7 @@ const GoalCompleteForm = (props) => {
                 </FormGroup>
 
                 <FormGroup className="goal-form-button-container">                       
-                    <Button type="button" disabled={isLoading} className="goal-form-button goal-form-add-button" onClick={updateCompletedGoal}>Add</Button>
+                    <Button type="button" disabled={isLoading} className="goal-form-button completed-goal-form-add-button" onClick={updateCompletedGoal}>Add</Button>
                     <Button type="button" disabled={isLoading} className="goal-form-button goal-form-no-thanks-button" onClick={updateCompletedGoal}>No Thanks</Button>
                 </FormGroup>
             </Form>

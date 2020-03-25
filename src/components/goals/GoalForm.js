@@ -58,8 +58,8 @@ const GoalForm = (props) => {
                     />
                 </FormGroup>
                 <FormGroup className="goal-form-button-container">
-                    <Button type="button" className="goal-form-button goal-form-add-button" size="sm" disabled={isLoading} onClick={constructNewGoal}>Add</Button>
-                    <Button type="button" className="goal-form-button goal-form-cancel-button" size="sm" onClick={() => { props.history.push("/goals") }}>Cancel</Button>
+                    <Button type="button" className="goal-form-button goal-form-add-button" disabled={isLoading} onClick={constructNewGoal}>Add</Button>
+                    <Button type="button" className="goal-form-button goal-form-cancel-button" onClick={() => { props.history.push("/goals") }}>Cancel</Button>
                 </FormGroup>
             </Form>
         </>

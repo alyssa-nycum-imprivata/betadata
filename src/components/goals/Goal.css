@@ -106,7 +106,7 @@
 }
 
 .goal-form-button {
-    width: 70px;
+    width: 75px;
     background-color: var(--deep-taupe) !important;
     border: none !important;
     color: var(--almond) !important;
@@ -125,8 +125,8 @@
     margin-left: 5px;
 }
 
-.goal-form-no-thanks-button {
-    width: 100px;
+.goal-form-no-thanks-button, .completed-goal-form-add-button {
+    width: 110px;
 }
 
 .goal-form-note-container {
