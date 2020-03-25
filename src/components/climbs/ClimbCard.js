@@ -47,15 +47,17 @@ const ClimbCard = (props) => {
 
                     <Button type="button" className="climb-button add-attempt-button" size="sm" onClick={() => { props.history.push(`/climbs/${props.climb.id}/add_attempt`) }}>Add Attempt</Button>
 
-                    {attempts.map(attempt =>
-                        < AttemptCard
-                            key={attempt.id}
-                            attempt={attempt}
-                            isLoading={isLoading}
-                            handleAttemptDelete={handleAttemptDelete}
-                            {...props}
-                        />
-                    )}
+                    <div className="attempt-cards-container">
+                        {attempts.map(attempt =>
+                            < AttemptCard
+                                key={attempt.id}
+                                attempt={attempt}
+                                isLoading={isLoading}
+                                handleAttemptDelete={handleAttemptDelete}
+                                {...props}
+                            />
+                        )}
+                    </div>
 
                     {props.climb.beta_comments !== "" ? <CardTitle><strong>Beta/Comments:</strong> {props.climb.beta_comments}</CardTitle> : null}
                     <CardTitle><strong>Enjoyment Rating:</strong> {props.climb.rating === 1 ? props.climb.rating + " star" : props.climb.rating + " stars"}</CardTitle>

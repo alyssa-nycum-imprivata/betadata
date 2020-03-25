@@ -1,3 +1,102 @@
+:root {
+    --wood-brown: #C19070;
+    --almond: #ECE2D0;
+    --deep-taupe: #7A6563;
+    --middle-blue-green: #9AD2CB;
+}
+
+/* ----Climb List Styling---- */
+
+.climb-cards-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.add-climb-button, .sort-climbs-button {
+    background-color: var(--deep-taupe) !important;
+    color: var(--almond) !important;
+    border: 1px solid var(--deep-taupe) !important;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    padding-left: 15px !important;
+    padding-right: 15px!important;
+    margin-right: 10px;
+}
+
+.add-climb-button:hover, .sort-climbs-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+/* ----Climb Card Styling---- */
+
+.climb-card-div {
+    margin: 10px;
+    width: 25%;
+}
+
+.climb-card {
+    display: flex;
+    justify-content: space-between !important;
+    height: 100%;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    background-color: var(--almond) !important;
+}
+
+.add-attempt-button {
+    margin-bottom: 15px;
+}
+
+.attempt-cards-container {
+    margin-bottom: 10px;
+}
+
+.edit-climb-button, .delete-climb-button, .archive-climb-button {
+    width: 70px;
+    margin-top: 5px;
+}
+
+.edit-climb-button {
+    margin-right: 2.5px;
+}
+
+.archive-climb-button {
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+}
+
+.delete-climb-button {
+    margin-left: 2.5px;
+}
+
+.climb-button {
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+}
+
+.climb-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* :root {
     --wood-brown: #C19070;
     --almond: #ECE2D0;

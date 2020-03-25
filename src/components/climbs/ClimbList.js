@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClimbCard from './ClimbCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
+import { Button } from 'reactstrap';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -110,15 +111,15 @@ const ClimbList = (props) => {
     if (climbs.length !== 0) {
         return (
             <>
-                <div className="add-button-container">
-                    <button type="button" className="button add-button"
+                <div className="add-climb-button-container">
+                    <Button type="button" className="add-climb-button"
                         onClick={() => { props.history.push("/climbs/new") }}
-                    >Add Climb</button>
-                    <button type="button" className="button sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</button>
-                    <button type="button" className="button sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</button>
-                    <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
+                    >Add Climb</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
                 </div>
-                <div className="cards-container climb-cards-container">
+                <div className="climb-cards-container">
                     {climbs.map(climb =>
                         <ClimbCard
                             key={climb.id}
@@ -135,14 +136,14 @@ const ClimbList = (props) => {
     } else {
         return (
             <>
-                <div className="add-button-container">
-                    <button type="button" className="button add-button"
+                <div className="add-climb-button-container">
+                    <Button type="button" className="add-climb-button"
                         onClick={() => { props.history.push("/climbs/new") }}
-                    >Add Climb</button>
-                    <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
+                    >Add Climb</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
                 </div>
-                <div>
-                    <h2>You have no saved climbs.</h2>
+                <div className="no-climbs-message-container">
+                    <h2 className="no-climbs-message">You have no saved climbs.</h2>
                 </div>
             </>
         )

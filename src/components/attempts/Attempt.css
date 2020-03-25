@@ -1,0 +1,45 @@
+.attempt-card {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center !important;
+    border: none !important;
+    background-color: var(--almond) !important;
+    padding: 0 !important;
+}
+
+.attempt-card-content {
+    display: flex;
+    align-items: center;
+    width: 71%;
+}
+
+.attempt-card-text {
+    font-size: 10px;
+}
+
+.attempt-date-div {
+    margin-right: 3px;
+}
+
+.attempt-card-buttons {
+    width: 29%;
+}
+
+.attempt-button {
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+    height: 20px;
+    width: 37px;
+    font-size: 6px !important;
+}
+
+.attempt-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.delete-attempt-button {
+    margin-left: 2px;
+}
