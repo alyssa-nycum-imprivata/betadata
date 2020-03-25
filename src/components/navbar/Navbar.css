@@ -5,6 +5,10 @@
     --middle-blue-green: #9AD2CB;
 }
 
+nav {
+    height: 50px;
+}
+
 .nav-links-container {
     display: flex;
     justify-content: space-around;
@@ -15,7 +19,6 @@ header {
     background-color: var(--deep-taupe);
     color: var(--middle-blue-green);
     padding-top: 5px;
-    padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
     text-shadow: 1px 1px 2px black;
@@ -37,6 +40,7 @@ header {
 .site-title {
     color: var(--middle-blue-green);
     text-decoration: none;
+    margin-bottom: 0;
 }
 
 .site-title:hover {
