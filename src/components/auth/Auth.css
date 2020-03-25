@@ -68,7 +68,7 @@
 }
 
 .login-form-login-button {
-    width: 70px;
+    width: 90px;
     background-color: var(--deep-taupe) !important;
     border: none !important;
     color: var(--almond) !important;
@@ -91,7 +91,7 @@
 }
 
 .signUp-form-button {
-    width: 80px;
+    width: 100px;
     background-color: var(--deep-taupe) !important;
     border: none !important;
     color: var(--almond) !important;

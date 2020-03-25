@@ -135,8 +135,8 @@ const SignUp = (props) => {
             </FormGroup>
 
             <FormGroup className="signUp-form-button-container">
-                <Button type="submit" disabled={isLoading} className="signUp-form-button signUp-form-signUp-button">Sign Up</Button>
-                <Button type="button" className="signUp-form-button signUp-form-cancel-button" onClick={() => { props.history.push("/") }}>Cancel</Button>
+                <Button type="submit" disabled={isLoading} className="signUp-form-button signUp-form-signUp-button" size="lg">Sign Up</Button>
+                <Button type="button" className="signUp-form-button signUp-form-cancel-button" size="lg" onClick={() => { props.history.push("/") }}>Cancel</Button>
             </FormGroup>
         </Form>
     );

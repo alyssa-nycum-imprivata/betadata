@@ -58,7 +58,7 @@ const Login = (props) => {
             </FormGroup>
 
             <FormGroup className="login-form-button-container">
-                <Button type="submit" className="login-form-login-button">Login</Button>
+                <Button type="submit" className="login-form-login-button" size="lg">Login</Button>
             </FormGroup>
         </Form>
     );
