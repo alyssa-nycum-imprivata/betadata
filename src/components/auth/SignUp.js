@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css';
+import './Auth.css';
 import UserApiManager from '../../modules/UserApiManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
