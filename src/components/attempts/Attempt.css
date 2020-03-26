@@ -1,3 +1,5 @@
+/* ----Attempt Card Styling---- */
+
 .attempt-card {
     display: flex;
     flex-direction: row !important;
@@ -43,3 +45,65 @@
 .delete-attempt-button {
     margin-left: 2px;
 }
+
+/* ----Attempt Form Styling---- */
+
+.new-attempt-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--wood-brown);
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 50px; 
+    border-radius: .5em;
+}
+
+.attempt-form-header-container {
+    margin-top: 10px;
+    margin-bottom: 5px !important;
+}
+
+.attempt-form-header {
+    color: var(--middle-blue-green) !important;
+    font-size: 30px;
+    text-shadow: 1px 1px 2px black;
+}
+
+.attempt-form-input-container {
+    width: 70%;
+}
+
+.new-attempt-input {
+    background-color: var(--almond) !important;
+    margin-bottom: 10px;
+    width: 100% !important;
+}
+
+.attempt-form-button {
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+}
+
+.attempt-form-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.attempt-form-add-button, .attempt-form-cancel-button {
+    width: 70px;
+    margin-top: 5px;
+}
+
+.attempt-form-add-button {
+    margin-right: 5px;
+}
+
+.attempt-form-cancel-button {
+    margin-left: 5px;
+}
+
+

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import ClimbApiManager from '../../modules/ClimbApiManager';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import './Attempt.css';
 
 const AttemptForm = (props) => {
     const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, number_of_attempts: 0, is_flashed: "", is_clean: "", created_on: "" });
@@ -62,60 +64,65 @@ const AttemptForm = (props) => {
 
     return (
         <>
-            <form className="new-attempt-form">
-                <fieldset className="new-attempt-fieldset">
-                    <h2>Add a New Attempt</h2>
-                    <div className="new-attempt-container">
-                        <label htmlFor="attempt_date">Attempt Date:</label>
-                        <input type="date"
-                            id="attempt_date"
-                            required
-                            onChange={handleFieldChange}
-                        />
+            <Form className="new-attempt-form">
+                <FormGroup className="attempt-form-header-container">
+                    <h2 className="attempt-form-header">Add a New Attempt</h2>
+                </FormGroup>
+                <FormGroup className="attempt-form-input-container">
+                    <Label htmlFor="attempt_date" className="new-attempt-label"><strong>Attempt Date:</strong></Label>
+                    <Input type="date"
+                        className="new-attempt-input"
+                        id="attempt_date"
+                        required
+                        onChange={handleFieldChange}
+                    />
 
-                        {(climb.type === "Boulder") ?
-                            <>
-                                <label htmlFor="number_of_attempts">Number of Attempts:</label>
-                                <input type="number"
-                                    id="number_of_attempts"
-                                    required
-                                    onChange={handleFieldChange}
-                                />
-                            </>
-                            : null
-                        }
+                    {(climb.type === "Boulder") ?
+                        <>
+                            <Label htmlFor="number_of_attempts" className="new-attempt-label"><strong>Number of Attempts:</strong></Label>
+                            <Input type="number"
+                                className="new-attempt-input"
+                                id="number_of_attempts"
+                                required
+                                onChange={handleFieldChange}
+                            />
+                        </>
+                        : null
+                    }
 
-                        <label htmlFor="is_clean">Cleaned?:</label>
-                        <select id="is_clean"
-                            required
-                            value={attempt.is_clean}
-                            name="is_clean"
-                            onChange={handleFieldChange}
-                        >
-                            <option value="" disabled defaultValue>Select</option>
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
-                        </select>
+                    <Label htmlFor="is_clean" className="new-attempt-label"><strong>Cleaned?:</strong></Label>
+                    <Input id="is_clean"
+                        type="select"
+                        className="new-attempt-input"
+                        required
+                        value={attempt.is_clean}
+                        name="is_clean"
+                        onChange={handleFieldChange}
+                    >
+                        <option value="" disabled defaultValue>Select</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </Input>
 
-                        {(attempt.is_clean === "false" && (climb.type === "Top Rope" || climb.type === "Lead")) ?
-                            <>
-                                <label htmlFor="number_of_falls">Number of Falls:</label>
-                                <input type="number"
-                                    id="number_of_falls"
-                                    required
-                                    onChange={handleFieldChange}
-                                />
-                            </>
-                            : null
-                        }
+                    {(attempt.is_clean === "false" && (climb.type === "Top Rope" || climb.type === "Lead")) ?
+                        <>
+                            <Label htmlFor="number_of_falls" className="new-attempt-label"><strong>Number of Falls:</strong></Label>
+                            <Input type="number"
+                                className="new-attempt-input"
+                                id="number_of_falls"
+                                required
+                                onChange={handleFieldChange}
+                            />
+                        </>
+                        : null
+                    }
+                </FormGroup>
 
-                    </div>
-                    <div className="add-attempt-button-container">
-                        <button type="button" disabled={isLoading} onClick={constructNewAttempt}>Add</button>
-                        <button type="button" className="cancel-button" onClick={() => { props.history.push("/climbs") }}>Cancel</button>
-                    </div>
-                </fieldset>
-            </form>
+                <FormGroup className="attempt-form-button-container">
+                    <Button type="button" className="attempt-form-button attempt-form-add-button" disabled={isLoading} onClick={constructNewAttempt}>Add</Button>
+                    <Button type="button" className="attempt-form-button attempt-form-cancel-button" onClick={() => { props.history.push("/climbs") }}>Cancel</Button>
+                </FormGroup>
+            </Form>
         </>
     );
 };
