@@ -3,7 +3,7 @@ import ArchiveCard from './ArchiveCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import '../climbs/Climb.css';
 import './Archive.css';
-import { Button } from 'reactstrap';
+import { Button, Card, CardTitle } from 'reactstrap';
 
 const ArchiveList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -125,10 +125,12 @@ const ArchiveList = (props) => {
         return (
             <>
                 <div className="archive-button-container">
-                    <Button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
-                    <div className="no-climbs-message-container">
-                        <h2 className="no-climbs-message">You have no archived climbs.</h2>
-                    </div>
+                    <Button type="button" className="sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
+                </div>
+                <div className="no-climbs-message-container">
+                    <Card body className="text-center no-climbs-message-card">
+                        <CardTitle className="no-climbs-message">You have no archived climbs.</CardTitle>
+                    </Card>
                 </div>
             </>
         )

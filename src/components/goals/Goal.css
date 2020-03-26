@@ -27,6 +27,19 @@
     box-shadow: 1px 1px 1px 1px gray;
 }
 
+.no-goals-message-container {
+    display:flex;
+    margin: 10px;
+}
+
+.no-goals-message-card {
+    height: 100%;
+    font-size: 30px;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    background-color: var(--almond) !important;
+}
+
 /* ---Goal Card Styling---- */
 
 .goal-card-div {

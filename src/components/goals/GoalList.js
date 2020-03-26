@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GoalCard from './GoalCard';
 import GoalApiManager from '../../modules/GoalApiManager';
-import { Button } from 'reactstrap';
+import { Button, Card, CardTitle } from 'reactstrap';
 
 const GoalList = (props) => {
     const [goals, setGoals] = useState([]);
@@ -75,9 +75,11 @@ const GoalList = (props) => {
                     <div className="add-goal-button-container">
                         <Button type="button" className="add-goal-button" onClick={() => { props.history.push("/goals/new") }}>Add Goal</Button>
                     </div>
-                    <div>
-                        <h2>You have no saved goals.</h2>
-                    </div>
+                    <div className="no-goals-message-container">
+                    <Card body className="text-center no-goals-message-card">
+                        <CardTitle className="no-goals-message">You have no saved goals.</CardTitle>
+                    </Card>
+                </div>
                 </>
             }
         </>

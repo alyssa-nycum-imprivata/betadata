@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClimbCard from './ClimbCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
-import { Button } from 'reactstrap';
+import { Button, Card, CardTitle } from 'reactstrap';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -143,7 +143,9 @@ const ClimbList = (props) => {
                     <Button type="button" className="sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
                 </div>
                 <div className="no-climbs-message-container">
-                    <h2 className="no-climbs-message">You have no saved climbs.</h2>
+                    <Card body className="text-center no-climbs-message-card">
+                        <CardTitle className="no-climbs-message">You have no saved climbs.</CardTitle>
+                    </Card>
                 </div>
             </>
         )
