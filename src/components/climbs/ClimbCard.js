@@ -62,6 +62,7 @@ const ClimbCard = (props) => {
                     {props.climb.beta_comments !== "" ? <CardTitle><strong>Beta/Comments:</strong> {props.climb.beta_comments}</CardTitle> : null}
                     <CardTitle><strong>Enjoyment Rating:</strong> {props.climb.rating === 1 ? props.climb.rating + " star" : props.climb.rating + " stars"}</CardTitle>
                 </div>
+                
                 <div className="climb-card-buttons">
                     <Button type="button" className="climb-button edit-climb-button" size="sm" onClick={() => { props.history.push(`/climbs/${props.climb.id}/edit`) }}>Edit</Button>
                     <Button type="button" className="climb-button archive-climb-button" size="sm" onClick={() => props.handleArchiveClimb(props.climb.id)}>Archive</Button>
