@@ -5,7 +5,7 @@ import UserApiManager from '../../modules/UserApiManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const Login = (props) => {
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
+    const [credentials, setCredentials] = useState({ email: "" });
 
     const handleLoginFieldChange = (evt) => {
         const stateToChange = { ...credentials };
@@ -17,10 +17,10 @@ const Login = (props) => {
         e.preventDefault();
 
         UserApiManager.getUsers().then(users => {
-            const userObject = users.filter(user => (credentials.email === user.email && credentials.password === user.password));
+            const userObject = users.filter(user => (credentials.email === user.email));
 
             if (userObject.length !== 1) {
-                window.alert("Incorrect email or password. Please try again. If you do not have an account, click the sign up link below.");
+                window.alert("Incorrect email. Please try again. If you do not have an account, click the sign up link below.");
             } else {
                 sessionStorage.setItem("userId", userObject[0].id);
                 props.setUser(credentials);
@@ -40,14 +40,6 @@ const Login = (props) => {
                     className="login-input"
                     type="email"
                     id="email"
-                    required=""
-                    autoFocus="" />
-
-                <Label htmlFor="inputPassword" className="login-label"><strong>Password:</strong></Label>
-                <Input onChange={handleLoginFieldChange}
-                    className="login-input"
-                    type="password"
-                    id="password"
                     required=""
                     autoFocus="" />
             </FormGroup>
