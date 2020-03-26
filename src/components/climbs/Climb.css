@@ -83,7 +83,7 @@
 
 /* ----Climb Form Styling---- */
 
-.new-climb-form {
+.new-climb-form, .edit-climb-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -176,7 +176,7 @@
     box-shadow: 1px 1px 1px 1px gray;
 }
 
-.climb-form-add-button {
+.climb-form-add-button, .climb-form-save-button {
     margin-right: 5px;
 }
 
