@@ -3,6 +3,7 @@ import ArchiveCard from './ArchiveCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import '../climbs/Climb.css';
 import './Archive.css';
+import { Button, Card, CardTitle } from 'reactstrap';
 
 const ArchiveList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -102,11 +103,11 @@ const ArchiveList = (props) => {
         return (
             <>
                 <div className="archive-button-container">
-                    <button type="button" className="button sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</button>
-                    <button type="button" className="button sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</button>
-                    <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
+                    <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
                 </div>
-                <div className="cards-container climb-cards-container">
+                <div className="climb-cards-container">
                     {climbs.map(climb =>
                         <ArchiveCard
                             key={climb.id}
@@ -124,10 +125,12 @@ const ArchiveList = (props) => {
         return (
             <>
                 <div className="archive-button-container">
-                    <button type="button" className="button sort-climbs-button" onClick={getClimbs}>View All Climbs</button>
-                    <div>
-                        <h2>You have no archived climbs.</h2>
-                    </div>
+                    <Button type="button" className="sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
+                </div>
+                <div className="no-climbs-message-container">
+                    <Card body className="text-center no-climbs-message-card">
+                        <CardTitle className="no-climbs-message">You have no archived climbs.</CardTitle>
+                    </Card>
                 </div>
             </>
         )

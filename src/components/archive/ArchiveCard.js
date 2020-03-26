@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../climbs/Climb.css';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import AttemptCard from '../attempts/AttemptCard';
+import { Card, Button, CardTitle, CardText } from 'reactstrap';
 
 const ArchiveCard = (props) => {
     const [attempts, setAttempts] = useState([]);
@@ -17,32 +18,37 @@ const ArchiveCard = (props) => {
     }, []);
 
     return (
-        <div className="card climb-card">
-            <div className="card-content climb-card-content">
-                <h3>Type: {props.climb.type}</h3>
-                {props.climb.type === "Top Rope" ? <h3>Grade: 5.{props.climb.grade}</h3> : null}
-                {props.climb.type === "Lead" ? <h3>Grade: 5.{props.climb.grade}</h3> : null}
-                {props.climb.type === "Boulder" ? <h3>Grade: V{props.climb.grade}</h3> : null}
-                {props.climb.description !== "" ? <h3>Description: {props.climb.description}</h3> : null }
-                <h3>Attempts:</h3>
+        <div className="climb-card-div">
+            <Card body className="text-center climb-card">
+                <div className="climb-card-content">
+                    <CardTitle><strong>Type:</strong> {props.climb.type}</CardTitle>
+                    {props.climb.type === "Top Rope" ? <CardTitle><strong>Grade:</strong> 5.{props.climb.grade}</CardTitle> : null}
+                    {props.climb.type === "Lead" ? <CardTitle><strong>Grade:</strong> 5.{props.climb.grade}</CardTitle> : null}
+                    {props.climb.type === "Boulder" ? <CardTitle><strong>Grade:</strong> V{props.climb.grade}</CardTitle> : null}
+                    {props.climb.description !== "" ? <CardTitle><strong>Description:</strong> {props.climb.description}</CardTitle> : null}
+                    <CardTitle><strong>Attempts:</strong></CardTitle>
 
-                {attempts.map(attempt => 
-                        < AttemptCard
-                            key={attempt.id}
-                            attempt={attempt}
-                            {...props}
-                        />
-                )}
+                    <div className="attempt-cards-container">
+                        {attempts.map(attempt =>
+                            < AttemptCard
+                                key={attempt.id}
+                                attempt={attempt}
+                                {...props}
+                            />
+                        )}
+                    </div>
 
-                {props.climb.beta_comments !== "" ? <h3>Beta/Comments: {props.climb.beta_comments}</h3> : null }
-                <h3>Enjoyment Rating: {props.climb.rating} stars</h3>
-            </div>
-            <div className="card-buttons-container">
-                <button type="button" className="button undo-archive-button" onClick={() => props.handleUndoArchiveClimb(props.climb.id)}>Undo Archive</button>
-                <button type="button" className="button delete-button" onClick={() => {
-                    props.handleClimbDelete(props.climb.id);
-                }}>Delete</button>
-            </div>
+                    {props.climb.beta_comments !== "" ? <CardTitle><strong>Beta/Comments:</strong> {props.climb.beta_comments}</CardTitle> : null}
+                    <CardTitle><strong>Enjoyment Rating:</strong> {props.climb.rating} stars</CardTitle>
+                </div>
+
+                <div className="climb-card-buttons">
+                    <Button type="button" className="climb-button undo-archive-climb-button" size="sm" onClick={() => props.handleUndoArchiveClimb(props.climb.id)}>Undo Archive</Button>
+                    <Button type="button" className="climb-button delete-archived-climb-button" size="sm" onClick={() => {
+                        props.handleClimbDelete(props.climb.id);
+                    }}>Delete</Button>
+                </div>
+            </Card>
         </div>
     )
 };

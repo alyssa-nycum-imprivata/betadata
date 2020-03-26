@@ -1,8 +1,13 @@
-.archive-button-container {
+.undo-archive-climb-button, .delete-archived-climb-button {
+    width: 110px;
     margin-top: 5px;
 }
 
-.undo-archive-button {
-    margin-right: 10px;
+.undo-archive-climb-button {
+    margin-right: 5px;
+}
+
+.delete-archived-climb-button {
+    margin-left: 5px;
 }
 

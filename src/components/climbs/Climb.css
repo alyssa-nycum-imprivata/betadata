@@ -1,159 +1,213 @@
 :root {
     --wood-brown: #C19070;
     --almond: #ECE2D0;
-    --pearl-aqua: #7FD1B9;
     --deep-taupe: #7A6563;
     --middle-blue-green: #9AD2CB;
 }
 
-.add-button {
-    margin-top: 10px;
-    margin-left: 20px;
-}
+/* ----Climb List Styling---- */
 
-.cards-container {
-    margin-top: 20px;
-    margin-left: 20px;
+.climb-cards-container {
     display: flex;
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    
+    margin-top: 5px;
 }
 
-.card {
-    border: 1px solid black;
-    display: flex;
-    flex-wrap: wrap;
-    width: 22%;
-    margin: 5px;
-    padding: 10px;
-}
-
-/* .card-content {
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-} */
-
-.archive-button {
+.add-climb-button, .sort-climbs-button {
+    background-color: var(--deep-taupe) !important;
+    color: var(--almond) !important;
+    border: 1px solid var(--deep-taupe) !important;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    padding-left: 15px !important;
+    padding-right: 15px!important;
     margin-right: 10px;
-    margin-left: 10px;
 }
 
-.edit-button, .delete-button, .archive-button {
-    width: 60px;
+.add-climb-button:hover, .sort-climbs-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
 }
 
-/* .add-attempt-button {
-    width: 90px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-} */
+.no-climbs-message-container {
+    display:flex;
+    margin: 10px;
+}
 
-.new-climb-container, .edit-climb-container {
+.no-climbs-message-card {
+    height: 100%;
+    font-size: 30px;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    background-color: var(--almond) !important;
+}
+
+/* ----Climb Card Styling---- */
+
+.climb-card-div {
+    margin: 10px;
+    width: 25%;
+}
+
+.climb-card {
+    display: flex;
+    justify-content: space-between !important;
+    height: 100%;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    background-color: var(--almond) !important;
+}
+
+.add-attempt-button {
+    margin-bottom: 15px;
+}
+
+.attempt-cards-container {
+    margin-bottom: 10px;
+}
+
+.edit-climb-button, .delete-climb-button, .archive-climb-button {
+    width: 70px;
+    margin-top: 5px;
+}
+
+.edit-climb-button {
+    margin-right: 2.5px;
+}
+
+.archive-climb-button {
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+}
+
+.delete-climb-button {
+    margin-left: 2.5px;
+}
+
+.climb-button {
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+}
+
+.climb-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+/* ----Climb Form Styling---- */
+
+.new-climb-form, .edit-climb-form {
     display: flex;
     flex-direction: column;
-}
-
-.new-climb-container label, .edit-climb-container label {
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.new-climb-container select, .edit-climb-container select {
-    background-color: var(--almond);
-    width: 50%;
-}
-
-.add-climb-button-container, .update-climb-button-container {
-    margin-top: 15px;
-}
-
-.cancel-button {
-    margin-left: 10px;
-}
-
-textarea {
-    background-color: var(--almond);
-}
-
-/* .flashed, .clean {
-    margin-top: 15px;
-} */
-
-/* .flashed input, .clean input {
-    margin-left: 10px;
-} */
-
-.new-climb-container input {
-    background-color: var(--almond);
-}
-
-.each-attempt {
-    display: flex;
-}
-
-.each-attempt h4 {
-    margin-right: 5px;
-}
-
-.edit-attempt-button, .delete-attempt-button {
-    font-size: 8px;
-    height: 15px;
-    width: 40px;
-    align-self: center;
-    margin-left: 5px;
-}
-
-/* .each-attempt-form {
-    display: flex;
-} */
-
-/* .attempt-content {
-    display: flex;} */
-
-/* .attempt-buttons {
-    align-self: center;
-    margin-left: 15px;
-    padding-bottom: 4px;
-} */
-
-/* .each-attempt-form h4 {
-    margin-right: 2px;
-    font-weight: normal;
-    font-size: 12px;
-} */
-/* 
-.delete-attempt-button {
-    margin-left: 5px;
-} */
-
-#grade {
-    background-color: var(--almond);
-}
-
-.required-message {
-    font-size: 12px;
-}
-
-.grade-inputs {
-    display: flex;
     align-items: center;
+    background-color: var(--wood-brown);
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 50px; 
+    border-radius: .5em;
 }
 
-.grade-inputs input {
-    margin-left: 2px;
+.climb-form-header-container {
+    margin-top: 10px;
+    margin-bottom: 5px !important;
+}
+
+.climb-form-header {
+    color: var(--middle-blue-green) !important;
+    font-size: 30px;
+    text-shadow: 1px 1px 2px black;
+}
+
+.climb-form-input-container {
+    width: 70%;
+}
+
+.climb-input {
+    background-color: var(--almond) !important;
+    margin-bottom: 10px;
+}
+
+.grade-input-prefix-div {
+    display: flex;
+}
+
+.grade-input-prefix {
+    align-self: center;
     margin-right: 5px;
-    width: 40px;
 }
 
-.grade-inputs input, .grade-inputs select {
-    height: 70%;
+.type-grade-div {
+    display: flex;
+    /* justify-content: space-between; */
 }
 
-.grade-inputs select {
-    width: 30px;
+.type-div {
+    width: 20%;
+    margin-right: 30px;
 }
 
-.sort-climbs-button {
-    margin-left: 10px;
+.grade-div {
+    width: 20%;
 }
+
+#attempt_date {
+    width: 40%;
+}
+
+.attempt-div {
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.flashed-div {
+    width: 20%;
+    margin-right: 30px;
+}
+
+.attempts-div {
+    margin-right: 30px;
+    width: 40%;
+}
+
+.clean-div {
+    width: 20%;
+}
+
+#rating {
+    width: 40%;
+}
+
+.climb-form-button {
+    width: 75px;
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+}
+
+.climb-form-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.climb-form-add-button, .climb-form-save-button {
+    margin-right: 5px;
+}
+
+.climb-form-cancel-button {
+    margin-left: 5px;
+}
+
+.climb-form-note-container {
+    margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+

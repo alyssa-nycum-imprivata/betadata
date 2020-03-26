@@ -1,3 +1,8 @@
 body {
-  margin: 0;
+  margin: 0 !important;
+  background-color: #ECE2D0 !important;
+}
+
+.main-content {
+  margin: 10px;
 }

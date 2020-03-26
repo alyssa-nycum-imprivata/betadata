@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Login.css';
+import './Auth.css';
 import UserApiManager from '../../modules/UserApiManager';
-
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const Login = (props) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -30,37 +30,37 @@ const Login = (props) => {
     };
 
     return (
-        <form onSubmit={handleLogin} id="login-form">
-            <fieldset id="login-fieldset">
-                <h3 className="form form-header">Please Login</h3>
-                <div className="login-form">
+        <Form onSubmit={handleLogin} className="login-form">
+            <FormGroup className="login-form-header-container">
+                <h2 className="login-form-header">Please Login</h2>
+            </FormGroup>
+            <FormGroup className="login-form-input-container">
+                <Label htmlFor="inputEmail" className="login-label"><strong>Email Address:</strong></Label>
+                <Input onChange={handleLoginFieldChange}
+                    className="login-input"
+                    type="email"
+                    id="email"
+                    required=""
+                    autoFocus="" />
 
-                    <label className="form" htmlFor="inputEmail" id="email-label-login">Email Address:</label>
-                    <input onChange={handleLoginFieldChange}
-                        type="email"
-                        id="email"
-                        placeholder="Email Address"
-                        required=""
-                        autoFocus="" />
+                <Label htmlFor="inputPassword" className="login-label"><strong>Password:</strong></Label>
+                <Input onChange={handleLoginFieldChange}
+                    className="login-input"
+                    type="password"
+                    id="password"
+                    required=""
+                    autoFocus="" />
+            </FormGroup>
 
-                    <label className="form" htmlFor="inputPassword" id="password-label-login">Password:</label>
-                    <input onChange={handleLoginFieldChange}
-                        type="password"
-                        id="password"
-                        placeholder="Password"
-                        required=""
-                        autoFocus="" />
+            <FormGroup className="login-form-note-container">
+                <h6>If you are a new user, <Link className="signUp-link"
+                    to={"/signup"}>click here to sign up.</Link></h6>
+            </FormGroup>
 
-                </div>
-                <div id="signUp-text">
-                    <p className="form form-text">If you are a new user, <Link id="signUp-link"
-                        to={"/signup"}>click here to sign up.</Link></p>
-                </div>
-                <div className="button-div">
-                    <button type="submit" id="login-button">Login</button>
-                </div>
-            </fieldset>
-        </form>
+            <FormGroup className="login-form-button-container">
+                <Button type="submit" className="login-form-login-button" size="lg">Login</Button>
+            </FormGroup>
+        </Form>
     );
 };
 

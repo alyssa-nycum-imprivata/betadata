@@ -1,9 +1,12 @@
 :root {
     --wood-brown: #C19070;
     --almond: #ECE2D0;
-    --pearl-aqua: #7FD1B9;
     --deep-taupe: #7A6563;
     --middle-blue-green: #9AD2CB;
+}
+
+nav {
+    height: 50px;
 }
 
 .nav-links-container {
@@ -16,7 +19,6 @@ header {
     background-color: var(--deep-taupe);
     color: var(--middle-blue-green);
     padding-top: 5px;
-    padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
     text-shadow: 1px 1px 2px black;
@@ -32,10 +34,17 @@ header {
 }
 
 .nav-link:hover {
-    color: var(--almond);
+    color: var(--almond) !important;
 }
 
 .site-title {
     color: var(--middle-blue-green);
     text-decoration: none;
+    margin-bottom: 0;
+}
+
+.site-title:hover {
+    color: var(--middle-blue-green);
+    text-decoration: none;
+    text-shadow: 2px 2px 3px black;
 }

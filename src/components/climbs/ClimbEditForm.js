@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const ClimbEditForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
@@ -48,113 +49,130 @@ const ClimbEditForm = (props) => {
 
     return (
         <>
-            <form className="edit-climb-form">
-                <fieldset className="edit-climb-fieldset">
-                    <h2>Edit Climb</h2>
-                    <p className="required-message">Fields marked with * are required</p>
-                    <div className="edit-climb-container">
-                        <label htmlFor="type">*Type:</label>
-                        <select id="type"
-                            required
-                            value={climb.type}
-                            name="type"
-                            onChange={handleFieldChange}
-                        >
-                            <option value="" disabled defaultValue>Select</option>
-                            <option value="Top Rope">Top Rope</option>
-                            <option value="Lead">Lead</option>
-                            <option value="Boulder">Boulder</option>
-                        </select>
+            <Form className="edit-climb-form">
+                <FormGroup className="climb-form-header-container">
+                    <h2 className="climb-form-header">Edit Climb</h2>
+                </FormGroup>
+                <FormGroup className="climb-form-note-container">
+                    <h6>Fields marked with * are required</h6>
+                </FormGroup>
+                <FormGroup className="climb-form-input-container">
+                    <div className="type-grade-div">
+                        <div className="type-div">
+                            <Label htmlFor="type" className="climb-label"><strong>*Type:</strong></Label>
+                            <Input size="sm" id="type"
+                                type="select"
+                                className="climb-input"
+                                required
+                                value={climb.type}
+                                name="type"
+                                onChange={handleFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                <option value="Top Rope">Top Rope</option>
+                                <option value="Lead">Lead</option>
+                                <option value="Boulder">Boulder</option>
+                            </Input>
+                        </div>
 
-                        {climb.type === "Top Rope" ?
-                            <>
-                                <label htmlFor="grade">*Grade:</label>
-                                <div className="grade-inputs">
-                                    <p>5.</p><input type="text"
-                                        id="grade"
-                                        value={climb.grade}
-                                        required
-                                        onChange={handleFieldChange}
-                                    />
-                                </div>
-                            </>
-                            : null
-                        }
+                        <div className="grade-div">
+                            {climb.type === "Top Rope" ?
+                                <>
+                                    <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
+                                    <div className="grade-input-prefix-div">
+                                        <h6 className="grade-input-prefix">5.</h6><Input size="sm" type="text"
+                                            id="grade"
+                                            className="climb-input"
+                                            value={climb.grade}
+                                            required
+                                            onChange={handleFieldChange}
+                                        />
+                                    </div>
+                                </>
+                                : null
+                            }
 
-                        {climb.type === "Lead" ?
-                            <>
-                                <label htmlFor="grade">*Grade:</label>
-                                <div className="grade-inputs">
-                                    <p>5.</p><input type="text"
-                                        id="grade"
-                                        required
-                                        value={climb.grade}
-                                        onChange={handleFieldChange}
-                                    />
-                                </div>
-                            </>
-                            : null
-                        }
+                            {climb.type === "Lead" ?
+                                <>
+                                    <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
+                                    <div className="grade-input-prefix-div">
+                                        <h6 className="grade-input-prefix">5.</h6><Input size="sm" type="text"
+                                            id="grade"
+                                            className="climb-input"
+                                            required
+                                            value={climb.grade}
+                                            onChange={handleFieldChange}
+                                        />
+                                    </div>
+                                </>
+                                : null
+                            }
 
-                        {climb.type === "Boulder" ?
-                            <>
-                                <label htmlFor="grade">*Grade:</label>
-                                <div className="grade-inputs">
-                                    <p>V</p><input type="text"
-                                        id="grade"
-                                        required
-                                        value={climb.grade}
-                                        onChange={handleFieldChange}
-                                    />
-                                </div>
-                            </>
-                            : null
-                        }
-
-                        <label htmlFor="description">Description:</label>
-                        <textarea type="text"
-                            id="description"
-                            required
-                            rows="3"
-                            value={climb.description}
-                            onChange={handleFieldChange}
-                            placeholder="ex. color, rope #, wall, starting holds, etc."
-                        />
-
-                        <label htmlFor="beta_comments">Beta/Comments:</label>
-                        <textarea type="text"
-                            id="beta_comments"
-                            required
-                            rows="3"
-                            value={climb.beta_comments}
-                            onChange={handleFieldChange}
-                        />
-
-                        <label htmlFor="rating">*Enjoyment Rating:</label>
-                        <select id="rating"
-                            required
-                            value={climb.rating}
-                            name="rating"
-                            onChange={handleFieldChange}
-                        >
-                            <option value="" disabled defaultValue>Select</option>
-                            <option value="1">1 star</option>
-                            <option value="2">2 stars</option>
-                            <option value="3">3 stars</option>
-                            <option value="4">4 stars</option>
-                            <option value="5">5 stars</option>
-                        </select>
+                            {climb.type === "Boulder" ?
+                                <>
+                                    <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
+                                    <div className="grade-input-prefix-div">
+                                        <h6 className="grade-input-prefix">V</h6><Input size="sm" type="text"
+                                            id="grade"
+                                            className="climb-input"
+                                            required
+                                            value={climb.grade}
+                                            onChange={handleFieldChange}
+                                        />
+                                    </div>
+                                </>
+                                : null
+                            }
+                        </div>
                     </div>
-                    <div className="update-climb-button-container">
-                        <button type="button"
-                            disabled={isLoading}
-                            onClick={updateExistingClimb}
-                        >Save</button>
-                        <button type="button" className="cancel-button"
-                            onClick={() => { props.history.push("/climbs") }}>Cancel</button>
-                    </div>
-                </fieldset>
-            </form>
+
+                    <Label htmlFor="description" className="climb-label"><strong>Description:</strong></Label>
+                    <Input size="sm" type="textarea"
+                        id="description"
+                        className="climb-input"
+                        required
+                        rows="2"
+                        value={climb.description}
+                        onChange={handleFieldChange}
+                        placeholder="ex. color, rope #, wall, starting holds, etc."
+                    />
+
+                    <Label htmlFor="beta_comments" className="climb-label"><strong>Beta/Comments:</strong></Label>
+                    <Input size="sm" type="textarea"
+                        id="beta_comments"
+                        className="climb-input"
+                        required
+                        rows="2"
+                        value={climb.beta_comments}
+                        onChange={handleFieldChange}
+                    />
+
+                    <Label htmlFor="rating" className="climb-label"><strong>*Enjoyment Rating:</strong></Label>
+                    <Input size="sm" id="rating"
+                        type="select"
+                        className="climb-input"
+                        required
+                        value={climb.rating}
+                        name="rating"
+                        onChange={handleFieldChange}
+                    >
+                        <option value="" disabled defaultValue>Select</option>
+                        <option value="1">1 star</option>
+                        <option value="2">2 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="5">5 stars</option>
+                    </Input>
+                </FormGroup>
+
+                <FormGroup className="climb-form-button-container">
+                    <Button type="button"
+                        className="climb-form-button climb-form-save-button"
+                        disabled={isLoading} onClick={updateExistingClimb}>Save</Button>
+                    <Button type="button" className="climb-form-button climb-form-cancel-button"
+                        onClick={() => { props.history.push("/climbs") }}>Cancel</Button>
+                </FormGroup>
+            </Form>
         </>
     );
 };

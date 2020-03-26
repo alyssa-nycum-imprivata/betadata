@@ -10,7 +10,7 @@ const Navbar = (props) => {
 
     return (
         <header>
-            <h1 className="site-title">
+            <h1>
                 {props.hasUser
                 ? <Link className="site-title" to="/">BetaData</Link>
                 : "BetaData" }
