@@ -81,13 +81,112 @@
     box-shadow: 1px 1px 1px 1px gray;
 }
 
+/* ----Climb Form Styling---- */
 
+.new-climb-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--wood-brown);
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 50px; 
+    border-radius: .5em;
+}
 
+.climb-form-header-container {
+    margin-top: 10px;
+    margin-bottom: 5px !important;
+}
 
+.climb-form-header {
+    color: var(--middle-blue-green) !important;
+    font-size: 30px;
+    text-shadow: 1px 1px 2px black;
+}
 
+.climb-form-input-container {
+    width: 70%;
+}
 
+.climb-input {
+    background-color: var(--almond) !important;
+    margin-bottom: 10px;
+}
 
+.grade-input-prefix-div {
+    display: flex;
+}
 
+.grade-input-prefix {
+    align-self: center;
+    margin-right: 5px;
+}
+
+.type-grade-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.type-div {
+    width: 25%;
+}
+
+.grade-div {
+    width: 25%;
+}
+
+#attempt_date {
+    width: 40%;
+}
+
+.attempt-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flashed-div {
+    width: 25%;
+}
+
+.attempts-div {
+    margin-right: 10px;
+    width: 40%;
+}
+
+.clean-div {
+    width: 25%;
+}
+
+#rating {
+    width: 40%;
+}
+
+.climb-form-button {
+    width: 75px;
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+}
+
+.climb-form-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.climb-form-add-button {
+    margin-right: 5px;
+}
+
+.climb-form-cancel-button {
+    margin-left: 5px;
+}
+
+.climb-form-note-container {
+    margin-top: 5px;
+}
 
 
 

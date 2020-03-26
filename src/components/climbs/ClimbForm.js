@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import './Climb.css';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const ClimbForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
@@ -91,168 +92,204 @@ const ClimbForm = (props) => {
 
     return (
         <>
-            <form className="new-climb-form">
-                <fieldset className="new-climb-fieldset">
-                    <h2>Add a New Climb</h2>
-                    <p className="required-message">Fields marked with * are required</p>
-                    <div className="new-climb-container">
-                        <label htmlFor="type">*Type:</label>
-                        <select id="type"
-                            required
-                            value={climb.type}
-                            name="type"
-                            onChange={handleClimbFieldChange}
-                        >
-                            <option value="" disabled defaultValue>Select</option>
-                            <option value="Top Rope">Top Rope</option>
-                            <option value="Lead">Lead</option>
-                            <option value="Boulder">Boulder</option>
-                        </select>
-
-                        {climb.type === "Top Rope" ?
-                            <>
-                                <label htmlFor="grade">*Grade:</label>
-                                <div className="grade-inputs">
-                                    <p>5.</p><input type="text"
-                                        id="grade"
-                                        required
-                                        onChange={handleClimbFieldChange}
-                                    />
-                                </div>
-                            </>
-                            : null
-                        }
-
-                        {climb.type === "Lead" ?
-                            <>
-                                <label htmlFor="grade">*Grade:</label>
-                                <div className="grade-inputs">
-                                    <p>5.</p><input type="text"
-                                        id="grade"
-                                        required
-                                        onChange={handleClimbFieldChange}
-                                    />
-                                </div>
-                            </>
-                            : null
-                        }
-
-                        {climb.type === "Boulder" ?
-                            <>
-                                <label htmlFor="grade">*Grade:</label>
-                                <div className="grade-inputs">
-                                    <p>V</p><input type="text"
-                                        id="grade"
-                                        required
-                                        onChange={handleClimbFieldChange}
-                                    />
-                                </div>
-                            </>
-                            : null
-                        }
-
-                        {climb.type === "" ? null :
-                            <>
-                                <label htmlFor="description">Description:</label>
-                                <textarea type="text"
-                                    id="description"
-                                    rows="3"
-                                    onChange={handleClimbFieldChange}
-                                    placeholder="ex. color, rope #, wall, starting holds, etc."
-                                />
-
-                                <label htmlFor="attempt_date">*Attempt Date:</label>
-                                <input type="date"
-                                    id="attempt_date"
-                                    required
-                                    onChange={handleAttemptFieldChange}
-                                />
-
-                                <label htmlFor="is_flashed">*Flashed?:</label>
-                                <select id="is_flashed"
-                                    required
-                                    value={attempt.is_flashed}
-                                    name="is_flashed"
-                                    onChange={handleAttemptFieldChange}
-                                >
-                                    <option value="" disabled defaultValue>Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
-                                </select>
-
-                                {(attempt.is_flashed === "false" && (climb.type === "Top Rope" || climb.type === "Lead")) ?
-                                    <>
-                                        <label htmlFor="number_of_falls">*Number of Falls:</label>
-                                        <input type="number"
-                                            id="number_of_falls"
+            <Form className="new-climb-form">
+                <FormGroup className="climb-form-header-container">
+                    <h2 className="climb-form-header">Add a New Climb</h2>
+                </FormGroup>
+                <FormGroup className="climb-form-note-container">
+                    <h6>Fields marked with * are required</h6>
+                </FormGroup>
+                <FormGroup className="climb-form-input-container">
+                    <div className="type-grade-div">
+                        <div className="type-div">
+                            <Label htmlFor="type" className="climb-label"><strong>*Type:</strong></Label>
+                            <Input id="type"
+                                type="select"
+                                className="climb-input"
+                                required
+                                value={climb.type}
+                                name="type"
+                                onChange={handleClimbFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                <option value="Top Rope">Top Rope</option>
+                                <option value="Lead">Lead</option>
+                                <option value="Boulder">Boulder</option>
+                            </Input>
+                        </div>
+                        <div className="grade-div">
+                            {climb.type === "Top Rope" ?
+                                <>
+                                    <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
+                                    <div className="grade-input-prefix-div">
+                                        <h6 className="grade-input-prefix">5.</h6><Input type="text"
+                                            className="climb-input"
+                                            id="grade"
                                             required
-                                            onChange={handleAttemptFieldChange}
+                                            onChange={handleClimbFieldChange}
                                         />
-                                    </>
-                                    : null
-                                }
+                                    </div>
+                                </>
+                                : null
+                            }
+
+                            {climb.type === "Lead" ?
+                                <>
+                                    <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
+                                    <div className="grade-input-prefix-div">
+                                        <h6 className="grade-input-prefix">5.</h6><Input type="text"
+                                            className="climb-input"
+                                            id="grade"
+                                            required
+                                            onChange={handleClimbFieldChange}
+                                        />
+                                    </div>
+                                </>
+                                : null
+                            }
+
+                            {climb.type === "Boulder" ?
+                                <>
+                                    <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
+                                    <div className="grade-input-prefix-div">
+                                        <h6 className="grade-input-prefix">V</h6><Input type="text"
+                                            className="climb-input"
+                                            id="grade"
+                                            required
+                                            onChange={handleClimbFieldChange}
+                                        />
+                                    </div>
+                                </>
+                                : null
+                            }
+                        </div>
+                    </div>
+
+                    {climb.type === "" ? null :
+                        <>
+                            <Label htmlFor="description" className="climb-label"><strong>Description:</strong></Label>
+                            <Input type="textarea"
+                                id="description"
+                                className="climb-input"
+                                rows="2"
+                                onChange={handleClimbFieldChange}
+                                placeholder="ex. color, rope #, wall, starting holds, etc."
+                            />
+
+                            <Label htmlFor="attempt_date" className="climb-label"><strong>*Attempt Date:</strong></Label>
+                            <Input type="date"
+                                className="climb-input"
+                                id="attempt_date"
+                                required
+                                onChange={handleAttemptFieldChange}
+                            />
+
+                            <div className="attempt-div">
+                                <div className="flashed-div">
+                                    <Label htmlFor="is_flashed" className="climb-label"><strong>*Flashed?:</strong></Label>
+                                    <Input id="is_flashed"
+                                        type="select"
+                                        className="climb-input"
+                                        required
+                                        value={attempt.is_flashed}
+                                        name="is_flashed"
+                                        onChange={handleAttemptFieldChange}
+                                    >
+                                        <option value="" disabled defaultValue>Select</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </Input>
+                                </div>
+
+                                <div className="falls-div">
+                                    {(attempt.is_flashed === "false" && (climb.type === "Top Rope" || climb.type === "Lead")) ?
+                                        <>
+                                            <Label htmlFor="number_of_falls" className="climb-label"><strong>*Number of Falls:</strong></Label>
+                                            <Input type="number"
+                                                className="climb-input"
+                                                id="number_of_falls"
+                                                required
+                                                onChange={handleAttemptFieldChange}
+                                            />
+                                        </>
+                                        : null
+                                    }
+                                </div>
 
                                 {(attempt.is_flashed === "false" && climb.type === "Boulder") ?
                                     <>
-                                        <label htmlFor="number_of_attempts">*Number of Attempts:</label>
-                                        <input type="number"
-                                            id="number_of_attempts"
-                                            required
-                                            onChange={handleAttemptFieldChange}
-                                        />
-                                        <label htmlFor="is_clean">*Cleaned?:</label>
-                                        <select id="is_clean"
-                                            required
-                                            value={attempt.is_clean}
-                                            name="is_clean"
-                                            onChange={handleAttemptFieldChange}
-                                        >
-                                            <option value="" disabled defaultValue>Select</option>
-                                            <option value="true">Yes</option>
-                                            <option value="false">No</option>
-                                        </select>
+                                        <div className="attempts-div">
+                                            <Label htmlFor="number_of_attempts" className="climb-label"><strong>*Number of Attempts:</strong></Label>
+                                            <Input type="number"
+                                                className="climb-input"
+                                                id="number_of_attempts"
+                                                required
+                                                onChange={handleAttemptFieldChange}
+                                            />
+                                        </div>
+                                        <div className="clean-div">
+                                            <Label htmlFor="is_clean" className="climb-label"><strong>*Cleaned?:</strong></Label>
+                                            <Input id="is_clean"
+                                                type="select"
+                                                className="climb-input"
+                                                required
+                                                value={attempt.is_clean}
+                                                name="is_clean"
+                                                onChange={handleAttemptFieldChange}
+                                            >
+                                                <option value="" disabled defaultValue>Select</option>
+                                                <option value="true">Yes</option>
+                                                <option value="false">No</option>
+                                            </Input>
+                                        </div>
                                     </>
                                     : null
                                 }
+                            </div>
 
-                                <label htmlFor="beta_comments">Beta/Comments:</label>
-                                <textarea type="text"
-                                    id="beta_comments"
-                                    rows="3"
-                                    onChange={handleClimbFieldChange}
-                                />
+                            <Label htmlFor="beta_comments" className="climb-label"><strong>Beta/Comments:</strong></Label>
+                            <Input type="textarea"
+                                className="climb-input"
+                                id="beta_comments"
+                                rows="2"
+                                onChange={handleClimbFieldChange}
+                            />
 
-                                <label htmlFor="rating">*Enjoyment Rating:</label>
-                                <select id="rating"
-                                    required
-                                    value={climb.rating}
-                                    name="rating"
-                                    onChange={handleClimbFieldChange}
-                                >
-                                    <option value="" disabled defaultValue>Select</option>
-                                    <option value="1">1 star</option>
-                                    <option value="2">2 stars</option>
-                                    <option value="3">3 stars</option>
-                                    <option value="4">4 stars</option>
-                                    <option value="5">5 stars</option>
-                                </select>
+                            <Label htmlFor="rating" className="climb-label"><strong>*Enjoyment Rating:</strong></Label>
+                            <Input id="rating"
+                                type="select"
+                                className="climb-input"
+                                required
+                                value={climb.rating}
+                                name="rating"
+                                onChange={handleClimbFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                <option value="1">1 star</option>
+                                <option value="2">2 stars</option>
+                                <option value="3">3 stars</option>
+                                <option value="4">4 stars</option>
+                                <option value="5">5 stars</option>
+                            </Input>
+                        </>
+                    }
+                </FormGroup>
 
-
-                                <div className="add-climb-button-container">
-                                    <button type="button"
-                                        disabled={isLoading}
-                                        onClick={constructNewClimbWithFirstAttempt}
-                                    >Add</button>
-                                    <button type="button"
-                                        className="cancel-button"
-                                        onClick={() => { props.history.push("/climbs") }}>Cancel</button>
-                                </div>
-                            </>
-                        }
-
-                    </div>
-                </fieldset>
-            </form>
+                <FormGroup className="climb-form-button-container">
+                    {climb.type === "" ? null :
+                        <>
+                            <Button type="button"
+                                className="climb-form-button climb-form-add-button"
+                                disabled={isLoading}
+                                onClick={constructNewClimbWithFirstAttempt}
+                            >Add</Button>
+                            <Button type="button"
+                                className="climb-form-button climb-form-cancel-button"
+                                onClick={() => { props.history.push("/climbs") }}>Cancel</Button>
+                        </>
+                    }
+                </FormGroup>
+            </Form>
         </>
     );
 };
