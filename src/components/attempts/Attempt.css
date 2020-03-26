@@ -48,7 +48,7 @@
 
 /* ----Attempt Form Styling---- */
 
-.new-attempt-form {
+.new-attempt-form, .edit-attempt-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -76,7 +76,7 @@
     width: 70%;
 }
 
-.new-attempt-input {
+.new-attempt-input, .edit-attempt-input {
     background-color: var(--almond) !important;
     margin-bottom: 10px;
     width: 100% !important;
@@ -93,12 +93,12 @@
     box-shadow: 1px 1px 1px 1px gray;
 }
 
-.attempt-form-add-button, .attempt-form-cancel-button {
+.attempt-form-add-button, .attempt-form-cancel-button, .attempt-form-save-button {
     width: 70px;
     margin-top: 5px;
 }
 
-.attempt-form-add-button {
+.attempt-form-add-button, .attempt-form-save-button {
     margin-right: 5px;
 }
 

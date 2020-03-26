@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import ClimbApiManager from '../../modules/ClimbApiManager';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import './Attempt.css';
 
 const AttemptEditForm = (props) => {
     const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, number_of_attempts: 0, is_flashed: "", is_clean: "", created_on: "" });
@@ -19,7 +21,7 @@ const AttemptEditForm = (props) => {
             window.alert("Please fill out all fields.");
         } else if ((attempt.is_flashed === false || attempt.is_flashed === "false") && attempt.number_of_falls <= 0 && (climb.type === "Top Rope" || climb.type === "Lead")) {
             window.alert("If climb was not flashed, please enter at least 1 fall.");
-        } else if ((attempt.is_clean === "false" || attempt.is_clean === false) && attempt.number_of_falls <= 0 && (climb.type === "Top Rope" || climb.type === "Lead")){
+        } else if ((attempt.is_clean === "false" || attempt.is_clean === false) && attempt.number_of_falls <= 0 && (climb.type === "Top Rope" || climb.type === "Lead")) {
             window.alert("If climb was not cleaned, please enter at least 1 fall.");
         } else if ((attempt.is_flashed === false || attempt.is_flashed === "false") && attempt.number_of_attempts <= 0 && climb.type === "Boulder") {
             window.alert("Please enter at least 1 attempt");
@@ -91,144 +93,159 @@ const AttemptEditForm = (props) => {
 
     return (
         <>
-            <form className="edit-attempt-form">
-                <fieldset className="edit-attempt-fieldset">
-                    <h2>Edit Attempt</h2>
-                    <div className="edit-attempt-container">
-                        <label htmlFor="attempt_date">Attempt Date:</label>
-                        <input type="date"
-                            id="attempt_date"
-                            required
-                            value={attempt.attempt_date}
-                            onChange={handleFieldChange}
-                        />
+            <Form className="edit-attempt-form">
+                <FormGroup className="attempt-form-header-container">
+                    <h2 className="attempt-form-header">Edit Attempt</h2>
+                </FormGroup>
+                <FormGroup className="attempt-form-input-container">
+                    <Label htmlFor="attempt_date" className="edit-attempt-label"><strong>Attempt Date:</strong></Label>
+                    <Input type="date"
+                        className="edit-attempt-input"
+                        id="attempt_date"
+                        required
+                        value={attempt.attempt_date}
+                        onChange={handleFieldChange}
+                    />
 
-                        {attempt.is_flashed !== "" && (climb.type === "Top Rope" || climb.type === "Lead") ?
-                            <>
-                                <label htmlFor="is_flashed">Flashed?:</label>
-                                <select id="is_flashed"
-                                    required
-                                    value={attempt.is_flashed}
-                                    name="is_flashed"
-                                    onChange={handleFieldChange}
-                                >
-                                    <option value="" disabled defaultValue>Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
-                                </select>
-                                {attempt.is_flashed === false || attempt.is_flashed === "false" ?
+                    {attempt.is_flashed !== "" && (climb.type === "Top Rope" || climb.type === "Lead") ?
+                        <>
+                            <Label htmlFor="is_flashed" className="edit-attempt-label"><strong>Flashed?:</strong></Label>
+                            <Input id="is_flashed"
+                                type="select"
+                                className="edit-attempt-input"
+                                required
+                                value={attempt.is_flashed}
+                                name="is_flashed"
+                                onChange={handleFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </Input>
+                            {attempt.is_flashed === false || attempt.is_flashed === "false" ?
                                 <>
-                                <label htmlFor="number_of_falls">Number of Falls:</label>
-                                <input type="number"
-                                    id="number_of_falls"
-                                    required
-                                    value={attempt.number_of_falls}
-                                    onChange={handleFieldChange}
-                                />
+                                    <Label htmlFor="number_of_falls" className="edit-attempt-label"><strong>Number of Falls:</strong></Label>
+                                    <Input type="number"
+                                        className="edit-attempt-input"
+                                        id="number_of_falls"
+                                        required
+                                        value={attempt.number_of_falls}
+                                        onChange={handleFieldChange}
+                                    />
                                 </>
                                 : null}
-                            </>
-                            : null
-                        }
+                        </>
+                        : null
+                    }
 
-                        {attempt.is_flashed !== "" && climb.type === "Boulder" ?
-                            <>
-                                <label htmlFor="is_flashed">Flashed?:</label>
-                                <select id="is_flashed"
-                                    required
-                                    value={attempt.is_flashed}
-                                    name="is_flashed"
-                                    onChange={handleFieldChange}
-                                >
-                                    <option value="" disabled defaultValue>Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
-                                </select>
-                                {attempt.is_flashed === "false" || attempt.is_flashed === false ?
+                    {attempt.is_flashed !== "" && climb.type === "Boulder" ?
+                        <>
+                            <Label htmlFor="is_flashed" className="edit-attempt-label"><strong>Flashed?:</strong></Label>
+                            <Input id="is_flashed"
+                                type="select"
+                                className="edit-attempt-input"
+                                required
+                                value={attempt.is_flashed}
+                                name="is_flashed"
+                                onChange={handleFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </Input>
+                            {attempt.is_flashed === "false" || attempt.is_flashed === false ?
                                 <>
-                                <label htmlFor="number_of_attempts">Number of Attempts:</label>
-                                <input type="number"
-                                    id="number_of_attempts"
-                                    required
-                                    value={attempt.number_of_attempts}
-                                    onChange={handleFieldChange}
-                                />
-                                <label htmlFor="is_clean">Cleaned?:</label>
-                                <select id="is_clean"
-                                    required
-                                    value={attempt.is_clean}
-                                    name="is_clean"
-                                    onChange={handleFieldChange}
-                                >
-                                    <option value="" disabled defaultValue>Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
-                                </select>
+                                    <Label htmlFor="number_of_attempts" className="edit-attempt-label"><strong>Number of Attempts:</strong></Label>
+                                    <Input type="number"
+                                        className="edit-attempt-input"
+                                        id="number_of_attempts"
+                                        required
+                                        value={attempt.number_of_attempts}
+                                        onChange={handleFieldChange}
+                                    />
+                                    <Label htmlFor="is_clean" className="edit-attempt-label"><strong>Cleaned?:</strong></Label>
+                                    <Input id="is_clean"
+                                        type="select"
+                                        className="edit-attempt-input"
+                                        required
+                                        value={attempt.is_clean}
+                                        name="is_clean"
+                                        onChange={handleFieldChange}
+                                    >
+                                        <option value="" disabled defaultValue>Select</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </Input>
                                 </>
-                                : null }
-                            </>
-                            : null
-                        }
+                                : null}
+                        </>
+                        : null
+                    }
 
-                        {attempt.is_flashed === "" && (climb.type === "Top Rope" || climb.type === "Lead") ?
-                            <>
-                                <label htmlFor="is_clean">Cleaned?:</label>
-                                <select id="is_clean"
-                                    required
-                                    value={attempt.is_clean}
-                                    name="is_clean"
-                                    onChange={handleFieldChange}
-                                >
-                                    <option value="" disabled defaultValue>Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
-                                </select>
-                                {attempt.is_clean === "false" || attempt.is_clean === false ?
+                    {attempt.is_flashed === "" && (climb.type === "Top Rope" || climb.type === "Lead") ?
+                        <>
+                            <Label htmlFor="is_clean" className="edit-attempt-label"><strong>Cleaned?:</strong></Label>
+                            <Input id="is_clean"
+                                type="select"
+                                className="edit-attempt-input"
+                                required
+                                value={attempt.is_clean}
+                                name="is_clean"
+                                onChange={handleFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </Input>
+                            {attempt.is_clean === "false" || attempt.is_clean === false ?
                                 <>
-                                <label htmlFor="number_of_falls">Number of Falls:</label>
-                                <input type="number"
-                                    id="number_of_falls"
-                                    required
-                                    value={attempt.number_of_falls}
-                                    onChange={handleFieldChange}
-                                />
+                                    <Label htmlFor="number_of_falls" className="edit-attempt-label"><strong>Number of Falls:</strong></Label>
+                                    <Input type="number"
+                                        className="edit-attempt-input"
+                                        id="number_of_falls"
+                                        required
+                                        value={attempt.number_of_falls}
+                                        onChange={handleFieldChange}
+                                    />
                                 </>
-                                : null }
-                            </>
-                            : null
-                        }
+                                : null}
+                        </>
+                        : null
+                    }
 
-                        {attempt.is_flashed === "" && climb.type === "Boulder" ?
-                            <>
-                                <label htmlFor="number_of_attempts">Number of Attempts:</label>
-                                <input type="number"
-                                    id="number_of_attempts"
-                                    required
-                                    value={attempt.number_of_attempts}
-                                    onChange={handleFieldChange}
-                                />
-                                <label htmlFor="is_clean">Cleaned?:</label>
-                                <select id="is_clean"
-                                    required
-                                    value={attempt.is_clean}
-                                    name="is_clean"
-                                    onChange={handleFieldChange}
-                                >
-                                    <option value="" disabled defaultValue>Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
-                                </select>
-                            </>
-                            : null
-                        }
+                    {attempt.is_flashed === "" && climb.type === "Boulder" ?
+                        <>
+                            <Label htmlFor="number_of_attempts" className="edit-attempt-label"><strong>Number of Attempts:</strong></Label>
+                            <Input type="number"
+                                className="edit-attempt-input"
+                                id="number_of_attempts"
+                                required
+                                value={attempt.number_of_attempts}
+                                onChange={handleFieldChange}
+                            />
+                            <Label htmlFor="is_clean" className="edit-attempt-label"><strong>Cleaned?:</strong></Label>
+                            <Input id="is_clean"
+                                type="select"
+                                className="edit-attempt-input"
+                                required
+                                value={attempt.is_clean}
+                                name="is_clean"
+                                onChange={handleFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </Input>
+                        </>
+                        : null
+                    }
+                </FormGroup>
 
-                    </div>
-                    <div className="add-attempt-button-container">
-                        <button type="button" disabled={isLoading} onClick={updateExistingAttempt}>Save</button>
-                        <button type="button" className="cancel-button" onClick={() => { props.history.push("/climbs") }}>Cancel</button>
-                    </div>
-                </fieldset>
-            </form>
+                <FormGroup className="attempt-form-button-container">
+                    <Button type="button" className="attempt-form-button attempt-form-save-button" disabled={isLoading} onClick={updateExistingAttempt}>Save</Button>
+                    <Button type="button" className="attempt-form-button attempt-form-cancel-button" onClick={() => { props.history.push("/climbs") }}>Cancel</Button>
+                </FormGroup>
+            </Form>
         </>
     );
 };
