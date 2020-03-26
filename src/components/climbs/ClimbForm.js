@@ -103,7 +103,7 @@ const ClimbForm = (props) => {
                     <div className="type-grade-div">
                         <div className="type-div">
                             <Label htmlFor="type" className="climb-label"><strong>*Type:</strong></Label>
-                            <Input id="type"
+                            <Input size="sm" id="type"
                                 type="select"
                                 className="climb-input"
                                 required
@@ -122,7 +122,7 @@ const ClimbForm = (props) => {
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">5.</h6><Input type="text"
+                                        <h6 className="grade-input-prefix">5.</h6><Input size="sm" type="text"
                                             className="climb-input"
                                             id="grade"
                                             required
@@ -137,7 +137,7 @@ const ClimbForm = (props) => {
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">5.</h6><Input type="text"
+                                        <h6 className="grade-input-prefix">5.</h6><Input size="sm" type="text"
                                             className="climb-input"
                                             id="grade"
                                             required
@@ -152,7 +152,7 @@ const ClimbForm = (props) => {
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">V</h6><Input type="text"
+                                        <h6 className="grade-input-prefix">V</h6><Input size="sm" type="text"
                                             className="climb-input"
                                             id="grade"
                                             required
@@ -168,7 +168,7 @@ const ClimbForm = (props) => {
                     {climb.type === "" ? null :
                         <>
                             <Label htmlFor="description" className="climb-label"><strong>Description:</strong></Label>
-                            <Input type="textarea"
+                            <Input size="sm" type="textarea"
                                 id="description"
                                 className="climb-input"
                                 rows="2"
@@ -177,7 +177,7 @@ const ClimbForm = (props) => {
                             />
 
                             <Label htmlFor="attempt_date" className="climb-label"><strong>*Attempt Date:</strong></Label>
-                            <Input type="date"
+                            <Input size="sm" type="date"
                                 className="climb-input"
                                 id="attempt_date"
                                 required
@@ -187,7 +187,7 @@ const ClimbForm = (props) => {
                             <div className="attempt-div">
                                 <div className="flashed-div">
                                     <Label htmlFor="is_flashed" className="climb-label"><strong>*Flashed?:</strong></Label>
-                                    <Input id="is_flashed"
+                                    <Input size="sm" id="is_flashed"
                                         type="select"
                                         className="climb-input"
                                         required
@@ -205,7 +205,7 @@ const ClimbForm = (props) => {
                                     {(attempt.is_flashed === "false" && (climb.type === "Top Rope" || climb.type === "Lead")) ?
                                         <>
                                             <Label htmlFor="number_of_falls" className="climb-label"><strong>*Number of Falls:</strong></Label>
-                                            <Input type="number"
+                                            <Input size="sm" type="number"
                                                 className="climb-input"
                                                 id="number_of_falls"
                                                 required
@@ -220,7 +220,7 @@ const ClimbForm = (props) => {
                                     <>
                                         <div className="attempts-div">
                                             <Label htmlFor="number_of_attempts" className="climb-label"><strong>*Number of Attempts:</strong></Label>
-                                            <Input type="number"
+                                            <Input size="sm" type="number"
                                                 className="climb-input"
                                                 id="number_of_attempts"
                                                 required
@@ -229,7 +229,7 @@ const ClimbForm = (props) => {
                                         </div>
                                         <div className="clean-div">
                                             <Label htmlFor="is_clean" className="climb-label"><strong>*Cleaned?:</strong></Label>
-                                            <Input id="is_clean"
+                                            <Input size="sm" id="is_clean"
                                                 type="select"
                                                 className="climb-input"
                                                 required
@@ -248,7 +248,7 @@ const ClimbForm = (props) => {
                             </div>
 
                             <Label htmlFor="beta_comments" className="climb-label"><strong>Beta/Comments:</strong></Label>
-                            <Input type="textarea"
+                            <Input size="sm" type="textarea"
                                 className="climb-input"
                                 id="beta_comments"
                                 rows="2"
@@ -256,7 +256,7 @@ const ClimbForm = (props) => {
                             />
 
                             <Label htmlFor="rating" className="climb-label"><strong>*Enjoyment Rating:</strong></Label>
-                            <Input id="rating"
+                            <Input size="sm" id="rating"
                                 type="select"
                                 className="climb-input"
                                 required
