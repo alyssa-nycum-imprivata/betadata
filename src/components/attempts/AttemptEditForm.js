@@ -83,7 +83,19 @@ const AttemptEditForm = (props) => {
     useEffect(() => {
         AttemptApiManager.getAttemptById(props.match.params.attemptId)
             .then(attempt => {
-                setAttempt(attempt);
+
+                const attemptDateFormatted = moment(attempt.attempt_date).format().split("T")[0]
+
+                setAttempt({
+                    id: attempt.id,
+                    climbId: attempt.climbId,
+                    attempt_date: attemptDateFormatted,
+                    number_of_falls: attempt.number_of_falls,
+                    number_of_attempts: attempt.number_of_attempts,
+                    is_flashed: attempt.is_flashed,
+                    is_clean: attempt.is_clean,
+                    created_on: attempt.created_on
+                });
                 ClimbApiManager.getClimbById(attempt.climbId)
                     .then(climb => {
                         setClimb(climb);
