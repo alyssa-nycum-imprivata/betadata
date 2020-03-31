@@ -3,6 +3,7 @@ import ClimbApiManager from '../../modules/ClimbApiManager';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import './Climb.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import * as moment from "moment";
 
 const ClimbForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
@@ -45,7 +46,7 @@ const ClimbForm = (props) => {
                 description: climb.description,
                 beta_comments: climb.beta_comments,
                 rating: parseInt(climb.rating),
-                created_on: new Date(),
+                created_on: moment().format('L') + " " + moment().format('LTS'),
                 is_archived: false
             };
 
@@ -73,12 +74,12 @@ const ClimbForm = (props) => {
 
             const newAttempt = {
                 id: props.match.params.attemptId,
-                attempt_date: attempt.attempt_date,
+                attempt_date: moment(attempt.attempt_date).format('L'),
                 number_of_falls: parseInt(attempt.number_of_falls),
                 number_of_attempts: parseInt(attempt.number_of_attempts),
                 is_flashed: JSON.parse(attempt.is_flashed),
                 is_clean: attempt.is_clean,
-                created_on: new Date(),
+                created_on: moment().format('L') + " " + moment().format('LTS')
             }
 
             ClimbApiManager.postClimb(newClimb)

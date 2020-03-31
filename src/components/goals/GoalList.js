@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GoalCard from './GoalCard';
 import GoalApiManager from '../../modules/GoalApiManager';
 import { Button, Card, CardTitle } from 'reactstrap';
+import * as moment from "moment";
 
 const GoalList = (props) => {
     const [goals, setGoals] = useState([]);
@@ -23,7 +24,7 @@ const GoalList = (props) => {
                 id: goalId,
                 userId: activeUserId,
                 goal_content: goal.goal_content,
-                complete_by: goal.complete_by,
+                complete_by: moment(goal.complete_by).format('L'),
                 is_complete: false,
                 completed_on: ""
             };

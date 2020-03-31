@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import * as moment from "moment";
 
 const ClimbEditForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
@@ -30,7 +31,7 @@ const ClimbEditForm = (props) => {
                 description: climb.description,
                 beta_comments: climb.beta_comments,
                 rating: parseInt(climb.rating),
-                created_on: new Date(),
+                created_on: moment().format('L') + " " + moment().format('LTS'),
                 is_archived: false
             };
 
