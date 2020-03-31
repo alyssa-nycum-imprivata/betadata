@@ -3,6 +3,7 @@ import AttemptApiManager from '../../modules/AttemptApiManager';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import './Attempt.css';
+import * as moment from "moment";
 
 const AttemptEditForm = (props) => {
     const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", number_of_falls: 0, number_of_attempts: 0, is_flashed: "", is_clean: "", created_on: "" });
@@ -66,12 +67,12 @@ const AttemptEditForm = (props) => {
             const editedAttempt = {
                 id: props.match.params.attemptId,
                 climbId: attempt.climbId,
-                attempt_date: attempt.attempt_date,
+                attempt_date: moment(attempt.attempt_date).format('L'),
                 number_of_falls: parseInt(attempt.number_of_falls),
                 number_of_attempts: parseInt(attempt.number_of_attempts),
                 is_flashed: attempt.is_flashed,
                 is_clean: attempt.is_clean,
-                created_on: new Date()
+                created_on: moment().format('L') + " " + moment().format('LTS'),
             };
 
             AttemptApiManager.putAttempt(editedAttempt)
@@ -82,7 +83,19 @@ const AttemptEditForm = (props) => {
     useEffect(() => {
         AttemptApiManager.getAttemptById(props.match.params.attemptId)
             .then(attempt => {
-                setAttempt(attempt);
+
+                const attemptDateFormatted = moment(attempt.attempt_date).format().split("T")[0]
+
+                setAttempt({
+                    id: attempt.id,
+                    climbId: attempt.climbId,
+                    attempt_date: attemptDateFormatted,
+                    number_of_falls: attempt.number_of_falls,
+                    number_of_attempts: attempt.number_of_attempts,
+                    is_flashed: attempt.is_flashed,
+                    is_clean: attempt.is_clean,
+                    created_on: attempt.created_on
+                });
                 ClimbApiManager.getClimbById(attempt.climbId)
                     .then(climb => {
                         setClimb(climb);

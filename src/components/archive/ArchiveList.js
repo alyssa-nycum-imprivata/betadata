@@ -14,7 +14,10 @@ const ArchiveList = (props) => {
     const getClimbs = () => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             const archivedClimbs = climbsFromApi.filter(climb => climb.is_archived === true)
-            setClimbs(archivedClimbs);
+            const sortedClimbs= archivedClimbs.sort((a,b) => {
+                return new Date(b.created_on) - new Date(a.created_on)
+            })
+            setClimbs(sortedClimbs);
         });
     };
 

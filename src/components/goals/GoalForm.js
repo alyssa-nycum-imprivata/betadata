@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import GoalApiManager from '../../modules/GoalApiManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import * as moment from "moment";
 
 const GoalForm = (props) => {
     const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: false, completed_on: "" });
@@ -25,7 +26,7 @@ const GoalForm = (props) => {
                 id: props.match.params.goalId,
                 userId: activeUserId,
                 goal_content: goal.goal_content,
-                complete_by: goal.complete_by,
+                complete_by: moment(goal.complete_by).format('L'),
                 is_complete: false,
                 completed_on: ""
             };

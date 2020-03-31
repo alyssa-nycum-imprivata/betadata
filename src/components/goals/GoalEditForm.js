@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GoalApiManager from '../../modules/GoalApiManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import * as moment from "moment";
 
 const GoalEditForm = (props) => {
     const [goal, setGoal] = useState({ userId: "", goal_content: "", complete_by: "", is_complete: "", completed_on: "" });
@@ -25,9 +26,9 @@ const GoalEditForm = (props) => {
                 id: parseInt(props.match.params.goalId),
                 userId: activeUserId,
                 goal_content: goal.goal_content,
-                complete_by: goal.complete_by,
+                complete_by: moment(goal.complete_by).format('L'),
                 is_complete: goal.is_complete,
-                completed_on: goal.completed_on
+                completed_on: goal.completed_on === "" ? "" : moment(goal.completed_on).format('L')
             };
 
             GoalApiManager.putGoal(editedGoal)
@@ -38,7 +39,18 @@ const GoalEditForm = (props) => {
     useEffect(() => {
         GoalApiManager.getGoalById(props.match.params.goalId)
             .then(goal => {
-                setGoal(goal);
+
+                const completeByFormatted = moment(goal.complete_by).format().split("T")[0]
+                const completedOnFormatted = moment(goal.completed_on).format().split("T")[0]
+
+                setGoal({
+                    id: goal.id,
+                    userId: goal.userId,
+                    goal_content: goal.goal_content,
+                    complete_by: completeByFormatted,
+                    is_complete: goal.is_complete,
+                    completed_on: goal.completed_on === "" ? "" : completedOnFormatted
+                });
                 setIsLoading(false)
             });
     }, []);

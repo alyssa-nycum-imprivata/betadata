@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import * as moment from "moment";
 
 const ClimbEditForm = (props) => {
     const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
@@ -30,7 +31,7 @@ const ClimbEditForm = (props) => {
                 description: climb.description,
                 beta_comments: climb.beta_comments,
                 rating: parseInt(climb.rating),
-                created_on: new Date(),
+                created_on: moment().format('L') + " " + moment().format('LTS'),
                 is_archived: false
             };
 
@@ -60,7 +61,7 @@ const ClimbEditForm = (props) => {
                     <div className="type-grade-div">
                         <div className="type-div">
                             <Label htmlFor="type" className="climb-label"><strong>*Type:</strong></Label>
-                            <Input size="sm" id="type"
+                            <Input bsSize="sm" id="type"
                                 type="select"
                                 className="climb-input"
                                 required
@@ -80,7 +81,7 @@ const ClimbEditForm = (props) => {
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">5.</h6><Input size="sm" type="text"
+                                        <h6 className="grade-input-prefix">5.</h6><Input bsSize="sm" type="text"
                                             id="grade"
                                             className="climb-input"
                                             value={climb.grade}
@@ -96,7 +97,7 @@ const ClimbEditForm = (props) => {
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">5.</h6><Input size="sm" type="text"
+                                        <h6 className="grade-input-prefix">5.</h6><Input bsSize="sm" type="text"
                                             id="grade"
                                             className="climb-input"
                                             required
@@ -112,7 +113,7 @@ const ClimbEditForm = (props) => {
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">V</h6><Input size="sm" type="text"
+                                        <h6 className="grade-input-prefix">V</h6><Input bsSize="sm" type="text"
                                             id="grade"
                                             className="climb-input"
                                             required
@@ -127,7 +128,7 @@ const ClimbEditForm = (props) => {
                     </div>
 
                     <Label htmlFor="description" className="climb-label"><strong>Description:</strong></Label>
-                    <Input size="sm" type="textarea"
+                    <Input bsSize="sm" type="textarea"
                         id="description"
                         className="climb-input"
                         required
@@ -138,7 +139,7 @@ const ClimbEditForm = (props) => {
                     />
 
                     <Label htmlFor="beta_comments" className="climb-label"><strong>Beta/Comments:</strong></Label>
-                    <Input size="sm" type="textarea"
+                    <Input bsSize="sm" type="textarea"
                         id="beta_comments"
                         className="climb-input"
                         required
@@ -148,7 +149,7 @@ const ClimbEditForm = (props) => {
                     />
 
                     <Label htmlFor="rating" className="climb-label"><strong>*Enjoyment Rating:</strong></Label>
-                    <Input size="sm" id="rating"
+                    <Input bsSize="sm" id="rating"
                         type="select"
                         className="climb-input"
                         required

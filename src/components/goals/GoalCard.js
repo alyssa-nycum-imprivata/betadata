@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Goal.css';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
+import * as moment from "moment";
 
 const GoalCard = (props) => {
     const [backgroundColor, setBackgroundColor] = useState();
@@ -14,17 +15,7 @@ const GoalCard = (props) => {
     }, [props.goal.is_complete]);
 
     useEffect(() => {
-        const localTime = new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })
-        let month = localTime.split("/")[0]
-        if (month.length < 2) {
-            month = "0" + month
-        }
-        let day = localTime.split("/")[1]
-        if (day.length < 2) {
-            day = "0" + day
-        }
-        let year = localTime.split("/")[2].split(",")[0]
-        const currentDate = year + "-" + month + "-" + day
+        const currentDate = moment().format('L')
         if (props.goal.complete_by < currentDate && props.goal.is_complete === false) {
             setBackgroundColor({ backgroundColor: '#C19070' })
         }
