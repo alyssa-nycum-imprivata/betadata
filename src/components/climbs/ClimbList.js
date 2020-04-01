@@ -197,12 +197,29 @@ const ClimbList = (props) => {
                                     onChange={getFilteredProperties}
                                 >
                                     <option value="" defaultValue>Select</option>
-                                    <option value="all">All</option>
                                     <option value="type=Top Rope">Top Rope</option>
                                     <option value="type=Lead">Lead</option>
                                     <option value="type=Top Rope&type=Lead">Top Rope and Lead</option>
                                     <option value="type=Boulder">Boulder</option>
+                                    <option value="all">All</option>
                                 </Input>
+
+                                <Label htmlFor="ratingFilter" className="climb-label">By Enjoyment Rating</Label>
+                                <Input bsSize="sm" id="ratingFilter"
+                                    type="select"
+                                    className="climb-input"
+                                    name="ratingFilter"
+                                    onChange={getFilteredProperties}
+                                >
+                                    <option value="" defaultValue>Select</option>
+                                    <option value="rating=1">1 star</option>
+                                    <option value="rating=2">2 stars</option>
+                                    <option value="rating=3">3 stars</option>
+                                    <option value="rating=4">4 stars</option>
+                                    <option value="rating=5">5 stars</option>
+                                    <option value="all">All</option>
+                                </Input>
+
                             </FormGroup>
                         </Form>
                     }
