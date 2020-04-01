@@ -3,6 +3,7 @@ import ClimbCard from './ClimbCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
 import { Button, Card, CardTitle, Form, FormGroup, Input, Label } from 'reactstrap';
+import ArchiveCard from '../archive/ArchiveCard';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -37,10 +38,10 @@ const ClimbList = (props) => {
         const filteredValuesArray = valuesArray.filter(value => value !== "" && value !== "all")
         console.log(filteredValuesArray)
         ClimbApiManager.getClimbsByFilter(activeUserId, filteredValuesArray).then(climbsFromApi => {
-            setClimbs(climbsFromApi)
+            sortClimbsByCreatedOnDate(climbsFromApi)
         })
     }
- 
+
     const handleFilterClimbsForm = () => {
         setIsFiltering(true);
     };
@@ -128,6 +129,30 @@ const ClimbList = (props) => {
             }));
     };
 
+// ******* STILL NEED TO FIX UNDO ARCHIVE FUNCTIONALITY *******
+
+    const handleUndoArchiveClimb = (climbId) => {
+        setIsLoading(true);
+        ClimbApiManager.getClimbById(climbId).then(climb => {
+
+            const activeClimb = {
+                id: climbId,
+                userId: activeUserId,
+                type: climb.type,
+                grade: climb.grade,
+                description: climb.description,
+                beta_comments: climb.beta_comments,
+                rating: climb.rating,
+                created_on: climb.created_on,
+                is_archived: false
+            };
+
+            ClimbApiManager.putClimb(activeClimb);
+            setIsLoading(false);
+            props.history.push("/climbs");
+        });
+    };
+
     useEffect(() => {
         getActiveClimbs();
     }, []);
@@ -151,12 +176,11 @@ const ClimbList = (props) => {
                                 <h6 className="filter-climbs-form-header">Filter Climbs</h6>
                             </FormGroup>
                             <FormGroup className="filter-climbs-form-input-container">
-                                <Label htmlFor="statusFilter" className="climb-label">By Active Status</Label>
+                                <Label htmlFor="statusFilter" className="climb-label">By Status</Label>
                                 <Input bsSize="sm" id="statusFilter"
                                     type="select"
                                     className="climb-input"
                                     name="statusFilter"
-                                    // value={isArchived}
                                     onChange={getFilteredProperties}
                                 >
                                     <option value="" defaultValue>Select</option>
@@ -165,12 +189,11 @@ const ClimbList = (props) => {
                                     <option value="all">Both</option>
                                 </Input>
 
-                                <Label htmlFor="typeFilter" className="climb-label">By Climb Type</Label>
+                                <Label htmlFor="typeFilter" className="climb-label">By Type</Label>
                                 <Input bsSize="sm" id="typeFilter"
                                     type="select"
                                     className="climb-input"
                                     name="typeFilter"
-                                    // value={byType}
                                     onChange={getFilteredProperties}
                                 >
                                     <option value="" defaultValue>Select</option>
@@ -185,15 +208,27 @@ const ClimbList = (props) => {
                     }
                 </div>
                 <div className="climb-cards-container">
-                    {climbs.map(climb =>
-                        <ClimbCard
+                    {climbs.map(climb => {
+                        if (climb.is_archived === false) {
+                            return <ClimbCard
+                                key={climb.id}
+                                climb={climb}
+                                isLoading={isLoading}
+                                handleArchiveClimb={handleArchiveClimb}
+                                handleClimbDelete={handleClimbDelete}
+                                {...props}
+                            />
+                        } else {
+                            return <ArchiveCard
                             key={climb.id}
                             climb={climb}
                             isLoading={isLoading}
-                            handleArchiveClimb={handleArchiveClimb}
+                            handleUndoArchiveClimb={handleUndoArchiveClimb}
                             handleClimbDelete={handleClimbDelete}
                             {...props}
                         />
+                        }
+                    }
                     )}
                 </div>
             </>
