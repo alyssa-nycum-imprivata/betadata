@@ -2,61 +2,48 @@ import React, { useState, useEffect } from 'react';
 import ClimbCard from './ClimbCard';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
-import { Button, Card, CardTitle, Form, FormGroup, Input } from 'reactstrap';
+import { Button, Card, CardTitle, Form, FormGroup, Input, Label } from 'reactstrap';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isFiltering, setIsFiltering] = useState(false);
-    const [isArchived, setIsArchived] = useState();
+    const [filteredProperties, setFilteredProperties] = useState([]);
+    // const [isArchived, setIsArchived] = useState();
+    // const [byType, setByType] = useState();
+    // const [filteredClimbs, setFilteredClimbs] = useState([]);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
-    const getClimbs = () => {
-        return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-            const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
-            const sortedClimbs = activeClimbs.sort((a, b) => {
-                return new Date(b.created_on) - new Date(a.created_on)
-            })
-            setClimbs(sortedClimbs);
+    const sortClimbsByCreatedOnDate = (climbsFromApi) => {
+        const sortedClimbs = climbsFromApi.sort((a, b) => {
+            return new Date(b.created_on) - new Date(a.created_on)
+        })
+        setClimbs(sortedClimbs)
+    }
+
+    const getActiveClimbs = () => {
+        return ClimbApiManager.getActiveClimbsByUser(activeUserId).then(climbsFromApi => {
+            sortClimbsByCreatedOnDate(climbsFromApi)
         });
     };
 
+    const getFilteredProperties = (evt) => {
+        const stateToChange = { ...filteredProperties };
+        stateToChange[evt.target.id] = evt.target.value;
+        setFilteredProperties(stateToChange)
+        const valuesArray = Object.values(stateToChange)
+        console.log(valuesArray)
+        const filteredValuesArray = valuesArray.filter(value => value !== "" && value !== "all")
+        console.log(filteredValuesArray)
+        ClimbApiManager.getClimbsByFilter(activeUserId, filteredValuesArray).then(climbsFromApi => {
+            setClimbs(climbsFromApi)
+        })
+    }
+ 
     const handleFilterClimbsForm = () => {
         setIsFiltering(true);
     };
-
-    const filterIsArchivedClimbs = (evt) => {
-        const stateToChange = { ...isArchived };
-        stateToChange[evt.target.id] = evt.target.value;
-        setIsArchived(stateToChange);
-        console.log(stateToChange)
-        if (stateToChange.isArchived === "") {
-            console.log("here")
-            return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-                const allClimbs = climbsFromApi.sort((a,b) => {
-                    return new Date(b.created_on) - new Date(a.created_on)
-                })
-                setClimbs(allClimbs);
-            })
-        } else if (stateToChange.isArchived === "false") {
-            return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-                const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false)
-                const sortedActiveClimbs = activeClimbs.sort((a, b) => {
-                    return new Date(b.created_on) - new Date(a.created_on)
-                })
-                setClimbs(sortedActiveClimbs);
-            })
-        } else if (stateToChange.isArchived === "true") {
-            return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-                const archivedClimbs = climbsFromApi.filter(climb => climb.is_archived === true)
-                const sortedArchivedClimbs = archivedClimbs.sort((a, b) => {
-                    return new Date(b.created_on) - new Date(a.created_on)
-                })
-                setClimbs(sortedArchivedClimbs);
-            })
-        }
-    }
 
     const sortRopeClimbsByGrade = () => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
@@ -142,7 +129,7 @@ const ClimbList = (props) => {
     };
 
     useEffect(() => {
-        getClimbs();
+        getActiveClimbs();
     }, []);
 
     if (climbs.length !== 0) {
@@ -155,7 +142,7 @@ const ClimbList = (props) => {
                     <Button type="button" className="sort-climbs-button" onClick={handleFilterClimbsForm}>Filter Climbs</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
                 </div>
                 <div>
                     {isFiltering === false ? null :
@@ -164,15 +151,34 @@ const ClimbList = (props) => {
                                 <h6 className="filter-climbs-form-header">Filter Climbs</h6>
                             </FormGroup>
                             <FormGroup className="filter-climbs-form-input-container">
-                                <Input bsSize="sm" id="isArchived"
+                                <Label htmlFor="statusFilter" className="climb-label">By Active Status</Label>
+                                <Input bsSize="sm" id="statusFilter"
                                     type="select"
                                     className="climb-input"
-                                    name="isArchived"
-                                    onChange={filterIsArchivedClimbs}
+                                    name="statusFilter"
+                                    // value={isArchived}
+                                    onChange={getFilteredProperties}
                                 >
-                                    <option value="false">Active</option>
-                                    <option value="true">Archived</option>
-                                    <option value="">Both</option>
+                                    <option value="" defaultValue>Select</option>
+                                    <option value="is_archived=false">Active</option>
+                                    <option value="is_archived=true">Archived</option>
+                                    <option value="all">Both</option>
+                                </Input>
+
+                                <Label htmlFor="typeFilter" className="climb-label">By Climb Type</Label>
+                                <Input bsSize="sm" id="typeFilter"
+                                    type="select"
+                                    className="climb-input"
+                                    name="typeFilter"
+                                    // value={byType}
+                                    onChange={getFilteredProperties}
+                                >
+                                    <option value="" defaultValue>Select</option>
+                                    <option value="all">All</option>
+                                    <option value="type=Top Rope">Top Rope</option>
+                                    <option value="type=Lead">Lead</option>
+                                    <option value="type=Top Rope&type=Lead">Top Rope and Lead</option>
+                                    <option value="type=Boulder">Boulder</option>
                                 </Input>
                             </FormGroup>
                         </Form>
@@ -199,7 +205,7 @@ const ClimbList = (props) => {
                     <Button type="button" className="add-climb-button"
                         onClick={() => { props.history.push("/climbs/new") }}
                     >Add Climb</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={getClimbs}>View All Climbs</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
                 </div>
                 <div className="no-climbs-message-container">
                     <Card body className="text-center no-climbs-message-card">
@@ -212,3 +218,48 @@ const ClimbList = (props) => {
 };
 
 export default ClimbList;
+
+
+
+// const getClimbsByType = (evt) => {
+//     const stateToChange = { ...byType };
+//     stateToChange[evt.target.id] = evt.target.value;
+//     setByType(stateToChange);
+//     const resetClimbs = climbs
+//     if (stateToChange.byType === "Top Rope") {
+//         setClimbs(resetClimbs)
+//         const topRopeClimbs = climbs.filter(climb => climb.type === "Top Rope")
+//         setClimbs(topRopeClimbs)
+//     } else if (stateToChange.byType === "Lead") {
+//         setClimbs(resetClimbs)
+//         const leadClimbs = climbs.filter(climb => climb.type === "Lead")
+//         setClimbs(leadClimbs)
+//     }
+// };
+
+
+
+// const filterIsArchivedClimbs = (evt) => {
+//     const stateToChange = { ...isArchived };
+//     stateToChange[evt.target.id] = evt.target.value;
+//     setIsArchived(stateToChange);
+//     if (stateToChange.isArchived === "") {
+//         getAllClimbs();
+//     } else if (stateToChange.isArchived === "false") {
+//         getActiveClimbs();
+//     } else if (stateToChange.isArchived === "true") {
+//         getArchivedClimbs();
+//     }
+// };
+
+// const getArchivedClimbs = () => {
+//     return ClimbApiManager.getArchivedClimbsByUser(activeUserId).then(climbsFromApi => {
+//         sortClimbsByCreatedOnDate(climbsFromApi)
+//     });
+// };
+
+// const getAllClimbs = () => {
+//     return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
+//         sortClimbsByCreatedOnDate(climbsFromApi)
+//     });
+// };
