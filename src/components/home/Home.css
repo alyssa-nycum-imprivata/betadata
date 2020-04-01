@@ -28,8 +28,8 @@
 }
 
 .quote-card {
-    background-color: var(--wood-brown) !important;
-    border: 2px solid var(--deep-taupe) !important;
+    background-color: var(--deep-taupe) !important;
+    border: 2px solid var(--wood-brown) !important;
     box-shadow: 2px 2px 7px 1px var(--deep-taupe);
     text-shadow: 1px 1px 2px black;
 }
