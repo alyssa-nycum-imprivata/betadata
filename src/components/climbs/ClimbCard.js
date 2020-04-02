@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Climb.css';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import AttemptCard from '../attempts/AttemptCard';
-import { Card, Button, CardTitle, CardText } from 'reactstrap';
+import { Card, Button, CardTitle } from 'reactstrap';
 
 const ClimbCard = (props) => {
     const [attempts, setAttempts] = useState([]);

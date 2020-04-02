@@ -12,8 +12,8 @@ const Navbar = (props) => {
         <header>
             <h1>
                 {props.hasUser
-                ? <Link className="site-title" to="/">BetaData</Link>
-                : "BetaData" }
+                    ? <Link className="site-title" to="/">BetaData</Link>
+                    : "BetaData"}
             </h1>
             <nav>
                 <ul className="nav-links-container">
@@ -35,13 +35,6 @@ const Navbar = (props) => {
                         ? <li>
                             <Link className="nav-link" to="/goals">
                                 Goals
-                        </Link>
-                        </li>
-                        : null}
-                        {props.hasUser
-                        ? <li>
-                            <Link className="nav-link" to="/archive">
-                                Archive
                         </Link>
                         </li>
                         : null}

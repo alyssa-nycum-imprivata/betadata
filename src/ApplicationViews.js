@@ -7,7 +7,6 @@ import ClimbList from './components/climbs/ClimbList';
 import ClimbForm from './components/climbs/ClimbForm';
 import ClimbEditForm from './components/climbs/ClimbEditForm';
 import AttemptForm from './components/attempts/AttemptForm';
-import ArchiveList from './components/archive/ArchiveList';
 import GoalList from './components/goals/GoalList';
 import GoalForm from './components/goals/GoalForm';
 import GoalEditForm from './components/goals/GoalEditForm';
@@ -23,7 +22,7 @@ const ApplicationViews = (props) => {
             <Route
                 exact
                 path="/"
-                render={props => {
+                render={() => {
                     if (hasUser) {
                         return <Home />
                     } else {
@@ -141,18 +140,6 @@ const ApplicationViews = (props) => {
                 render={props => {
                     if (hasUser) {
                         return <GoalCompleteForm 
-                        {...props} />
-                    } else {
-                        return <Redirect to="/login" />
-                    }
-                }}
-            />
-            <Route
-                exact
-                path="/archive"
-                render={props => {
-                    if (hasUser) {
-                        return <ArchiveList 
                         {...props} />
                     } else {
                         return <Redirect to="/login" />

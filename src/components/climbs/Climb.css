@@ -201,11 +201,54 @@
     margin-top: 5px;
 }
 
+/* ----Filter Climbs Form Styling---- */
 
+.filter-climbs-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--wood-brown);
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 10px; 
+    border-radius: .5em;
+}
 
+.filter-climbs-form-header-container {
+    margin-top: 10px;
+    margin-bottom: 5px !important;
+}
 
+.filter-climbs-form-header {
+    font-size: 20px;
+}
 
+.filter-climbs-form-input-container {
+    display: flex;
+    width: 90%;
+    justify-content: space-evenly;
+}
 
+.filter-input-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-climb-input {
+    width: 160px !important;
+}
+
+.filter-climbs-cancel-button {
+    background-color: var(--deep-taupe) !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.filter-climbs-cancel-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
 
 
 
