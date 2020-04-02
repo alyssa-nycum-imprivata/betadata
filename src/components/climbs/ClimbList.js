@@ -129,7 +129,7 @@ const ClimbList = (props) => {
             }));
     };
 
-// ******* STILL NEED TO FIX UNDO ARCHIVE FUNCTIONALITY *******
+    // ******* STILL NEED TO FIX UNDO ARCHIVE FUNCTIONALITY *******
 
     const handleUndoArchiveClimb = (climbId) => {
         setIsLoading(true);
@@ -176,50 +176,118 @@ const ClimbList = (props) => {
                                 <h6 className="filter-climbs-form-header">Filter Climbs</h6>
                             </FormGroup>
                             <FormGroup className="filter-climbs-form-input-container">
-                                <Label htmlFor="statusFilter" className="climb-label">By Status</Label>
-                                <Input bsSize="sm" id="statusFilter"
-                                    type="select"
-                                    className="climb-input"
-                                    name="statusFilter"
-                                    onChange={getFilteredProperties}
-                                >
-                                    <option value="" defaultValue>Select</option>
-                                    <option value="is_archived=false">Active</option>
-                                    <option value="is_archived=true">Archived</option>
-                                    <option value="all">Both</option>
-                                </Input>
+                                <div className="filter-input-div">
+                                    <Label htmlFor="statusFilter" className="climb-label">By Status</Label>
+                                    <Input bsSize="sm" id="statusFilter"
+                                        type="select"
+                                        className="filter-climb-input"
+                                        name="statusFilter"
+                                        onChange={getFilteredProperties}
+                                    >
+                                        <option value="" defaultValue>Select</option>
+                                        <option value="is_archived=false">Active</option>
+                                        <option value="is_archived=true">Archived</option>
+                                        <option value="all">Both</option>
+                                    </Input>
+                                </div>
 
-                                <Label htmlFor="typeFilter" className="climb-label">By Type</Label>
-                                <Input bsSize="sm" id="typeFilter"
-                                    type="select"
-                                    className="climb-input"
-                                    name="typeFilter"
-                                    onChange={getFilteredProperties}
-                                >
-                                    <option value="" defaultValue>Select</option>
-                                    <option value="type=Top Rope">Top Rope</option>
-                                    <option value="type=Lead">Lead</option>
-                                    <option value="type=Top Rope&type=Lead">Top Rope and Lead</option>
-                                    <option value="type=Boulder">Boulder</option>
-                                    <option value="all">All</option>
-                                </Input>
+                                <div className="filter-input-div">
+                                    <Label htmlFor="typeFilter" className="climb-label">By Type</Label>
+                                    <Input bsSize="sm" id="typeFilter"
+                                        type="select"
+                                        className="filter-climb-input"
+                                        name="typeFilter"
+                                        onChange={getFilteredProperties}
+                                    >
+                                        <option value="" defaultValue>Select</option>
+                                        <option value="type=Top Rope">Top Rope</option>
+                                        <option value="type=Lead">Lead</option>
+                                        <option value="type=Top Rope&type=Lead">Top Rope and Lead</option>
+                                        <option value="type=Boulder">Boulder</option>
+                                        <option value="all">All</option>
+                                    </Input>
+                                </div>
 
-                                <Label htmlFor="ratingFilter" className="climb-label">By Enjoyment Rating</Label>
-                                <Input bsSize="sm" id="ratingFilter"
-                                    type="select"
-                                    className="climb-input"
-                                    name="ratingFilter"
-                                    onChange={getFilteredProperties}
-                                >
-                                    <option value="" defaultValue>Select</option>
-                                    <option value="rating=1">1 star</option>
-                                    <option value="rating=2">2 stars</option>
-                                    <option value="rating=3">3 stars</option>
-                                    <option value="rating=4">4 stars</option>
-                                    <option value="rating=5">5 stars</option>
-                                    <option value="all">All</option>
-                                </Input>
+                                {filteredProperties.typeFilter === "type=Boulder" ?
+                                    <>
+                                        <div className="filter-input-div">
+                                            <Label htmlFor="gradeFilter" className="climb-label">By Grade</Label>
+                                            <Input bsSize="sm" id="gradeFilter"
+                                                type="select"
+                                                className="filter-climb-input"
+                                                name="gradeFilter"
+                                                onChange={getFilteredProperties}
+                                            >
+                                                <option value="" defaultValue>Select</option>
+                                                <option value="grade=0">V0</option>
+                                                <option value="grade=1">V1</option>
+                                                <option value="grade=2">V2</option>
+                                                <option value="grade=3">V3</option>
+                                                <option value="grade=4">V4</option>
+                                                <option value="grade=5">V5</option>
+                                                <option value="grade=6">V6</option>
+                                                <option value="grade=7">V7</option>
+                                                <option value="grade=8">V8</option>
+                                                <option value="grade=9">V9</option>
+                                                <option value="grade=10">V10</option>
+                                                <option value="all">All</option>
+                                            </Input>
+                                        </div>
+                                    </>
+                                    : null
+                                }
 
+                                {filteredProperties.typeFilter === "type=Top Rope" || filteredProperties.typeFilter === "type=Lead" || filteredProperties.typeFilter === "type=Top Rope&type=Lead" ?
+                                    <>
+                                        <div className="filter-input-div">
+                                            <Label htmlFor="gradeFilter" className="climb-label">By Grade</Label>
+                                            <Input bsSize="sm" id="gradeFilter"
+                                                type="select"
+                                                className="filter-climb-input"
+                                                name="gradeFilter"
+                                                onChange={getFilteredProperties}
+                                            >
+                                                <option value="" defaultValue>Select</option>
+                                                <option value="grade=5">5.5</option>
+                                                <option value="grade=6">5.6</option>
+                                                <option value="grade=7">5.7</option>
+                                                <option value="grade=8">5.8</option>
+                                                <option value="grade=9">5.9</option>
+                                                <option value="grade=10-">5.10-</option>
+                                                <option value="grade=10">5.10</option>
+                                                <option value="grade=10+">5.10+</option>
+                                                <option value="grade=11-">5.11-</option>
+                                                <option value="grade=11">5.11</option>
+                                                <option value="grade=11+">5.11+</option>
+                                                <option value="grade=12-">5.12-</option>
+                                                <option value="grade=12">5.12</option>
+                                                <option value="grade=12+">5.12+</option>
+                                                <option value="grade=13">5.13</option>
+                                                <option value="all">All</option>
+                                            </Input>
+                                        </div>
+                                    </>
+                                    :
+                                    null
+                                }
+
+                                <div className="filter-input-div">
+                                    <Label htmlFor="ratingFilter" className="climb-label">By Enjoyment Rating</Label>
+                                    <Input bsSize="sm" id="ratingFilter"
+                                        type="select"
+                                        className="filter-climb-input"
+                                        name="ratingFilter"
+                                        onChange={getFilteredProperties}
+                                    >
+                                        <option value="" defaultValue>Select</option>
+                                        <option value="rating=1">1 star</option>
+                                        <option value="rating=2">2 stars</option>
+                                        <option value="rating=3">3 stars</option>
+                                        <option value="rating=4">4 stars</option>
+                                        <option value="rating=5">5 stars</option>
+                                        <option value="all">All</option>
+                                    </Input>
+                                </div>
                             </FormGroup>
                         </Form>
                     }
@@ -237,13 +305,13 @@ const ClimbList = (props) => {
                             />
                         } else {
                             return <ArchiveCard
-                            key={climb.id}
-                            climb={climb}
-                            isLoading={isLoading}
-                            handleUndoArchiveClimb={handleUndoArchiveClimb}
-                            handleClimbDelete={handleClimbDelete}
-                            {...props}
-                        />
+                                key={climb.id}
+                                climb={climb}
+                                isLoading={isLoading}
+                                handleUndoArchiveClimb={handleUndoArchiveClimb}
+                                handleClimbDelete={handleClimbDelete}
+                                {...props}
+                            />
                         }
                     }
                     )}
