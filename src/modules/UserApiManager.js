@@ -4,6 +4,9 @@ const UserApiManager = {
     getUsers() {
         return fetch(`${baseUrl}/users`).then(resp => resp.json());
     },
+    getUser(userId) {
+        return fetch(`${baseUrl}/users/${userId}`).then(resp => resp.json());
+    },
     postUser(newUser) {
         return fetch(`${baseUrl}/users`, {
             method: "POST",
