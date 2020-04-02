@@ -152,6 +152,8 @@ const ClimbList = (props) => {
                     <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
                     <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
+                    <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new")}}>Add Gym</Button>
+                    <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms")}}>View Gyms</Button>
                 </div>
                 <div>
                     {isFiltering === false ? null :

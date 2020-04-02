@@ -1,17 +1,25 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+
 import Home from './components/home/Home';
+
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
+
 import ClimbList from './components/climbs/ClimbList';
 import ClimbForm from './components/climbs/ClimbForm';
 import ClimbEditForm from './components/climbs/ClimbEditForm';
+
 import AttemptForm from './components/attempts/AttemptForm';
+import AttemptEditForm from './components/attempts/AttemptEditForm';
+
 import GoalList from './components/goals/GoalList';
 import GoalForm from './components/goals/GoalForm';
 import GoalEditForm from './components/goals/GoalEditForm';
-import AttemptEditForm from './components/attempts/AttemptEditForm';
 import GoalCompleteForm from './components/goals/GoalCompleteForm';
+
+import GymList from './components/gyms/GymList';
+import GymForm from './components/gyms/GymForm';
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser;
@@ -43,8 +51,8 @@ const ApplicationViews = (props) => {
                 path="/climbs"
                 render={props => {
                     if (hasUser) {
-                        return <ClimbList 
-                        {...props} />
+                        return <ClimbList
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
@@ -55,20 +63,20 @@ const ApplicationViews = (props) => {
                 path="/climbs/new"
                 render={props => {
                     if (hasUser) {
-                        return <ClimbForm 
-                        {...props} />
+                        return <ClimbForm
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
                 }}
             />
-             <Route
+            <Route
                 exact
                 path="/climbs/:climbId(\d+)/edit"
                 render={props => {
                     if (hasUser) {
-                        return <ClimbEditForm 
-                        {...props} />
+                        return <ClimbEditForm
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
@@ -79,8 +87,8 @@ const ApplicationViews = (props) => {
                 path="/climbs/:climbId(\d+)/add_attempt"
                 render={props => {
                     if (hasUser) {
-                        return <AttemptForm 
-                        {...props} />
+                        return <AttemptForm
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
@@ -91,8 +99,32 @@ const ApplicationViews = (props) => {
                 path="/attempts/:attemptId(\d+)/edit"
                 render={props => {
                     if (hasUser) {
-                        return <AttemptEditForm 
-                        {...props} />
+                        return <AttemptEditForm
+                            {...props} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
+            <Route
+                exact
+                path="/gyms"
+                render={props => {
+                    if (hasUser) {
+                        return <GymList
+                            {...props} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
+            <Route
+                exact
+                path="/gyms/new"
+                render={props => {
+                    if (hasUser) {
+                        return <GymForm
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
@@ -104,7 +136,7 @@ const ApplicationViews = (props) => {
                 render={props => {
                     if (hasUser) {
                         return <GoalList
-                        {...props} />
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
@@ -115,8 +147,8 @@ const ApplicationViews = (props) => {
                 path="/goals/new"
                 render={props => {
                     if (hasUser) {
-                        return <GoalForm 
-                        {...props} />
+                        return <GoalForm
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
@@ -127,8 +159,8 @@ const ApplicationViews = (props) => {
                 path="/goals/:goalId(\d+)/edit"
                 render={props => {
                     if (hasUser) {
-                        return <GoalEditForm 
-                        {...props} />
+                        return <GoalEditForm
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
@@ -139,8 +171,8 @@ const ApplicationViews = (props) => {
                 path="/goals/:goalId(\d+)/complete"
                 render={props => {
                     if (hasUser) {
-                        return <GoalCompleteForm 
-                        {...props} />
+                        return <GoalCompleteForm
+                            {...props} />
                     } else {
                         return <Redirect to="/login" />
                     }
