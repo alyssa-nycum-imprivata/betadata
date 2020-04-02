@@ -10,9 +10,6 @@ const ClimbList = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isFiltering, setIsFiltering] = useState(false);
     const [filteredProperties, setFilteredProperties] = useState([]);
-    // const [isArchived, setIsArchived] = useState();
-    // const [byType, setByType] = useState();
-    // const [filteredClimbs, setFilteredClimbs] = useState([]);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
@@ -78,32 +75,33 @@ const ClimbList = (props) => {
     };
 
     const handleArchiveClimb = (climbId) => {
-        setIsLoading(true);
-        ClimbApiManager.getClimbById(climbId).then(climb => {
+        if (window.confirm("Are you sure you want to archive this climb?")) {
+            setIsLoading(true);
+            ClimbApiManager.getClimbById(climbId).then(climb => {
 
-            const archivedClimb = {
-                id: climbId,
-                userId: activeUserId,
-                type: climb.type,
-                grade: climb.grade,
-                description: climb.description,
-                beta_comments: climb.beta_comments,
-                rating: climb.rating,
-                created_on: climb.created_on,
-                is_archived: true
-            };
+                const archivedClimb = {
+                    id: climbId,
+                    userId: activeUserId,
+                    type: climb.type,
+                    grade: climb.grade,
+                    description: climb.description,
+                    beta_comments: climb.beta_comments,
+                    rating: climb.rating,
+                    created_on: climb.created_on,
+                    is_archived: true
+                };
 
-            ClimbApiManager.putClimb(archivedClimb);
-            setIsLoading(false);
-            props.history.push("/archive");
-        });
+                ClimbApiManager.putClimb(archivedClimb);
+                setIsLoading(false);
+                getActiveClimbs();
+            });
+        }
     };
 
     const handleClimbDelete = (climbId) => {
         if (!window.confirm("Are you sure you want to delete this climb?")) {
             return;
         }
-
         setIsLoading(true);
         ClimbApiManager.deleteClimb(climbId)
             .then(() => ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
@@ -113,10 +111,9 @@ const ClimbList = (props) => {
                 })
                 setClimbs(sortedClimbs);
                 setIsLoading(false);
+                setIsFiltering(false);
             }));
     };
-
-    // ******* STILL NEED TO FIX UNDO ARCHIVE FUNCTIONALITY *******
 
     const handleUndoArchiveClimb = (climbId) => {
         setIsLoading(true);
@@ -136,7 +133,7 @@ const ClimbList = (props) => {
 
             ClimbApiManager.putClimb(activeClimb);
             setIsLoading(false);
-            props.history.push("/climbs");
+            getActiveClimbs();
         });
     };
 
@@ -151,7 +148,7 @@ const ClimbList = (props) => {
                     <Button type="button" className="add-climb-button"
                         onClick={() => { props.history.push("/climbs/new") }}
                     >Add Climb</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true)}}>Filter Climbs</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true) }}>Filter Climbs</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
                     <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
@@ -277,7 +274,7 @@ const ClimbList = (props) => {
                                 </div>
                             </FormGroup>
                             <FormGroup>
-                                <Button type="button" size="sm" className="filter-climbs-cancel-button" onClick={() => { setIsFiltering(false)}}>Cancel</Button>
+                                <Button type="button" size="sm" className="filter-climbs-cancel-button" onClick={() => { setIsFiltering(false) }}>Cancel</Button>
                             </FormGroup>
                         </Form>
                     }
@@ -328,48 +325,3 @@ const ClimbList = (props) => {
 };
 
 export default ClimbList;
-
-
-
-// const getClimbsByType = (evt) => {
-//     const stateToChange = { ...byType };
-//     stateToChange[evt.target.id] = evt.target.value;
-//     setByType(stateToChange);
-//     const resetClimbs = climbs
-//     if (stateToChange.byType === "Top Rope") {
-//         setClimbs(resetClimbs)
-//         const topRopeClimbs = climbs.filter(climb => climb.type === "Top Rope")
-//         setClimbs(topRopeClimbs)
-//     } else if (stateToChange.byType === "Lead") {
-//         setClimbs(resetClimbs)
-//         const leadClimbs = climbs.filter(climb => climb.type === "Lead")
-//         setClimbs(leadClimbs)
-//     }
-// };
-
-
-
-// const filterIsArchivedClimbs = (evt) => {
-//     const stateToChange = { ...isArchived };
-//     stateToChange[evt.target.id] = evt.target.value;
-//     setIsArchived(stateToChange);
-//     if (stateToChange.isArchived === "") {
-//         getAllClimbs();
-//     } else if (stateToChange.isArchived === "false") {
-//         getActiveClimbs();
-//     } else if (stateToChange.isArchived === "true") {
-//         getArchivedClimbs();
-//     }
-// };
-
-// const getArchivedClimbs = () => {
-//     return ClimbApiManager.getArchivedClimbsByUser(activeUserId).then(climbsFromApi => {
-//         sortClimbsByCreatedOnDate(climbsFromApi)
-//     });
-// };
-
-// const getAllClimbs = () => {
-//     return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-//         sortClimbsByCreatedOnDate(climbsFromApi)
-//     });
-// };

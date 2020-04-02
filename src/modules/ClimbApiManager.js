@@ -10,9 +10,6 @@ const ClimbApiManager = {
     getActiveClimbsByUser(userId) {
         return fetch(`${baseUrl}/climbs/?userId=${userId}&is_archived=false`).then(resp => resp.json());
     },
-    getArchivedClimbsByUser(userId) {
-        return fetch(`${baseUrl}/climbs/?userId=${userId}&is_archived=true`).then(resp => resp.json());
-    },
     getClimbsByFilter(userId, filteredProperties) {
         if (filteredProperties.length > 1) {
             const joinFilteredProperties = filteredProperties.join("&")

@@ -278,17 +278,15 @@ const ClimbForm = (props) => {
 
                 <FormGroup className="climb-form-button-container">
                     {climb.type === "" ? null :
-                        <>
                             <Button type="button"
                                 className="climb-form-button climb-form-add-button"
                                 disabled={isLoading}
                                 onClick={constructNewClimbWithFirstAttempt}
                             >Add</Button>
-                            <Button type="button"
-                                className="climb-form-button climb-form-cancel-button"
-                                onClick={() => { props.history.push("/climbs") }}>Cancel</Button>
-                        </>
                     }
+                    <Button type="button"
+                        className="climb-form-button climb-form-cancel-button"
+                        onClick={() => { props.history.push("/climbs") }}>Cancel</Button>
                 </FormGroup>
             </Form>
         </>

@@ -3,6 +3,7 @@ import '../climbs/Climb.css';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import AttemptCard from '../attempts/AttemptCard';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
+import './Archive.css';
 
 const ArchiveCard = (props) => {
     const [attempts, setAttempts] = useState([]);
