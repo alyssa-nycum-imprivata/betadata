@@ -240,5 +240,15 @@
     width: 160px !important;
 }
 
+.filter-climbs-cancel-button {
+    background-color: var(--deep-taupe) !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.filter-climbs-cancel-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
 
 

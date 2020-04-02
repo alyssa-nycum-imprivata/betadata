@@ -24,6 +24,7 @@ const ClimbList = (props) => {
     }
 
     const getActiveClimbs = () => {
+        setIsFiltering(false);
         return ClimbApiManager.getActiveClimbsByUser(activeUserId).then(climbsFromApi => {
             sortClimbsByCreatedOnDate(climbsFromApi)
         });
@@ -42,11 +43,8 @@ const ClimbList = (props) => {
         })
     }
 
-    const handleFilterClimbsForm = () => {
-        setIsFiltering(true);
-    };
-
     const sortRopeClimbsByGrade = () => {
+        setIsFiltering(false);
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false && (climb.type === "Top Rope" || climb.type === "Lead"))
             const changedGrades = activeClimbs.map(climb => {
@@ -69,22 +67,11 @@ const ClimbList = (props) => {
     };
 
     const sortBoulderClimbsByGrade = () => {
+        setIsFiltering(false);
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false && climb.type === "Boulder")
-            const changedGrades = activeClimbs.map(climb => {
-                if (climb.grade.includes("-")) {
-                    climb.grade_altered = climb.grade.split("-")[0] + ".25"
-                    return climb
-                } else if (climb.grade.includes("+")) {
-                    climb.grade_altered = climb.grade.split("+")[0] + ".75"
-                    return climb
-                } else {
-                    climb.grade_altered = climb.grade + ".5"
-                    return climb
-                }
-            })
-            const sortedClimbs = changedGrades.sort((a, b) => {
-                return b.grade_altered - a.grade_altered
+            const sortedClimbs = activeClimbs.sort((a, b) => {
+                return b.grade - a.grade
             })
             setClimbs(sortedClimbs);
         });
@@ -164,7 +151,7 @@ const ClimbList = (props) => {
                     <Button type="button" className="add-climb-button"
                         onClick={() => { props.history.push("/climbs/new") }}
                     >Add Climb</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={handleFilterClimbsForm}>Filter Climbs</Button>
+                    <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true)}}>Filter Climbs</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
                     <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
@@ -288,6 +275,9 @@ const ClimbList = (props) => {
                                         <option value="all">All</option>
                                     </Input>
                                 </div>
+                            </FormGroup>
+                            <FormGroup>
+                                <Button type="button" size="sm" className="filter-climbs-cancel-button" onClick={() => { setIsFiltering(false)}}>Cancel</Button>
                             </FormGroup>
                         </Form>
                     }
