@@ -12,8 +12,8 @@ const Navbar = (props) => {
         <header>
             <h1>
                 {props.hasUser
-                ? <Link className="site-title" to="/">BetaData</Link>
-                : "BetaData" }
+                    ? <Link className="site-title" to="/">BetaData</Link>
+                    : "BetaData"}
             </h1>
             <nav>
                 <ul className="nav-links-container">
