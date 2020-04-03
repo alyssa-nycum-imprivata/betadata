@@ -58,9 +58,7 @@ const ClimbList = (props) => {
         stateToChange[evt.target.id] = evt.target.value;
         setFilteredProperties(stateToChange)
         const valuesArray = Object.values(stateToChange)
-        console.log(valuesArray)
         const filteredValuesArray = valuesArray.filter(value => value !== "" && value !== "all")
-        console.log(filteredValuesArray)
         ClimbApiManager.getClimbsByFilter(activeUserId, filteredValuesArray).then(climbsFromApi => {
             sortClimbsByCreatedOnDate(climbsFromApi)
         })
@@ -228,7 +226,7 @@ const ClimbList = (props) => {
                         <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true); setIsSortingRope(false); setIsSortingBoulder(false); }}>Filter Climbs</Button>
                         <Button type="button" className="sort-climbs-button" id="rope-sorting-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
                         <Button type="button" className="sort-climbs-button" id="boulder-sorting-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
-                        {isFiltering === true || isSorting === true ? <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button> : null}
+                        {isFiltering === true || isSorting === true ? <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Active Climbs</Button> : null}
                     </div>
                     <div className="gym-buttons-div">
                         <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
@@ -377,8 +375,8 @@ const ClimbList = (props) => {
                 </div>
 
                 {isSortingBoulder === true ?
-                    <div style={{ height: "500px", width: "500px" }}>
-                        <Bar data={boulderChartData} options={{
+                    <div className="chart-div" style={{ height: "500px", width: "800px" }}>
+                        <Bar className="chart" data={boulderChartData} options={{
                             responsive: true,
                             title: { text: "Number of Climbs by Grade", display: true },
                             legend: { display: false },
@@ -396,8 +394,8 @@ const ClimbList = (props) => {
                     : null}
 
                 {isSortingRope === true ?
-                    <div style={{ height: "500px", width: "500px" }}>
-                        <Bar data={ropeChartData} options={{
+                    <div className="chart-div" style={{ height: "500px", width: "800px" }}>
+                        <Bar className="chart" data={ropeChartData} options={{
                             responsive: true,
                             title: { text: "Number of Climbs by Grade", display: true },
                             legend: { display: false },

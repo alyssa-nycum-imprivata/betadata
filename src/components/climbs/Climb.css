@@ -46,6 +46,13 @@
     background-color: var(--almond) !important;
 }
 
+.chart-div {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 25%;
+    height: 410px !important;
+}
+
 /* ----Climb Card Styling---- */
 
 .climb-card-div {
