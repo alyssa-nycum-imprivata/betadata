@@ -375,7 +375,7 @@ const ClimbList = (props) => {
                 </div>
 
                 {isSortingBoulder === true ?
-                    <div className="chart-div" style={{ height: "500px", width: "800px" }}>
+                    <div className="chart-div">
                         <Bar className="chart" data={boulderChartData} options={{
                             responsive: true,
                             title: { text: "Number of Climbs by Grade", display: true },
@@ -394,7 +394,7 @@ const ClimbList = (props) => {
                     : null}
 
                 {isSortingRope === true ?
-                    <div className="chart-div" style={{ height: "500px", width: "800px" }}>
+                    <div className="chart-div">
                         <Bar className="chart" data={ropeChartData} options={{
                             responsive: true,
                             title: { text: "Number of Climbs by Grade", display: true },

@@ -49,8 +49,12 @@
 .chart-div {
     display: flex;
     margin-top: 20px;
-    margin-left: 25%;
-    height: 410px !important;
+    margin-left: 32.5%;
+    margin-right: 32.5%;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    height: 100% !important;
+    width: 35% !important;
 }
 
 /* ----Climb Card Styling---- */
