@@ -5,6 +5,7 @@ import './Climb.css';
 import { Button, Card, CardTitle, Form, FormGroup, Input, Label } from 'reactstrap';
 import ArchiveCard from '../archive/ArchiveCard';
 import GymApiManager from '../../modules/GymApiManager';
+import Chart from 'chart.js';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
