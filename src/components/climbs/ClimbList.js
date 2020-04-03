@@ -17,14 +17,12 @@ const ClimbList = (props) => {
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
     const checkForGyms = () => {
-        GymApiManager.getGymsByUser(activeUserId).then(gyms => {
-            setGyms(gyms);
-            if (gyms.length === 0) {
-                window.alert("Please add a gym before creating your first climb.")
-            } else {
-                props.history.push("/climbs/new");
-            };
-        })
+        getGyms();
+        if (gyms.length === 0) {
+            window.alert("Please add a gym before creating your first climb.")
+        } else {
+            props.history.push("/climbs/new");
+        };
     };
 
     const getGyms = () => {
@@ -105,6 +103,7 @@ const ClimbList = (props) => {
                 const archivedClimb = {
                     id: climbId,
                     userId: activeUserId,
+                    gymId: climb.gymId,
                     type: climb.type,
                     grade: climb.grade,
                     description: climb.description,
@@ -145,6 +144,7 @@ const ClimbList = (props) => {
             const activeClimb = {
                 id: climbId,
                 userId: activeUserId,
+                gymId: climb.gymId,
                 type: climb.type,
                 grade: climb.grade,
                 description: climb.description,
