@@ -17,14 +17,20 @@ const ClimbList = (props) => {
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
     const checkForGyms = () => {
-        GymApiManager.getGymsByUser(activeUserId).then(gymsFromApi => {
-            setGyms(gymsFromApi);
-            if (gymsFromApi.length === 0) {
+        GymApiManager.getGymsByUser(activeUserId).then(gyms => {
+            setGyms(gyms);
+            if (gyms.length === 0) {
                 window.alert("Please add a gym before creating your first climb.")
             } else {
                 props.history.push("/climbs/new");
             };
         })
+    };
+
+    const getGyms = () => {
+        GymApiManager.getGymsByUser(activeUserId).then(gyms => {
+            setGyms(gyms);
+        });
     };
 
     const sortClimbsByCreatedOnDate = (climbsFromApi) => {
@@ -156,6 +162,7 @@ const ClimbList = (props) => {
 
     useEffect(() => {
         getActiveClimbs();
+        getGyms();
     }, []);
 
     if (climbs.length !== 0) {
@@ -194,6 +201,22 @@ const ClimbList = (props) => {
                                         <option value="is_archived=false">Active</option>
                                         <option value="is_archived=true">Archived</option>
                                         <option value="all">Both</option>
+                                    </Input>
+                                </div>
+
+                                <div className="filter-input-div">
+                                    <Label htmlFor="gymFilter" className="climb-label">By Gym</Label>
+                                    <Input bsSize="sm" id="gymFilter"
+                                        type="select"
+                                        className="filter-climb-input"
+                                        name="gymFilter"
+                                        onChange={getFilteredProperties}
+                                    >
+                                        <option value="" defaultValue>Select</option>
+                                        {gyms.map(gym =>
+                                            <option key={gym.id} value={`gymId=${gym.id}`}>{gym.name}</option>
+                                        )}
+                                        <option value="all">All</option>
                                     </Input>
                                 </div>
 
@@ -296,7 +319,7 @@ const ClimbList = (props) => {
                                 </div>
                             </FormGroup>
                             <FormGroup>
-                                <Button type="button" size="sm" className="filter-climbs-cancel-button" onClick={() => { setIsFiltering(false) }}>Cancel</Button>
+                                <Button type="button" size="sm" className="filter-climbs-cancel-button" onClick={() => { setIsFiltering(false) }}>Close</Button>
                             </FormGroup>
                         </Form>
                     }
