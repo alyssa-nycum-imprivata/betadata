@@ -56,7 +56,7 @@ const ClimbEditForm = (props) => {
             setGyms(gyms);
             setIsLoading(false)
         })
-    })
+    }, []);
 
     return (
         <>

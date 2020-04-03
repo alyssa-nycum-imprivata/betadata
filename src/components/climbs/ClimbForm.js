@@ -31,7 +31,7 @@ const ClimbForm = (props) => {
             setGyms(gyms);
             setIsLoading(false)
         })
-    })
+    }, []);
 
     const constructNewClimbWithFirstAttempt = (evt) => {
         evt.preventDefault();
