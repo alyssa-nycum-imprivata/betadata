@@ -16,6 +16,7 @@ const ClimbList = (props) => {
     const [isSorting, setIsSorting] = useState(false);
     const [gyms, setGyms] = useState([]);
     const [chartData, setChartData] = useState({});
+    const [boulderGrades, setBoulderGrades] = useState([]);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
@@ -99,15 +100,22 @@ const ClimbList = (props) => {
     };
 
     const getSortingChart = () => {
-        setChartData({
-            labels: ["V1", "V2", "V3"],
-            datasets: [
-                {
-                    data: [5, 3, 7],
-                    backgroundColor: "#C19070",
-                    borderWidth: 4
-                }
-            ]
+        return ClimbApiManager.getActiveClimbsByUser(activeUserId).then(climbsFromApi => {
+            const activeBoulderClimbs = climbsFromApi.filter(climb => climb.type === "Boulder")
+            const activeBoulderGrades = activeBoulderClimbs.map(climb => climb.grade)
+            const counts = {"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "10": 0};
+            activeBoulderGrades.forEach(function(x) { counts[x] = (counts[x] || 0)+1;});
+            const finalCounts = Object.values(counts);
+            setChartData({
+                labels: ["V0","V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10"],
+                datasets: [
+                    {
+                        data: finalCounts,
+                        backgroundColor: "#C19070",
+                        borderWidth: 4
+                    }
+                ]
+            })
         })
     };
 
