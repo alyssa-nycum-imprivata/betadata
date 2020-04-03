@@ -10,6 +10,7 @@ const ClimbList = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isFiltering, setIsFiltering] = useState(false);
     const [filteredProperties, setFilteredProperties] = useState([]);
+    const [isSorting, setIsSorting] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
@@ -18,6 +19,7 @@ const ClimbList = (props) => {
             return new Date(b.created_on) - new Date(a.created_on)
         })
         setClimbs(sortedClimbs)
+        setIsSorting(false);
     }
 
     const getActiveClimbs = () => {
@@ -42,6 +44,7 @@ const ClimbList = (props) => {
 
     const sortRopeClimbsByGrade = () => {
         setIsFiltering(false);
+        setIsSorting(true);
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false && (climb.type === "Top Rope" || climb.type === "Lead"))
             const changedGrades = activeClimbs.map(climb => {
@@ -65,6 +68,7 @@ const ClimbList = (props) => {
 
     const sortBoulderClimbsByGrade = () => {
         setIsFiltering(false);
+        setIsSorting(true);
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false && climb.type === "Boulder")
             const sortedClimbs = activeClimbs.sort((a, b) => {
@@ -151,7 +155,7 @@ const ClimbList = (props) => {
                     <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true) }}>Filter Climbs</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
                     <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
+                    {isFiltering === true || isSorting === true ? <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button> : null}
                     <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new")}}>Add Gym</Button>
                     <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms")}}>View Gyms</Button>
                 </div>

@@ -20,6 +20,8 @@ import GoalCompleteForm from './components/goals/GoalCompleteForm';
 
 import GymList from './components/gyms/GymList';
 import GymForm from './components/gyms/GymForm';
+import GymEditForm from './components/gyms/GymEditForm';
+
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser;
@@ -124,6 +126,18 @@ const ApplicationViews = (props) => {
                 render={props => {
                     if (hasUser) {
                         return <GymForm
+                            {...props} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
+            />
+            <Route
+                exact
+                path="/gyms/:gymId(\d+)/edit"
+                render={props => {
+                    if (hasUser) {
+                        return <GymEditForm
                             {...props} />
                     } else {
                         return <Redirect to="/login" />
