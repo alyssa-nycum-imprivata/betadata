@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClimbApiManager from '../../modules/ClimbApiManager';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import './Climb.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import * as moment from "moment";
+import GymApiManager from '../../modules/GymApiManager';
 
 const ClimbForm = (props) => {
-    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
+    const [climb, setClimb] = useState({ userId: "", gymId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
     const [attempt, setAttempt] = useState({ climbId: "", attempt_date: "", is_flashed: "", number_of_falls: 0, number_of_attempts: 0, is_clean: "", created_on: "" });
     const [isLoading, setIsLoading] = useState(false);
+    const [gyms, setGyms] = useState([]);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
-
 
     const handleClimbFieldChange = (evt) => {
         const stateToChange = { ...climb };
@@ -25,9 +26,16 @@ const ClimbForm = (props) => {
         setAttempt(stateToChange);
     };
 
+    useEffect(() => {
+        GymApiManager.getGymsByUser(activeUserId).then(gyms => {
+            setGyms(gyms);
+            setIsLoading(false)
+        })
+    })
+
     const constructNewClimbWithFirstAttempt = (evt) => {
         evt.preventDefault();
-        if (climb.type === "" || climb.grade === "" || climb.rating === "" || attempt.attempt_date === "" || attempt.is_flashed === "") {
+        if (climb.gymId === "" || climb.type === "" || climb.grade === "" || climb.rating === "" || attempt.attempt_date === "" || attempt.is_flashed === "") {
             window.alert("Please fill out required fields");
         } else if (attempt.is_flashed === "false" && attempt.number_of_falls <= 0 && (climb.type === "Top Rope" || climb.type === "Lead")) {
             window.alert("If climb was not flashed, please enter at least 1 fall.");
@@ -41,6 +49,7 @@ const ClimbForm = (props) => {
             const newClimb = {
                 id: props.match.params.climbId,
                 userId: activeUserId,
+                gymId: climb.gymId,
                 type: climb.type,
                 grade: climb.grade,
                 description: climb.description,
@@ -102,6 +111,22 @@ const ClimbForm = (props) => {
                 </FormGroup>
                 <FormGroup className="climb-form-input-container">
                     <div className="type-grade-div">
+                        <div className="gym-div">
+                            <Label htmlFor="gymId" className="climb-label"><strong>*Gym:</strong></Label>
+                            <Input bsSize="sm" id="gymId"
+                                type="select"
+                                className="climb-input"
+                                required
+                                value={climb.gymId}
+                                name="gymId"
+                                onChange={handleClimbFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                {gyms.map(gym =>
+                                    <option key={gym.id} value={gym.id}>{gym.name}</option>
+                                )}
+                            </Input>
+                        </div>
                         <div className="type-div">
                             <Label htmlFor="type" className="climb-label"><strong>*Type:</strong></Label>
                             <Input bsSize="sm" id="type"
@@ -169,12 +194,12 @@ const ClimbForm = (props) => {
                     {climb.type === "" ? null :
                         <>
                             <Label htmlFor="description" className="climb-label"><strong>Description:</strong></Label>
+                            <h6 className="description-example">example: color, rope #, wall, starting holds, etc.</h6>
                             <Input bsSize="sm" type="textarea"
                                 id="description"
                                 className="climb-input"
                                 rows="2"
                                 onChange={handleClimbFieldChange}
-                                placeholder="ex. color, rope #, wall, starting holds, etc."
                             />
 
                             <Label htmlFor="attempt_date" className="climb-label"><strong>*Attempt Date:</strong></Label>
@@ -278,11 +303,11 @@ const ClimbForm = (props) => {
 
                 <FormGroup className="climb-form-button-container">
                     {climb.type === "" ? null :
-                            <Button type="button"
-                                className="climb-form-button climb-form-add-button"
-                                disabled={isLoading}
-                                onClick={constructNewClimbWithFirstAttempt}
-                            >Add</Button>
+                        <Button type="button"
+                            className="climb-form-button climb-form-add-button"
+                            disabled={isLoading}
+                            onClick={constructNewClimbWithFirstAttempt}
+                        >Add</Button>
                     }
                     <Button type="button"
                         className="climb-form-button climb-form-cancel-button"
