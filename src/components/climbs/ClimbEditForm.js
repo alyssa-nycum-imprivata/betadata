@@ -3,10 +3,12 @@ import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import * as moment from "moment";
+import GymApiManager from '../../modules/GymApiManager';
 
 const ClimbEditForm = (props) => {
-    const [climb, setClimb] = useState({ userId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
+    const [climb, setClimb] = useState({ userId: "", gymId: "", type: "", grade: "", description: "", beta_comments: "", rating: "", created_on: "", is_archived: false });
     const [isLoading, setIsLoading] = useState(false);
+    const [gyms, setGyms] = useState([]);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
@@ -18,7 +20,7 @@ const ClimbEditForm = (props) => {
 
     const updateExistingClimb = (evt) => {
         evt.preventDefault();
-        if (climb.type === "" || climb.grade === "" || climb.rating === "") {
+        if (climb.gymId === "" || climb.type === "" || climb.grade === "" || climb.rating === "") {
             window.alert("Please fill out all fields");
         } else {
             setIsLoading(true);
@@ -26,6 +28,7 @@ const ClimbEditForm = (props) => {
             const editedClimb = {
                 id: parseInt(props.match.params.climbId),
                 userId: activeUserId,
+                gymId: climb.gymId,
                 type: climb.type,
                 grade: climb.grade,
                 description: climb.description,
@@ -48,6 +51,13 @@ const ClimbEditForm = (props) => {
             });
     }, []);
 
+    useEffect(() => {
+        GymApiManager.getGymsByUser(activeUserId).then(gyms => {
+            setGyms(gyms);
+            setIsLoading(false)
+        })
+    }, []);
+
     return (
         <>
             <Form className="edit-climb-form">
@@ -59,6 +69,22 @@ const ClimbEditForm = (props) => {
                 </FormGroup>
                 <FormGroup className="climb-form-input-container">
                     <div className="type-grade-div">
+                    <div className="gym-div">
+                            <Label htmlFor="gymId" className="climb-label"><strong>*Gym:</strong></Label>
+                            <Input bsSize="sm" id="gymId"
+                                type="select"
+                                className="climb-input"
+                                required
+                                value={climb.gymId}
+                                name="gymId"
+                                onChange={handleFieldChange}
+                            >
+                                <option value="" disabled defaultValue>Select</option>
+                                {gyms.map(gym =>
+                                    <option key={gym.id} value={gym.id}>{gym.name}</option>
+                                )}
+                            </Input>
+                        </div>
                         <div className="type-div">
                             <Label htmlFor="type" className="climb-label"><strong>*Type:</strong></Label>
                             <Input bsSize="sm" id="type"
@@ -128,6 +154,7 @@ const ClimbEditForm = (props) => {
                     </div>
 
                     <Label htmlFor="description" className="climb-label"><strong>Description:</strong></Label>
+                    <h6 className="description-example">example: color, rope #, wall, starting holds, etc.</h6>
                     <Input bsSize="sm" type="textarea"
                         id="description"
                         className="climb-input"
@@ -135,7 +162,6 @@ const ClimbEditForm = (props) => {
                         rows="2"
                         value={climb.description}
                         onChange={handleFieldChange}
-                        placeholder="ex. color, rope #, wall, starting holds, etc."
                     />
 
                     <Label htmlFor="beta_comments" className="climb-label"><strong>Beta/Comments:</strong></Label>

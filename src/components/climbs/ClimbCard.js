@@ -3,10 +3,12 @@ import './Climb.css';
 import AttemptApiManager from '../../modules/AttemptApiManager';
 import AttemptCard from '../attempts/AttemptCard';
 import { Card, Button, CardTitle } from 'reactstrap';
+import GymApiManager from '../../modules/GymApiManager';
 
 const ClimbCard = (props) => {
     const [attempts, setAttempts] = useState([]);
     const [isLoading, setIsLoading] = useState([]);
+    const [gym, setGym] = useState([]);
 
     const getAttempts = () => {
         return AttemptApiManager.getAttemptsByClimb(props.climb.id).then(attemptsFromApi => {
@@ -30,14 +32,22 @@ const ClimbCard = (props) => {
         };
     };
 
+    const getGym = () => {
+        GymApiManager.getGymById(props.climb.gymId).then(gym => {
+            setGym(gym);
+        });
+    };
+
     useEffect(() => {
         getAttempts();
+        getGym();
     }, []);
 
     return (
         <div className="climb-card-div">
             <Card body className="text-center climb-card">
                 <div className="climb-card-content">
+                    <CardTitle><strong>Gym:</strong> {gym.name}</CardTitle>
                     <CardTitle><strong>Type:</strong> {props.climb.type}</CardTitle>
                     {props.climb.type === "Top Rope" ? <CardTitle><strong>Grade:</strong> 5.{props.climb.grade}</CardTitle> : null}
                     {props.climb.type === "Lead" ? <CardTitle><strong>Grade:</strong> 5.{props.climb.grade}</CardTitle> : null}

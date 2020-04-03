@@ -14,6 +14,11 @@
     margin-top: 5px;
 }
 
+.add-climb-button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .add-climb-button, .sort-climbs-button {
     background-color: var(--deep-taupe) !important;
     color: var(--almond) !important;
@@ -129,6 +134,10 @@
     margin-bottom: 10px;
 }
 
+.description-example {
+    font-size: 12px;
+}
+
 .grade-input-prefix-div {
     display: flex;
 }
@@ -142,6 +151,10 @@
     display: flex;
 }
 
+.gym-div {
+    margin-right: 30px;
+}
+
 .type-div {
     width: 20%;
     margin-right: 30px;
@@ -152,7 +165,7 @@
 }
 
 #attempt_date {
-    width: 40%;
+    width: 30%;
 }
 
 .attempt-div {
@@ -166,7 +179,11 @@
 
 .attempts-div {
     margin-right: 30px;
-    width: 40%;
+    width: 32%;
+}
+
+.falls-div {
+    width: 25%;
 }
 
 .clean-div {
@@ -174,7 +191,7 @@
 }
 
 #rating {
-    width: 40%;
+    width: 30%;
 }
 
 .climb-form-button {
