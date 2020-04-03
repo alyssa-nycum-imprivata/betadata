@@ -4,6 +4,7 @@ import ClimbApiManager from '../../modules/ClimbApiManager';
 import './Climb.css';
 import { Button, Card, CardTitle, Form, FormGroup, Input, Label } from 'reactstrap';
 import ArchiveCard from '../archive/ArchiveCard';
+import GymApiManager from '../../modules/GymApiManager';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -11,8 +12,20 @@ const ClimbList = (props) => {
     const [isFiltering, setIsFiltering] = useState(false);
     const [filteredProperties, setFilteredProperties] = useState([]);
     const [isSorting, setIsSorting] = useState(false);
+    const [gyms, setGyms] = useState([]);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
+
+    const checkForGyms = () => {
+        GymApiManager.getGymsByUser(activeUserId).then(gymsFromApi => {
+            setGyms(gymsFromApi);
+            if (gymsFromApi.length === 0) {
+                window.alert("Please add a gym before creating your first climb.")
+            } else {
+                props.history.push("/climbs/new");
+            };
+        })
+    };
 
     const sortClimbsByCreatedOnDate = (climbsFromApi) => {
         const sortedClimbs = climbsFromApi.sort((a, b) => {
@@ -151,8 +164,7 @@ const ClimbList = (props) => {
                 <div className="add-climb-button-container">
                     <div className="climb-buttons-div">
                         <Button type="button" className="add-climb-button"
-                            onClick={() => { props.history.push("/climbs/new") }}
-                        >Add Climb</Button>
+                            onClick={checkForGyms}>Add Climb</Button>
                         <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true) }}>Filter Climbs</Button>
                         <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
                         <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
@@ -321,8 +333,7 @@ const ClimbList = (props) => {
                 <div className="add-climb-button-container">
                     <div className="climb-buttons-div">
                         <Button type="button" className="add-climb-button"
-                            onClick={() => { props.history.push("/climbs/new") }}
-                        >Add Climb</Button>
+                            onClick={checkForGyms}>Add Climb</Button>
                         <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
                     </div>
                     <div className="gym-buttons-div">

@@ -49,7 +49,7 @@ const GymForm = (props) => {
                 </FormGroup>
                 <FormGroup className="gym-form-button-container">
                     <Button type="button" className="gym-form-button gym-form-add-button" disabled={isLoading} onClick={constructNewGym}>Add</Button>
-                    <Button type="button" className="gym-form-button gym-form-cancel-button" onClick={() => {props.history.push("/climbs")}}>Cancel</Button>
+                    <Button type="button" className="gym-form-button gym-form-cancel-button" onClick={() => {props.history.push("/gyms")}}>Cancel</Button>
                 </FormGroup>
             </Form>
         </>
