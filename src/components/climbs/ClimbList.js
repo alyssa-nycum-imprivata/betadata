@@ -6,6 +6,7 @@ import { Button, Card, CardTitle, Form, FormGroup, Input, Label } from 'reactstr
 import ArchiveCard from '../archive/ArchiveCard';
 import GymApiManager from '../../modules/GymApiManager';
 import Chart from 'chart.js';
+import {Bar} from 'react-chartjs-2';
 
 const ClimbList = (props) => {
     const [climbs, setClimbs] = useState([]);
@@ -14,6 +15,7 @@ const ClimbList = (props) => {
     const [filteredProperties, setFilteredProperties] = useState([]);
     const [isSorting, setIsSorting] = useState(false);
     const [gyms, setGyms] = useState([]);
+    const [chartData, setChartData] = useState({});
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
@@ -96,6 +98,19 @@ const ClimbList = (props) => {
         });
     };
 
+    const getSortingChart = () => {
+        setChartData({
+            labels: ["V1", "V2", "V3"],
+            datasets: [
+                {
+                    data: [5, 3, 7],
+                    backgroundColor: "#C19070",
+                    borderWidth: 4
+                }
+            ]
+        })
+    };
+
     const handleArchiveClimb = (climbId) => {
         if (window.confirm("Are you sure you want to archive this climb?")) {
             setIsLoading(true);
@@ -164,6 +179,7 @@ const ClimbList = (props) => {
     useEffect(() => {
         getActiveClimbs();
         getGyms();
+        getSortingChart();
     }, []);
 
     if (climbs.length !== 0) {
@@ -183,7 +199,8 @@ const ClimbList = (props) => {
                         <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms") }}>View Gyms</Button>
                     </div>
                 </div>
-                <div>
+
+                <div className="filter-form-div">
                     {isFiltering === false ? null :
                         <Form className="filter-climbs-form">
                             <FormGroup className="filter-climbs-form-header-container">
@@ -325,6 +342,26 @@ const ClimbList = (props) => {
                         </Form>
                     }
                 </div>
+
+                {isSorting === true ?
+                    <div style={{height: "500px", width: "500px"}}>
+                        <Bar data={chartData} options={{
+                            responsive: true,
+                            title: {text: "Number of Climbs by Grade", display: true},
+                            legend: {display: false},
+                            scales: {
+                                yAxes: [
+                                    {
+                                        ticks: {
+                                            beginAtZero: true,
+                                        }
+                                    }
+                                ]
+                            }
+                        }}/>
+                    </div>
+                    : null}
+
                 <div className="climb-cards-container">
                     {climbs.map(climb => {
                         if (climb.is_archived === false) {
