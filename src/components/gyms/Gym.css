@@ -1,0 +1,140 @@
+:root {
+    --wood-brown: #C19070;
+    --almond: #ECE2D0;
+    --deep-taupe: #7A6563;
+    --middle-blue-green: #9AD2CB;
+}
+
+/* ----Gym List Styling---- */
+
+.gym-cards-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.add-gym-button, .go-back-button, .view-gyms-button {
+    background-color: var(--deep-taupe) !important;
+    color: var(--almond) !important;
+    border: 1px solid var(--deep-taupe) !important;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
+    padding-left: 15px !important;
+    padding-right: 15px!important;
+}
+
+.add-gym-button:hover, .go-back-button:hover, .view-gyms-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.add-gym-button, .view-gyms-button {
+    margin-left: 10px; 
+}
+
+.no-gyms-message-container {
+    display:flex;
+    margin: 10px;
+}
+
+.no-gyms-message-card {
+    height: 100%;
+    font-size: 30px;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    background-color: var(--almond) !important;
+}
+
+/* ---Gym Card Styling---- */
+
+.gym-card-div {
+    margin: 10px;
+    width: 25%;
+}
+
+.gym-card {
+    display: flex;
+    justify-content: space-between !important;
+    height: 100%;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    background-color: var(--almond) !important;
+}
+
+.edit-gym-button, .delete-gym-button {
+    width: 70px;
+    margin-top: 5px;
+}
+
+.edit-gym-button {
+    margin-right: 2.5px;
+}
+
+.delete-gym-button {
+    margin-left: 2.5px;
+}
+
+.gym-button {
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+}
+
+.gym-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+/* ---Gym Form Styling---- */
+
+.new-gym-form, .edit-gym-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--wood-brown);
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 50px; 
+    border-radius: .5em;
+}
+
+.gym-form-header-container {
+    margin-top: 10px;
+    margin-bottom: 5px !important;
+}
+
+.gym-form-header {
+    color: var(--middle-blue-green) !important;
+    font-size: 30px;
+    text-shadow: 1px 1px 2px black;
+}
+
+.gym-form-input-container {
+    width: 70%;
+}
+
+.gym-input {
+    background-color: var(--almond) !important;
+    margin-bottom: 10px;
+}
+
+.gym-form-button {
+    width: 75px;
+    background-color: var(--deep-taupe) !important;
+    border: none !important;
+    color: var(--almond) !important;
+    text-shadow: 1px 1px 2px black;
+}
+
+.gym-form-button:hover {
+    box-shadow: 1px 1px 1px 1px gray;
+}
+
+.gym-form-add-button, .gym-form-save-button {
+    margin-right: 5px;
+}
+
+.gym-form-cancel-button {
+    margin-left: 5px;
+}

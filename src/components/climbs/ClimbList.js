@@ -149,15 +149,19 @@ const ClimbList = (props) => {
         return (
             <>
                 <div className="add-climb-button-container">
-                    <Button type="button" className="add-climb-button"
-                        onClick={() => { props.history.push("/climbs/new") }}
-                    >Add Climb</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true) }}>Filter Climbs</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
-                    {isFiltering === true || isSorting === true ? <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button> : null}
-                    <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new")}}>Add Gym</Button>
-                    <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms")}}>View Gyms</Button>
+                    <div className="climb-buttons-div">
+                        <Button type="button" className="add-climb-button"
+                            onClick={() => { props.history.push("/climbs/new") }}
+                        >Add Climb</Button>
+                        <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true) }}>Filter Climbs</Button>
+                        <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
+                        <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
+                        {isFiltering === true || isSorting === true ? <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button> : null}
+                    </div>
+                    <div className="gym-buttons-div">
+                        <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
+                        <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms") }}>View Gyms</Button>
+                    </div>
                 </div>
                 <div>
                     {isFiltering === false ? null :
@@ -315,10 +319,16 @@ const ClimbList = (props) => {
         return (
             <>
                 <div className="add-climb-button-container">
-                    <Button type="button" className="add-climb-button"
-                        onClick={() => { props.history.push("/climbs/new") }}
-                    >Add Climb</Button>
-                    <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
+                    <div className="climb-buttons-div">
+                        <Button type="button" className="add-climb-button"
+                            onClick={() => { props.history.push("/climbs/new") }}
+                        >Add Climb</Button>
+                        <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Climbs</Button>
+                    </div>
+                    <div className="gym-buttons-div">
+                        <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
+                        <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms") }}>View Gyms</Button>
+                    </div>
                 </div>
                 <div className="no-climbs-message-container">
                     <Card body className="text-center no-climbs-message-card">
