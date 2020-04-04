@@ -46,6 +46,30 @@
     background-color: var(--almond) !important;
 }
 
+.chart-div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 32.5%;
+    margin-right: 32.5%;
+    border: 2px solid var(--deep-taupe) !important;
+    box-shadow: 2px 2px 7px 1px var(--deep-taupe);
+    height: 100% !important;
+    width: 35% !important;
+}
+
+.filter-chart-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.filter-chart-input {
+    background-color: var(--almond) !important;
+    width: 100px !important;
+}
+
 /* ----Climb Card Styling---- */
 
 .climb-card-div {
@@ -255,6 +279,7 @@
 
 .filter-climb-input {
     width: 160px !important;
+    background-color: var(--almond) !important;
 }
 
 .filter-climbs-cancel-button {
@@ -266,6 +291,9 @@
 .filter-climbs-cancel-button:hover {
     box-shadow: 1px 1px 1px 1px gray;
 }
+
+
+
 
 
 

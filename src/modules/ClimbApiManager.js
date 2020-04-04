@@ -13,14 +13,10 @@ const ClimbApiManager = {
     getClimbsByFilter(userId, filteredProperties) {
         if (filteredProperties.length > 1) {
             const joinFilteredProperties = filteredProperties.join("&")
-            console.log(joinFilteredProperties)
-            console.log(`${baseUrl}/climbs/?userId=${userId}&${joinFilteredProperties}`)
             return fetch(`${baseUrl}/climbs/?userId=${userId}&${joinFilteredProperties}`).then(resp => resp.json());
         } else if (filteredProperties.length === 1) {
-            console.log(`${baseUrl}/climbs/?userId=${userId}&${filteredProperties}`)
             return fetch(`${baseUrl}/climbs/?userId=${userId}&${filteredProperties}`).then(resp => resp.json())
         } else {
-            console.log(`${baseUrl}/climbs/?userId=${userId}`)
             return fetch(`${baseUrl}/climbs/?userId=${userId}`).then(resp => resp.json())
         }
     },
