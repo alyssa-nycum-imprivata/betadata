@@ -156,7 +156,7 @@ const ClimbList = (props) => {
                 const archivedClimb = {
                     id: climbId,
                     userId: activeUserId,
-                    gymId: climb.gymId,
+                    gymId: parseInt(climb.gymId),
                     type: climb.type,
                     grade: climb.grade,
                     description: climb.description,
@@ -197,7 +197,7 @@ const ClimbList = (props) => {
             const activeClimb = {
                 id: climbId,
                 userId: activeUserId,
-                gymId: climb.gymId,
+                gymId: parseInt(climb.gymId),
                 type: climb.type,
                 grade: climb.grade,
                 description: climb.description,

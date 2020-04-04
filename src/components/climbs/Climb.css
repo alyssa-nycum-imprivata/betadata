@@ -177,6 +177,7 @@
 
 .gym-div {
     margin-right: 30px;
+    width: 40%;
 }
 
 .type-div {
@@ -189,7 +190,7 @@
 }
 
 #attempt_date {
-    width: 30%;
+    width: 40%;
 }
 
 .attempt-div {
@@ -215,7 +216,7 @@
 }
 
 #rating {
-    width: 30%;
+    width: 40%;
 }
 
 .climb-form-button {
