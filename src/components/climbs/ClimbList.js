@@ -18,12 +18,11 @@ const ClimbList = (props) => {
     const [isSortingBoulder, setIsSortingBoulder] = useState(false);
     const [ropeChartData, setRopeChartData] = useState({});
     const [isSortingRope, setIsSortingRope] = useState(false);
-    const [statusSort, setStatusSort] = useState({ include_archived: "no" });
+    const [statusSort, setStatusSort] = useState({ includeArchivedRope: "no", includeArchivedBoulder: "no" });
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
     const checkForGyms = () => {
-        getGyms();
         if (gyms.length === 0) {
             window.alert("Please add a gym before creating your first climb.")
         } else {
@@ -58,7 +57,6 @@ const ClimbList = (props) => {
         const stateToChange = { ...filteredProperties };
         stateToChange[evt.target.id] = evt.target.value;
         setFilteredProperties(stateToChange)
-        console.log(stateToChange)
         const valuesArray = Object.values(stateToChange)
         const filteredValuesArray = valuesArray.filter(value => value !== "" && value !== "all")
         ClimbApiManager.getClimbsByFilter(activeUserId, filteredValuesArray).then(climbsFromApi => {
@@ -76,10 +74,10 @@ const ClimbList = (props) => {
         setStatusSort(stateToChange)
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             let specifiedClimbs = [];
-            if (stateToChange.include_archived === "no") {
-             specifiedClimbs = climbsFromApi.filter(climb => climb.is_archived === false && (climb.type === "Top Rope" || climb.type === "Lead"))
+            if (stateToChange.includeArchivedRope === "no") {
+                specifiedClimbs = climbsFromApi.filter(climb => climb.is_archived === false && (climb.type === "Top Rope" || climb.type === "Lead"))
             } else {
-                 specifiedClimbs = climbsFromApi.filter(climb => (climb.type === "Top Rope" || climb.type === "Lead"))
+                specifiedClimbs = climbsFromApi.filter(climb => (climb.type === "Top Rope" || climb.type === "Lead"))
             }
             const changedGrades = specifiedClimbs.map(climb => {
                 if (climb.grade.includes("-")) {
@@ -114,27 +112,28 @@ const ClimbList = (props) => {
         });
     };
 
-    const sortBoulderClimbsByGrade = () => {
+    const sortBoulderClimbsByGrade = (evt) => {
         setIsFiltering(false);
         setIsSorting(true);
         setIsSortingBoulder(true);
         setIsSortingRope(false);
-        getBoulderSortingChart();
+        const stateToChange = { ...statusSort };
+        stateToChange[evt.target.id] = evt.target.value;
+        setStatusSort(stateToChange)
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
-            const activeClimbs = climbsFromApi.filter(climb => climb.is_archived === false && climb.type === "Boulder")
-            const sortedClimbs = activeClimbs.sort((a, b) => {
+            let specifiedClimbs = [];
+            if (stateToChange.includeArchivedBoulder === "no") {
+                specifiedClimbs = climbsFromApi.filter(climb => climb.is_archived === false && climb.type === "Boulder")
+            } else {
+                specifiedClimbs = climbsFromApi.filter(climb => climb.type === "Boulder")
+            }
+            const sortedClimbs = specifiedClimbs.sort((a, b) => {
                 return b.grade - a.grade
             })
             setClimbs(sortedClimbs);
-        });
-    };
-
-    const getBoulderSortingChart = () => {
-        return ClimbApiManager.getActiveClimbsByUser(activeUserId).then(climbsFromApi => {
-            const activeBoulderClimbs = climbsFromApi.filter(climb => climb.type === "Boulder")
-            const activeBoulderGrades = activeBoulderClimbs.map(climb => climb.grade)
+            const specifiedBoulderGrades = sortedClimbs.map(climb => climb.grade)
             const counts = { "0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "10": 0 };
-            activeBoulderGrades.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+            specifiedBoulderGrades.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
             const finalCounts = Object.values(counts);
             setBoulderChartData({
                 labels: ["V0", "V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10"],
@@ -146,7 +145,7 @@ const ClimbList = (props) => {
                     }
                 ]
             })
-        })
+        });
     };
 
     const handleArchiveClimb = (climbId) => {
@@ -229,7 +228,7 @@ const ClimbList = (props) => {
                         <Button type="button" className="sort-climbs-button" onClick={() => { setIsFiltering(true); setIsSortingRope(false); setIsSortingBoulder(false); }}>Filter Climbs</Button>
                         <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
                         <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
-                        {isFiltering === true || isSorting === true ? <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>View All Active Climbs</Button> : null}
+                        {isFiltering === true || isSorting === true ? <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>Back To Active Climb View</Button> : null}
                     </div>
                     <div className="gym-buttons-div">
                         <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
@@ -378,22 +377,36 @@ const ClimbList = (props) => {
                 </div>
 
                 {isSortingBoulder === true ?
-                    <div className="chart-div">
-                        <Bar className="chart" data={boulderChartData} options={{
-                            responsive: true,
-                            title: { text: "Number of Climbs by Grade", display: true },
-                            legend: { display: false },
-                            scales: {
-                                yAxes: [
-                                    {
-                                        ticks: {
-                                            beginAtZero: true,
+                    <>
+                        <div className="chart-div">
+                            <Bar className="chart" data={boulderChartData} options={{
+                                responsive: true,
+                                title: { text: "Number of Climbs by Grade", display: true },
+                                legend: { display: false },
+                                scales: {
+                                    yAxes: [
+                                        {
+                                            ticks: {
+                                                beginAtZero: true,
+                                            }
                                         }
-                                    }
-                                ]
-                            }
-                        }} />
-                    </div>
+                                    ]
+                                }
+                            }} />
+                        </div>
+                        <div className="filter-chart-div">
+                            <Label htmlFor="includeArchivedBoulder" className="climb-label">Include Archived Climbs?</Label>
+                            <Input bsSize="sm" id="includeArchivedBoulder"
+                                type="select"
+                                className="filter-chart-input"
+                                name="includeArchivedBoulder"
+                                onChange={sortBoulderClimbsByGrade}
+                            >
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </Input>
+                        </div>
+                    </>
                     : null}
 
                 {isSortingRope === true ?
@@ -415,16 +428,16 @@ const ClimbList = (props) => {
                             }} />
                         </div>
                         <div className="filter-chart-div">
-                        <Label htmlFor="include_archived" className="climb-label">Include Archived Climbs?</Label>
-                                    <Input bsSize="sm" id="include_archived"
-                                        type="select"
-                                        className="filter-chart-input"
-                                        name="include_archived"
-                                        onChange={sortRopeClimbsByGrade}
-                                    >
-                                        <option value="no">No</option>
-                                        <option value="yes">Yes</option>
-                                    </Input>
+                            <Label htmlFor="includeArchivedRope" className="climb-label">Include Archived Climbs?</Label>
+                            <Input bsSize="sm" id="includeArchivedRope"
+                                type="select"
+                                className="filter-chart-input"
+                                name="includeArchivedRope"
+                                onChange={sortRopeClimbsByGrade}
+                            >
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </Input>
                         </div>
                     </>
                     : null}
