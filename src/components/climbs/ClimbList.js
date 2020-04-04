@@ -381,7 +381,7 @@ const ClimbList = (props) => {
                         <div className="chart-div">
                             <Bar className="chart" data={boulderChartData} options={{
                                 responsive: true,
-                                title: { text: "Number of Climbs by Grade", display: true },
+                                title: { text: "Number of Boulder Climbs by Grade", display: true },
                                 legend: { display: false },
                                 scales: {
                                     yAxes: [
@@ -414,7 +414,7 @@ const ClimbList = (props) => {
                         <div className="chart-div">
                             <Bar className="chart" data={ropeChartData} options={{
                                 responsive: true,
-                                title: { text: "Number of Climbs by Grade", display: true },
+                                title: { text: "Number of  Rope Climbs by Grade", display: true },
                                 legend: { display: false },
                                 scales: {
                                     yAxes: [
