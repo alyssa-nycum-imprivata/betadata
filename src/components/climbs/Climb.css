@@ -206,11 +206,7 @@
 
 .attempts-div {
     margin-right: 30px;
-    width: 32%;
-}
-
-.falls-div {
-    width: 25%;
+    width: 40%;
 }
 
 .clean-div {
@@ -254,8 +250,8 @@
     background-color: var(--wood-brown);
     border: 2px solid var(--deep-taupe) !important;
     box-shadow: 2px 2px 7px 1px var(--deep-taupe);
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
     margin-top: 10px; 
     border-radius: .5em;
 }
