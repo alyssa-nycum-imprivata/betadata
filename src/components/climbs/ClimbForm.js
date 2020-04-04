@@ -49,7 +49,7 @@ const ClimbForm = (props) => {
             const newClimb = {
                 id: props.match.params.climbId,
                 userId: activeUserId,
-                gymId: climb.gymId,
+                gymId: parseInt(climb.gymId),
                 type: climb.type,
                 grade: climb.grade,
                 description: climb.description,
@@ -143,32 +143,33 @@ const ClimbForm = (props) => {
                                 <option value="Boulder">Boulder</option>
                             </Input>
                         </div>
+                        
                         <div className="grade-div">
-                            {climb.type === "Top Rope" ?
+                            {climb.type === "Top Rope" || climb.type === "Lead" ?
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">5.</h6><Input bsSize="sm" type="text"
+                                        <Input bsSize="sm" type="select"
                                             className="climb-input"
                                             id="grade"
                                             required
+                                            value={climb.grade}
                                             onChange={handleClimbFieldChange}
-                                        />
-                                    </div>
-                                </>
-                                : null
-                            }
-
-                            {climb.type === "Lead" ?
-                                <>
-                                    <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
-                                    <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">5.</h6><Input bsSize="sm" type="text"
-                                            className="climb-input"
-                                            id="grade"
-                                            required
-                                            onChange={handleClimbFieldChange}
-                                        />
+                                        >
+                                            <option value="" disabled defaultValue>Select</option>
+                                            <option value="5">5.5</option>
+                                            <option value="6">5.6</option>
+                                            <option value="7">5.7</option>
+                                            <option value="8">5.8</option>
+                                            <option value="9">5.9</option>
+                                            <option value="10-">5.10-</option>
+                                            <option value="10+">5.10+</option>
+                                            <option value="11-">5.11-</option>
+                                            <option value="11+">5.11+</option>
+                                            <option value="12-">5.12-</option>
+                                            <option value="12+">5.12+</option>
+                                            <option value="13">5.13-</option>
+                                        </Input>
                                     </div>
                                 </>
                                 : null
@@ -178,12 +179,26 @@ const ClimbForm = (props) => {
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">V</h6><Input bsSize="sm" type="text"
+                                        <Input bsSize="sm" type="select"
                                             className="climb-input"
                                             id="grade"
                                             required
+                                            value={climb.grade}
                                             onChange={handleClimbFieldChange}
-                                        />
+                                        >
+                                            <option value="" disabled defaultValue>Select</option>
+                                            <option value="0">V0</option>
+                                            <option value="1">V1</option>
+                                            <option value="2">V2</option>
+                                            <option value="3">V3</option>
+                                            <option value="4">V4</option>
+                                            <option value="5">V5</option>
+                                            <option value="6">V6</option>
+                                            <option value="7">V7</option>
+                                            <option value="8">V8</option>
+                                            <option value="9">V9</option>
+                                            <option value="10">V10</option>
+                                        </Input>
                                     </div>
                                 </>
                                 : null

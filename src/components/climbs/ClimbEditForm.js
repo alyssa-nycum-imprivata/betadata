@@ -28,7 +28,7 @@ const ClimbEditForm = (props) => {
             const editedClimb = {
                 id: parseInt(props.match.params.climbId),
                 userId: activeUserId,
-                gymId: climb.gymId,
+                gymId: parseInt(climb.gymId),
                 type: climb.type,
                 grade: climb.grade,
                 description: climb.description,
@@ -69,7 +69,7 @@ const ClimbEditForm = (props) => {
                 </FormGroup>
                 <FormGroup className="climb-form-input-container">
                     <div className="type-grade-div">
-                    <div className="gym-div">
+                        <div className="gym-div">
                             <Label htmlFor="gymId" className="climb-label"><strong>*Gym:</strong></Label>
                             <Input bsSize="sm" id="gymId"
                                 type="select"
@@ -103,33 +103,31 @@ const ClimbEditForm = (props) => {
                         </div>
 
                         <div className="grade-div">
-                            {climb.type === "Top Rope" ?
+                            {climb.type === "Top Rope" || climb.type === "Lead" ?
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">5.</h6><Input bsSize="sm" type="text"
+                                        <Input bsSize="sm" type="select"
                                             id="grade"
                                             className="climb-input"
                                             value={climb.grade}
                                             required
                                             onChange={handleFieldChange}
-                                        />
-                                    </div>
-                                </>
-                                : null
-                            }
-
-                            {climb.type === "Lead" ?
-                                <>
-                                    <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
-                                    <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">5.</h6><Input bsSize="sm" type="text"
-                                            id="grade"
-                                            className="climb-input"
-                                            required
-                                            value={climb.grade}
-                                            onChange={handleFieldChange}
-                                        />
+                                        >
+                                            <option value="" disabled defaultValue>Select</option>
+                                            <option value="5">5.5</option>
+                                            <option value="6">5.6</option>
+                                            <option value="7">5.7</option>
+                                            <option value="8">5.8</option>
+                                            <option value="9">5.9</option>
+                                            <option value="10-">5.10-</option>
+                                            <option value="10+">5.10+</option>
+                                            <option value="11-">5.11-</option>
+                                            <option value="11+">5.11+</option>
+                                            <option value="12-">5.12-</option>
+                                            <option value="12+">5.12+</option>
+                                            <option value="13">5.13-</option>
+                                        </Input>
                                     </div>
                                 </>
                                 : null
@@ -139,13 +137,26 @@ const ClimbEditForm = (props) => {
                                 <>
                                     <Label htmlFor="grade" className="climb-label"><strong>*Grade:</strong></Label>
                                     <div className="grade-input-prefix-div">
-                                        <h6 className="grade-input-prefix">V</h6><Input bsSize="sm" type="text"
+                                        <Input bsSize="sm" type="select"
                                             id="grade"
                                             className="climb-input"
                                             required
                                             value={climb.grade}
                                             onChange={handleFieldChange}
-                                        />
+                                        >
+                                            <option value="" disabled defaultValue>Select</option>
+                                            <option value="0">V0</option>
+                                            <option value="1">V1</option>
+                                            <option value="2">V2</option>
+                                            <option value="3">V3</option>
+                                            <option value="4">V4</option>
+                                            <option value="5">V5</option>
+                                            <option value="6">V6</option>
+                                            <option value="7">V7</option>
+                                            <option value="8">V8</option>
+                                            <option value="9">V9</option>
+                                            <option value="10">V10</option>
+                                        </Input>
                                     </div>
                                 </>
                                 : null
