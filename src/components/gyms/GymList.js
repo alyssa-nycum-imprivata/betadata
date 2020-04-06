@@ -32,7 +32,7 @@ const GymList = (props) => {
     }, []);
 
 
-    if (gyms.length !== 0) {
+    // if (gyms.length !== 0) {
         return (
             <>
                 <div className="add-gym-button-container">
@@ -52,21 +52,21 @@ const GymList = (props) => {
                 </div>
             </>
         );
-    } else {
-        return (
-            <>
-                <div className="add-gym-button-container">
-                    <Button type="button" className="go-back-button" onClick={() => { props.history.push("/climbs") }}>Go Back To Climbs</Button>
-                    <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
-                </div>
-                <div className="no-gyms-message-container">
-                    <Card body className="text-center no-gyms-message-card">
-                        <CardTitle className="no-gyms-message">You have no saved gyms.</CardTitle>
-                    </Card>
-                </div>
-            </>
-        );
-    };
+    // } else {
+    //     return (
+    //         <>
+    //             <div className="add-gym-button-container">
+    //                 <Button type="button" className="go-back-button" onClick={() => { props.history.push("/climbs") }}>Go Back To Climbs</Button>
+    //                 <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
+    //             </div>
+    //             <div className="no-gyms-message-container">
+    //                 <Card body className="text-center no-gyms-message-card">
+    //                     <CardTitle className="no-gyms-message">You have no saved gyms.</CardTitle>
+    //                 </Card>
+    //             </div>
+    //         </>
+    //     );
+    // };
 };
 
 export default GymList;

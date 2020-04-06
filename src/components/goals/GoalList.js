@@ -52,8 +52,8 @@ const GoalList = (props) => {
     }, []);
 
     return (
-        <>
-            {(goals.length !== 0) ?
+        // <>
+        //     {(goals.length !== 0) ?
                 <>
                     <div className="add-goal-button-container">
                         <Button type="button" className="add-goal-button" onClick={() => { props.history.push("/goals/new") }}>Add Goal</Button>
@@ -71,19 +71,19 @@ const GoalList = (props) => {
                         )}
                     </div>
                 </>
-                :
-                <>
-                    <div className="add-goal-button-container">
-                        <Button type="button" className="add-goal-button" onClick={() => { props.history.push("/goals/new") }}>Add Goal</Button>
-                    </div>
-                    <div className="no-goals-message-container">
-                    <Card body className="text-center no-goals-message-card">
-                        <CardTitle className="no-goals-message">You have no saved goals.</CardTitle>
-                    </Card>
-                </div>
-                </>
-            }
-        </>
+        //         :
+        //         <>
+        //             <div className="add-goal-button-container">
+        //                 <Button type="button" className="add-goal-button" onClick={() => { props.history.push("/goals/new") }}>Add Goal</Button>
+        //             </div>
+        //             <div className="no-goals-message-container">
+        //             <Card body className="text-center no-goals-message-card">
+        //                 <CardTitle className="no-goals-message">You have no saved goals.</CardTitle>
+        //             </Card>
+        //         </div>
+        //         </>
+        //     }
+        // </>
     );
 };
 

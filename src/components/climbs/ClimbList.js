@@ -222,7 +222,7 @@ const ClimbList = (props) => {
         getGyms();
     }, []);
 
-    if (climbs.length !== 0) {
+    // if (climbs.length !== 0) {
         return (
             <>
                 <div className="add-climb-button-container">
@@ -472,28 +472,28 @@ const ClimbList = (props) => {
                 </div>
             </>
         );
-    } else {
-        return (
-            <>
-                <div className="add-climb-button-container">
-                    <div className="climb-buttons-div">
-                        <Button type="button" className="add-climb-button"
-                            onClick={checkForGyms}>Add Climb</Button>
-                        <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>Back To Active Climb View</Button>
-                    </div>
-                    <div className="gym-buttons-div">
-                        <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
-                        <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms") }}>View Gyms</Button>
-                    </div>
-                </div>
-                <div className="no-climbs-message-container">
-                    <Card body className="text-center no-climbs-message-card">
-                        <CardTitle className="no-climbs-message">You have no saved climbs.</CardTitle>
-                    </Card>
-                </div>
-            </>
-        )
-    }
+    // } else {
+    //     return (
+    //         <>
+    //             <div className="add-climb-button-container">
+    //                 <div className="climb-buttons-div">
+    //                     <Button type="button" className="add-climb-button"
+    //                         onClick={checkForGyms}>Add Climb</Button>
+    //                     <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>Back To Active Climb View</Button>
+    //                 </div>
+    //                 <div className="gym-buttons-div">
+    //                     <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
+    //                     <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms") }}>View Gyms</Button>
+    //                 </div>
+    //             </div>
+    //             <div className="no-climbs-message-container">
+    //                 <Card body className="text-center no-climbs-message-card">
+    //                     <CardTitle className="no-climbs-message">You have no saved climbs.</CardTitle>
+    //                 </Card>
+    //             </div>
+    //         </>
+    //     )
+    // }
 };
 
 export default ClimbList;

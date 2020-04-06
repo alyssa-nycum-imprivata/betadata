@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button, CardText } from 'reactstrap';
 import './Attempt.css';
 
 const AttemptCard = (props) => {
+
     return (
         <div className="attempt-card-div">
             <Card body className="text-center attempt-card">
