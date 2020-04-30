@@ -4,19 +4,24 @@ import GymApiManager from '../../modules/GymApiManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const GymEditForm = (props) => {
+
+    // gets the logged in users info and prepares to set the selected gym in state
     const [gym, setGym] = useState({ userId: "", name: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
+    // listens to what the user inputs into the form fields in real time
     const handleFieldChange = (evt) => {
         const stateToChange = { ...gym };
         stateToChange[evt.target.id] = evt.target.value;
         setGym(stateToChange);
     };
 
+    // constructs an updated gym object and saves it to the database
     const updateExistingGym = (evt) => {
         evt.preventDefault();
+        // the gym name must be filled out
         if (gym.name === "") {
             window.alert("Please fill out gym name");
         } else {
@@ -32,6 +37,7 @@ const GymEditForm = (props) => {
         };
     };
 
+    // gets the info about the selected gym from the database and pre-loads the info into the form fields after the initial page render
     useEffect(() => {
         GymApiManager.getGymById(props.match.params.gymId)
             .then(gym => {
@@ -40,6 +46,7 @@ const GymEditForm = (props) => {
             });
     }, []);
 
+    // returns the 'edit gym' form with an input for the gym name and 'save' & 'cancel' buttons
     return (
         <>
             <Form className="edit-gym-form">

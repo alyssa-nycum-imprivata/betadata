@@ -3,6 +3,9 @@ import './Gym.css';
 import { Card, Button, CardTitle } from 'reactstrap';
 
 const GymCard = (props) => {
+
+    // returns a card for each gym created by the user
+    // each card includes the gym name and 'edit' & 'delete' buttons
     return (
         <div className="gym-card-div">
             <Card body className="text-center gym-card">

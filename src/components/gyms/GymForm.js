@@ -4,19 +4,24 @@ import GymApiManager from '../../modules/GymApiManager';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const GymForm = (props) => {
+
+    // gets the logged in users info and prepares to set the new gym in state
     const [gym, setGym] = useState({ userId: "", name: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
+    // listens to what the user inputs into the form fields in real time
     const handleFieldChange = (evt) => {
         const stateToChange = { ...gym };
         stateToChange[evt.target.id] = evt.target.value;
         setGym(stateToChange);
     };
 
+    // constructs a new gym object and saves it to the database
     const constructNewGym = (evt) => {
         evt.preventDefault();
+        // the gym name must be filled out
         if (gym.name === "") {
             window.alert("Please fill out gym name");
         } else {
@@ -32,6 +37,7 @@ const GymForm = (props) => {
         };
     };
 
+    // returns the 'add a new gym' form with an input for the gym name and 'add' & 'cancel' buttons
     return (
         <>
             <Form className="new-gym-form">

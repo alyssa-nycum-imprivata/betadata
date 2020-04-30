@@ -16,7 +16,7 @@ const Home = () => {
         })
     };
 
-    // array of climbing quotes with 2 key/value pairs for the quote and the climber
+    // array of climbing quotes with 2 key/value pairs - one for the quote and one for the climber
     const quotes = [
         {
             quote: "Climbing moves are all about feeling it, and that is something I’ve spent my whole life doing.",
@@ -84,7 +84,7 @@ const Home = () => {
         setQuote(randomQuote);
     }
 
-    // gets the random quote and user's first name
+    // gets the random quote and user's first name after the initial page render
     useEffect(() => {
         getRandomQuote();
         getUserFirstName();
