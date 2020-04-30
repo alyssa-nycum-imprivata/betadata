@@ -4,6 +4,8 @@ import { Card, CardTitle, CardText } from 'reactstrap';
 import UserApiManager from '../../modules/UserApiManager';
 
 const Home = () => {
+
+    // get the user information from session storage
     const [user, setUser] = useState([]);
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
@@ -14,6 +16,7 @@ const Home = () => {
         })
     };
 
+    // array of climbing quotes with 2 key/value pairs for the quote and the climber
     const quotes = [
         {
             quote: "Climbing moves are all about feeling it, and that is something I’ve spent my whole life doing.",
@@ -70,6 +73,8 @@ const Home = () => {
         }
     ];
 
+
+    // get a random quote from the quotes array and set the quote's state with that quote
     const [quote, setQuote] = useState({});
 
 
@@ -79,11 +84,13 @@ const Home = () => {
         setQuote(randomQuote);
     }
 
+    // gets the random quote and user's first name
     useEffect(() => {
         getRandomQuote();
         getUserFirstName();
     }, []);
 
+    // displays the welcome message with the user's first name and the random quote
     return (
         <>
             <div className="home-card-div">
