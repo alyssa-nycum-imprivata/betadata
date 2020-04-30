@@ -24,11 +24,15 @@ import GymEditForm from './components/gyms/GymEditForm';
 
 
 const ApplicationViews = (props) => {
+
+    // variables used for login & signup checks
     const hasUser = props.hasUser;
     const setUser = props.setUser;
 
     return (
         <>
+
+            {/* route to home page */}
             <Route
                 exact
                 path="/"
@@ -40,14 +44,20 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to login form */}
             <Route path="/login" render={props => {
                 return <Login setUser={setUser} {...props} />
             }}
             />
+
+            {/* route to signup form */}
             <Route path="/signup" render={props => {
                 return <SignUp {...props} />
             }}
             />
+
+            {/* route to main climb list */}
             <Route
                 exact
                 path="/climbs"
@@ -60,6 +70,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to add climb form */}
             <Route
                 exact
                 path="/climbs/new"
@@ -72,6 +84,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to edit climb form */}
             <Route
                 exact
                 path="/climbs/:climbId(\d+)/edit"
@@ -84,6 +98,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to add attempt form */}
             <Route
                 exact
                 path="/climbs/:climbId(\d+)/add_attempt"
@@ -96,6 +112,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to edit attempt form */}
             <Route
                 exact
                 path="/attempts/:attemptId(\d+)/edit"
@@ -108,6 +126,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to main gym list */}
             <Route
                 exact
                 path="/gyms"
@@ -120,6 +140,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to add gym form */}
             <Route
                 exact
                 path="/gyms/new"
@@ -132,6 +154,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to edit gym form */}
             <Route
                 exact
                 path="/gyms/:gymId(\d+)/edit"
@@ -144,6 +168,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to main goal list */}
             <Route
                 exact
                 path="/goals"
@@ -156,6 +182,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to add goal form */}
             <Route
                 exact
                 path="/goals/new"
@@ -168,6 +196,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to edit goal form */}
             <Route
                 exact
                 path="/goals/:goalId(\d+)/edit"
@@ -180,6 +210,8 @@ const ApplicationViews = (props) => {
                     }
                 }}
             />
+
+            {/* route to goal completed form */}
             <Route
                 exact
                 path="/goals/:goalId(\d+)/complete"
