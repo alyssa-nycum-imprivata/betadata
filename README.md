@@ -30,13 +30,13 @@ $ git clone git@github.com:alyssanycum/betadata.git
 $ npm install
 ```
 
-3. In the root directory, create an api directory and a database.json file in tht directory
+3. In the root directory, create an api directory and a database.json file in that directory
 ```shell session
 $ mkdir api
 $ cd api
 $ touch database.json
 ```
-4. Start your json-server on port 5002
+4. While in the api directory, start your json-server on port 5002
 ```shell session
 $ json-server -p 5002 -w database.json
 ```
