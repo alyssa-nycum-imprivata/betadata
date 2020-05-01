@@ -11,14 +11,14 @@ const GymForm = (props) => {
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
-    // listens to what the user inputs into the form fields in real time
+    // listens to what the user inputs into the form fields in real time and sets the gym info in state
     const handleFieldChange = (evt) => {
         const stateToChange = { ...gym };
         stateToChange[evt.target.id] = evt.target.value;
         setGym(stateToChange);
     };
 
-    // constructs a new gym object and saves it to the database
+    // constructs a new gym object, saves it to the database, and re-directs to the main gym list page
     const constructNewGym = (evt) => {
         evt.preventDefault();
         // the gym name must be filled out
@@ -41,9 +41,13 @@ const GymForm = (props) => {
     return (
         <>
             <Form className="new-gym-form">
+
+                {/* form header */}
                 <FormGroup className="gym-form-header-container">
                     <h2 className="gym-form-header">Add a New Gym</h2>
                 </FormGroup>
+
+                {/* gym name input */}
                 <FormGroup className="gym-form-input-container">
                     <Label htmlFor="name" className="gym-label"><strong>Gym Name:</strong></Label>
                     <Input type="text"
@@ -53,10 +57,14 @@ const GymForm = (props) => {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
+
                 <FormGroup className="gym-form-button-container">
+                    {/* when the 'add' button is clicked, execute the constructNewGym function */}
                     <Button type="button" className="gym-form-button gym-form-add-button" disabled={isLoading} onClick={constructNewGym}>Add</Button>
+                    {/* when the 'cancel' button is clicked, re-direct to the main gym list page */}
                     <Button type="button" className="gym-form-button gym-form-cancel-button" onClick={() => {props.history.push("/gyms")}}>Cancel</Button>
                 </FormGroup>
+
             </Form>
         </>
     );

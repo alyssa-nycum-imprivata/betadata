@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Gym.css';
 import GymCard from './GymCard';
 import GymApiManager from '../../modules/GymApiManager';
-import { Button, Card, CardTitle } from 'reactstrap';
-import GoalList from '../goals/GoalList';
+import { Button } from 'reactstrap';
 
 const GymList = (props) => {
 
@@ -36,17 +35,21 @@ const GymList = (props) => {
         getGyms();
     }, []);
 
-    // displays the 'go back to climbs' & 'add gym' buttons and all of the gym cards 
+    // returns the 'go back to climbs' & 'add gym' buttons and all of the gym cards 
     // the commented out code below was to display a message to the user if they had not created any gyms yet - will revisit this code at a later time
 
     // if (gyms.length !== 0) {
         return (
             <>
                 <div className="add-gym-button-container">
+                    {/* when the 'go back to climbs' button is clicked, re-direct to the main climb list page */}
                     <Button type="button" className="go-back-button" onClick={() => { props.history.push("/climbs") }}>Go Back To Climbs</Button>
+                    {/* when the 'add gym' button is clicked, re-direct to the 'add a new gym' form */}
                     <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
                 </div>
+
                 <div className="gym-cards-container">
+                    {/* for each gym set in the gyms state, return a gym card */}
                     {gyms.map(gym =>
                         <GymCard
                             key={gym.id}
