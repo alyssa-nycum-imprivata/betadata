@@ -8,12 +8,14 @@ import GymApiManager from '../../modules/GymApiManager';
 import { Bar } from 'react-chartjs-2';
 
 const ClimbList = (props) => {
+
+    // preparing to set climbs, gyms, filtering data, sorting data, and chart data in state by the logged in user
     const [climbs, setClimbs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [gyms, setGyms] = useState([]);
     const [isFiltering, setIsFiltering] = useState(false);
     const [filteredProperties, setFilteredProperties] = useState([]);
     const [isSorting, setIsSorting] = useState(false);
-    const [gyms, setGyms] = useState([]);
     const [boulderChartData, setBoulderChartData] = useState({});
     const [isSortingBoulder, setIsSortingBoulder] = useState(false);
     const [ropeChartData, setRopeChartData] = useState({});
@@ -22,6 +24,9 @@ const ClimbList = (props) => {
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"));
 
+    // if the 'add climb' button is clicked, check to make sure at least 1 gym has been created and set in state
+    // if not, alert the user to create a gym first
+    // if there is at least 1 gym, re-direct to the 'add a new climb' form
     const checkForGyms = () => {
         if (gyms.length === 0) {
             window.alert("Please add a gym before creating your first climb.")
@@ -30,12 +35,14 @@ const ClimbList = (props) => {
         };
     };
 
+    // gets the gyms created by the logged in user to be checked in the checkForGyms function and sets them in state
     const getGyms = () => {
         GymApiManager.getGymsByUser(activeUserId).then(gyms => {
             setGyms(gyms);
         });
     };
 
+    // sorts the active climbs in order by created on date with the most recent climb created displayed first and sets them in state
     const sortClimbsByCreatedOnDate = (climbsFromApi) => {
         const sortedClimbs = climbsFromApi.sort((a, b) => {
             return new Date(b.created_on) - new Date(a.created_on)
@@ -46,6 +53,7 @@ const ClimbList = (props) => {
         setIsSortingBoulder(false);
     }
 
+    // gets only active climbs created by the user and passes them to the sortClimbsByCreatedOnDate function
     const getActiveClimbs = () => {
         setStatusSort({
             includeArchivedRope: "no",
@@ -57,6 +65,7 @@ const ClimbList = (props) => {
         });
     };
 
+    // listens to what the user selects from different climb filter inputs, puts those different climb properties in an array, and displays climbs that match those properties in real time as the user is filtering
     const getFilteredProperties = (evt) => {
         const stateToChange = { ...filteredProperties };
         stateToChange[evt.target.id] = evt.target.value;
@@ -68,6 +77,7 @@ const ClimbList = (props) => {
         })
     }
 
+    // handles sorting only top rope and lead climbs
     const sortRopeClimbsByGrade = (evt) => {
         setIsFiltering(false);
         setIsSorting(true);
@@ -79,10 +89,13 @@ const ClimbList = (props) => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             let specifiedClimbs = [];
             if (stateToChange.includeArchivedRope === "no") {
+                // if the user chooses not to include archived climbs, only display active climbs
                 specifiedClimbs = climbsFromApi.filter(climb => climb.is_archived === false && (climb.type === "Top Rope" || climb.type === "Lead"))
             } else {
+                // if the user chooses to include archived climbs, display archived and active climbs
                 specifiedClimbs = climbsFromApi.filter(climb => (climb.type === "Top Rope" || climb.type === "Lead"))
             }
+            // this function changes the grades to integers 
             const changedGrades = specifiedClimbs.map(climb => {
                 if (climb.grade.includes("-")) {
                     climb.grade_altered = climb.grade.split("-")[0] + ".25"
@@ -95,10 +108,12 @@ const ClimbList = (props) => {
                     return climb
                 }
             })
+            // this function takes the integer grades and sorts them from the highest number to the lowest number and sets them in state
             const sortedClimbs = changedGrades.sort((a, b) => {
                 return b.grade_altered - a.grade_altered
             })
             setClimbs(sortedClimbs);
+            // the following functions count how many of each climb grade there are and displays them in a bar chart
             const specifiedRopeGrades = sortedClimbs.map(climb => climb.grade)
             const counts = { "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "10-": 0, "10+": 0, "11-": 0, "11+": 0, "12-": 0, "12+": 0, "13-": 0 };
             specifiedRopeGrades.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
@@ -116,6 +131,7 @@ const ClimbList = (props) => {
         });
     };
 
+    // handles sorting only boulder climbs
     const sortBoulderClimbsByGrade = (evt) => {
         setIsFiltering(false);
         setIsSorting(true);
@@ -127,14 +143,18 @@ const ClimbList = (props) => {
         return ClimbApiManager.getClimbsByUser(activeUserId).then(climbsFromApi => {
             let specifiedClimbs = [];
             if (stateToChange.includeArchivedBoulder === "no") {
+                // if the user chooses not to include archived climbs, only display active climbs
                 specifiedClimbs = climbsFromApi.filter(climb => climb.is_archived === false && climb.type === "Boulder")
             } else {
+                // if the user chooses to include archived climbs, display archived and active climbs
                 specifiedClimbs = climbsFromApi.filter(climb => climb.type === "Boulder")
             }
+            // this function sorts the grades from the highest number to the lowest number and sets them in state
             const sortedClimbs = specifiedClimbs.sort((a, b) => {
                 return b.grade - a.grade
             })
             setClimbs(sortedClimbs);
+            // the following functions count how many of each climb grade there are and displays them in a bar chart
             const specifiedBoulderGrades = sortedClimbs.map(climb => climb.grade)
             const counts = { "0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "10": 0 };
             specifiedBoulderGrades.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
@@ -152,7 +172,9 @@ const ClimbList = (props) => {
         });
     };
 
+    // archives a specific climb by updating the is archived property on the climb object to true and triggers a page re-load which removes the climb from the active view of the main climb page
     const handleArchiveClimb = (climbId) => {
+        // user must confirm that they want to archive the climb
         if (window.confirm("Are you sure you want to archive this climb?")) {
             setIsLoading(true);
             ClimbApiManager.getClimbById(climbId).then(climb => {
@@ -177,6 +199,7 @@ const ClimbList = (props) => {
         }
     };
 
+    // deletes a specific climb from the database, updates the climbs in state, and triggers a page re-load
     const handleClimbDelete = (climbId) => {
         if (!window.confirm("Are you sure you want to delete this climb?")) {
             return;
@@ -194,6 +217,7 @@ const ClimbList = (props) => {
             }));
     };
 
+     // undoes the archive a specific climb by updating the is archived property on the climb object to false and triggers a page re-load which adds the climb to the active view of the main climb page
     const handleUndoArchiveClimb = (climbId) => {
         setIsLoading(true);
         ClimbApiManager.getClimbById(climbId).then(climb => {
@@ -217,36 +241,55 @@ const ClimbList = (props) => {
         });
     };
 
+    // gets the active climbs and gyms after the initial page render
     useEffect(() => {
         getActiveClimbs();
         getGyms();
     }, []);
 
+     // returns the 'add climb', 'filter climbs', 'sort rope climbs by grade', 'sort boulder climbs by grade', 'add gym', & 'view gyms' buttons and all of the active climb cards 
+    // the commented out code below was to display a message to the user if they had not created any climbs yet - will revisit this code at a later time
+
     // if (climbs.length !== 0) {
         return (
             <>
                 <div className="add-climb-button-container">
+
                     <div className="climb-buttons-div">
+                        {/* if the 'add climb' button is clicked, execute the checkForGyms function */}
                         <Button type="button" className="add-climb-button"
                             onClick={checkForGyms}>Add Climb</Button>
+                        {/* if the 'filter climbs' button is clicked, update the associated states */}
                         <Button type="button" className="sort-climbs-button" onClick={() => { getActiveClimbs(); setIsFiltering(true); setIsSortingRope(false); setIsSortingBoulder(false); }}>Filter Climbs</Button>
+                        {/* if the 'sort rope climbs by grade' button is clicked, execute the sortRopeClimbsByGrade function */}
                         <Button type="button" className="sort-climbs-button" onClick={sortRopeClimbsByGrade}>Sort Rope Climbs By Grade</Button>
+                        {/* if the 'sort boulder climbs by grade' button is clicked, execute the sortBoulderClimbsByGrade function */}
                         <Button type="button" className="sort-climbs-button" onClick={sortBoulderClimbsByGrade}>Sort Boulder Climbs By Grade</Button>
+                        {/* if the user is sorting or filtering the climb data, return the 'back to active climb view' button which when clicked, executes the getActiveClimbs function */}
                         {isFiltering === true || isSorting === true ? <Button type="button" className="sort-climbs-button" onClick={getActiveClimbs}>Back To Active Climb View</Button> : null}
                     </div>
+
                     <div className="gym-buttons-div">
+                        {/* when the 'add gym' button is clicked, re-direct to the 'add a new gym' form */}
                         <Button type="button" className="add-gym-button" onClick={() => { props.history.push("/gyms/new") }}>Add Gym</Button>
+                        {/* when the 'view gym' button is clicked, re-direct to the main gym list page */}
                         <Button type="button" className="view-gyms-button" onClick={() => { props.history.push("/gyms") }}>View Gyms</Button>
                     </div>
+
                 </div>
 
                 <div className="filter-form-div">
+                    {/* if the user clicks the 'filter climbs' button, return the filtering form */}
                     {isFiltering === false ? null :
                         <Form className="filter-climbs-form">
+
+                            {/* form header */}
                             <FormGroup className="filter-climbs-form-header-container">
                                 <h6 className="filter-climbs-form-header">Filter Climbs</h6>
                             </FormGroup>
+
                             <FormGroup className="filter-climbs-form-input-container">
+                                {/* filter by climb status */}
                                 <div className="filter-input-div">
                                     <Label htmlFor="statusFilter" className="climb-label">By Status</Label>
                                     <Input bsSize="sm" id="statusFilter"
@@ -262,6 +305,7 @@ const ClimbList = (props) => {
                                     </Input>
                                 </div>
 
+                                {/* filter by gym */}
                                 <div className="filter-input-div">
                                     <Label htmlFor="gymFilter" className="climb-label">By Gym</Label>
                                     <Input bsSize="sm" id="gymFilter"
@@ -278,6 +322,7 @@ const ClimbList = (props) => {
                                     </Input>
                                 </div>
 
+                                {/* filter by climb type */}
                                 <div className="filter-input-div">
                                     <Label htmlFor="typeFilter" className="climb-label">By Type</Label>
                                     <Input bsSize="sm" id="typeFilter"
@@ -295,6 +340,7 @@ const ClimbList = (props) => {
                                     </Input>
                                 </div>
 
+                                {/* filter by grade - this input only displays if climb type is selected and it populates based on the climb type selected */}
                                 {filteredProperties.typeFilter === "type=Boulder" ?
                                     <>
                                         <div className="filter-input-div">
@@ -355,6 +401,7 @@ const ClimbList = (props) => {
                                     null
                                 }
 
+                                {/* filter by enjoyment rating */}
                                 <div className="filter-input-div">
                                     <Label htmlFor="ratingFilter" className="climb-label">By Enjoyment Rating</Label>
                                     <Input bsSize="sm" id="ratingFilter"
@@ -372,14 +419,19 @@ const ClimbList = (props) => {
                                         <option value="all">All</option>
                                     </Input>
                                 </div>
+
                             </FormGroup>
+
                             <FormGroup>
+                                {/* when the 'close' button is clicked, execute the getActiveClimbs function, which also closes the filtering form */}
                                 <Button type="button" size="sm" className="filter-climbs-cancel-button" onClick={getActiveClimbs}>Close</Button>
                             </FormGroup>
+
                         </Form>
                     }
                 </div>
 
+                {/* if the 'sort boulder climbs by grade' button is clicked, return the boulder chart and the active boulder climbs ordered from hardest to easiest; also returns an input field where the user can select to include the archived climbs which will be added to the climb view in real time if the user selects 'yes' */}
                 {isSortingBoulder === true ?
                     <>
                         <div className="chart-div">
@@ -413,6 +465,7 @@ const ClimbList = (props) => {
                     </>
                     : null}
 
+                {/* if the 'sort rope climbs by grade' button is clicked, return the rope chart and the active rope climbs ordered from hardest to easiest; also returns an input field where the user can select to include the archived climbs which will be added to the climb view in real time if the user selects 'yes' */}
                 {isSortingRope === true ?
                     <>
                         <div className="chart-div">
@@ -446,6 +499,7 @@ const ClimbList = (props) => {
                     </>
                     : null}
 
+                {/* for each active climb set in the climbs state, return a climb card */}
                 <div className="climb-cards-container">
                     {climbs.map(climb => {
                         if (climb.is_archived === false) {
@@ -458,6 +512,7 @@ const ClimbList = (props) => {
                                 {...props}
                             />
                         } else {
+                            {/* for each archived climb set in the climbs state, return an archive card */}
                             return <ArchiveCard
                                 key={climb.id}
                                 climb={climb}
